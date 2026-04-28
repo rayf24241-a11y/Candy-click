@@ -5,112 +5,79 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Candy Clicker</title>
   <link rel="stylesheet" href="../style.css">
-
-  <!--
-    ============================================================
-    ANTI-CHEAT SCRIPTS — DO NOT REMOVE ANY OF THESE
-    The game will not load if any of these files are missing.
-    ============================================================
-  -->
+  <style>
+    #bucketImg {
+      width: 220px; height: 220px; object-fit: contain;
+      filter: drop-shadow(0 0 28px rgba(255,100,0,0.5));
+      display: none; transition: filter 0.15s;
+    }
+    #bucketWrap:hover #bucketImg { filter: drop-shadow(0 0 50px rgba(255,120,0,0.85)); }
+  </style>
   <script src="../AntiCheat/ac_core.js"></script>
   <script src="../AntiCheat/ac_verify.js"></script>
   <script src="../AntiCheat/ac_guard.js"></script>
+  <script src="../AntiCheat/ac_anti_inspect.js"></script>
+  <script src="../AntiCheat/ac_anti_hack.js"></script>
   <script src="../AntiCheat/ac_integrity.js"></script>
 </head>
 <body class="game-page">
 
-  <!-- ====== ANTI-CHEAT BLOCKED SCREEN (hidden by default) ====== -->
-  <div id="acBlockScreen" style="display:none;">
-    <div class="ac-icon">🚫</div>
-    <div class="ac-title">Anti-Cheat Missing</div>
-    <div class="ac-desc">
-      One or more required anti-cheat files are missing or have been modified.<br><br>
-      Please restore the <strong>AntiCheat</strong> folder and its original files to play.
-    </div>
-    <div class="ac-code">Error: AC_INTEGRITY_FAIL — modules not loaded</div>
-    <a href="../index.html" style="color:#554444; font-size:0.85em; margin-top:10px;">← Back to home</a>
+  <div id="acBlockScreen" style="display:none;position:fixed;inset:0;background:#060210;z-index:9999;align-items:center;justify-content:center;flex-direction:column;gap:20px;text-align:center;padding:30px;font-family:'Nunito',sans-serif;">
+    <div style="font-size:5em">🚫</div>
+    <div style="font-family:'Fredoka One',cursive;font-size:2em;color:#ee3344;letter-spacing:1px;">Anti-Cheat Missing</div>
+    <div style="color:#887766;font-size:0.95em;line-height:1.6;max-width:420px;">One or more required anti-cheat files are missing or have been modified.<br><br>Restore the <strong style="color:#aa8866;">AntiCheat</strong> folder and all its original files.</div>
+    <div style="font-family:Consolas,monospace;font-size:0.78em;color:#553333;background:#0d0618;padding:12px 20px;border-radius:8px;border:1px solid #221010;">Error: AC_INTEGRITY_FAIL — modules missing or tampered</div>
+    <a href="../index.html" style="color:#554444;font-size:0.85em;margin-top:8px;">← Back to home</a>
   </div>
 
-  <!-- ====== GAME (hidden until AC passes) ====== -->
-  <div id="gameRoot" style="display:none; height:100vh; flex-direction:column;">
-
-    <!-- Top Bar -->
+  <div id="gameRoot" style="display:none;height:100vh;flex-direction:column;">
     <div id="gameTopBar">
       <a href="../index.html" class="back-btn">← Home</a>
       <h2 class="game-title">🪣 Candy Clicker</h2>
-      <div id="gameProfileBtn">
-        <div id="gameProfileAvatar" class="avatar-small"></div>
-      </div>
+      <div id="gameProfileBtn"><div id="gameProfileAvatar" class="avatar-small"></div></div>
     </div>
-
     <div id="wrapper">
-
-      <!-- MIDDLE PANEL: Clicker -->
       <div id="sectionMiddle">
-        <div id="candyCounter">
-          <span id="candyDisplay">0</span> candies
-        </div>
+        <div id="candyCounter"><span id="candyDisplay">0</span> candies</div>
         <div id="cpsDisplay">per second: <span id="cpsNum">0</span></div>
         <div id="clickerArea">
           <div id="bucketWrap">
-            <img id="bucketImg" src="images/candy_bucket.png" alt="" draggable="false">
+            <img id="bucketImg" src="images/candy_bucket.svg" alt="Rusty Candy Bucket" draggable="false">
             <div id="bucketFallback">🪣</div>
           </div>
         </div>
       </div>
-
       <div class="separator"></div>
-
-      <!-- RIGHT PANEL: Shop -->
       <div id="sectionRight">
         <h2>🏪 Shop</h2>
-        <div class="shop-section">
-          <h3>Upgrades</h3>
-          <div id="upgradeList"></div>
-        </div>
-        <div class="shop-section">
-          <h3>Buildings</h3>
-          <div id="buildingList"></div>
-        </div>
+        <div class="shop-section"><h3>Upgrades</h3><div id="upgradeList"></div></div>
+        <div class="shop-section"><h3>Buildings</h3><div id="buildingList"></div></div>
       </div>
-
     </div>
   </div>
-
-  <!-- Floating candy animations -->
   <div id="floatingContainer"></div>
 
   <script>
-    // ============================================================
-    //  ANTI-CHEAT CHECK — runs before anything else
-    // ============================================================
     (function() {
       var ok = (typeof window.__CC_CHECK === "function") && window.__CC_CHECK();
       if (!ok) {
         document.getElementById("acBlockScreen").style.display = "flex";
         document.getElementById("gameRoot").style.display = "none";
-        // Stop execution of the rest of the page
-        document.body.classList.remove("game-page"); // prevent overflow:hidden lock
-        throw new Error("AC_INTEGRITY_FAIL: Anti-cheat modules missing or tampered.");
+        document.body.classList.remove("game-page");
+        throw new Error("AC_INTEGRITY_FAIL");
       }
       document.getElementById("acBlockScreen").style.display = "none";
       document.getElementById("gameRoot").style.display = "flex";
     })();
 
-    // ============================================================
-    //  CANDY CLICKER - GAME ENGINE
-    // ============================================================
-
     var SAVE_KEY = "candyClickerSave";
     var USER_KEY = "candyclick_user";
 
-    // ====== CHECK LOGIN ======
     var userRaw = localStorage.getItem(USER_KEY);
     if (!userRaw) { window.location.href = "../index.html"; }
     var currentUser = null;
     try { currentUser = JSON.parse(userRaw); } catch(e) { window.location.href = "../index.html"; }
 
-    // Set avatar
     var avatarEl = document.getElementById("gameProfileAvatar");
     if (currentUser) {
       var letter = (currentUser.name || "?").charAt(0).toUpperCase();
@@ -119,10 +86,8 @@
       avatarEl.style.background = colors[letter.charCodeAt(0) % colors.length];
     }
 
-    // ====== GAME STATE ======
     var candy = 0, candyPerClick = 1, candyPerSecond = 0, totalCandy = 0;
 
-    // ====== BUILDINGS ======
     var buildings = [
       { name: "Trick-or-Treater",  baseCost: 15,      cps: 0.1,  owned: 0, icon: "🧒" },
       { name: "Candy Bowl",        baseCost: 100,     cps: 1,    owned: 0, icon: "🍬" },
@@ -132,7 +97,6 @@
       { name: "Gummy Lab",         baseCost: 1400000, cps: 1400, owned: 0, icon: "🧪" },
     ];
 
-    // ====== UPGRADES ======
     var upgrades = [
       { name: "Sticky Fingers",  cost: 100,     mult: 2, bought: false, desc: "Clicking is 2x sweeter" },
       { name: "Sugar Rush",      cost: 500,     mult: 2, bought: false, desc: "Another 2x click power" },
@@ -141,7 +105,6 @@
       { name: "Haunted Bucket",  cost: 1000000, mult: 3, bought: false, desc: "3x click power... spooky" },
     ];
 
-    // ====== DOM REFS ======
     var candyDisplay   = document.getElementById("candyDisplay");
     var cpsNum         = document.getElementById("cpsNum");
     var buildingListEl = document.getElementById("buildingList");
@@ -151,48 +114,33 @@
     var bucketFallback = document.getElementById("bucketFallback");
     var floatContainer = document.getElementById("floatingContainer");
 
-    // ====== IMAGE FALLBACK ======
-    bucketImg.addEventListener("load", function() {
-      bucketImg.style.display = "block";
-      bucketFallback.style.display = "none";
-    });
-    bucketImg.addEventListener("error", function() {
-      bucketImg.style.display = "none";
-      bucketFallback.style.display = "flex";
-    });
-    bucketFallback.style.display = "flex"; // default until image loads
+    bucketImg.addEventListener("load", function() { bucketImg.style.display = "block"; bucketFallback.style.display = "none"; });
+    bucketImg.addEventListener("error", function() { bucketImg.style.display = "none"; bucketFallback.style.display = "flex"; });
+    bucketFallback.style.display = "flex";
 
-    // ====== FORMAT NUMBERS ======
     function fmt(n) {
-      if (n >= 1e12) return (n / 1e12).toFixed(1) + " trillion";
-      if (n >= 1e9)  return (n / 1e9).toFixed(1) + " billion";
-      if (n >= 1e6)  return (n / 1e6).toFixed(1) + " million";
-      if (n >= 1e3)  return (n / 1e3).toFixed(1) + "k";
+      if (n >= 1e12) return (n/1e12).toFixed(1) + " trillion";
+      if (n >= 1e9)  return (n/1e9).toFixed(1) + " billion";
+      if (n >= 1e6)  return (n/1e6).toFixed(1) + " million";
+      if (n >= 1e3)  return (n/1e3).toFixed(1) + "k";
       return Math.floor(n).toLocaleString();
     }
 
-    function getBuildingCost(b) {
-      return Math.ceil(b.baseCost * Math.pow(1.15, b.owned));
-    }
+    function getBuildingCost(b) { return Math.ceil(b.baseCost * Math.pow(1.15, b.owned)); }
 
     function updateUI() {
       candyDisplay.textContent = fmt(candy);
-      cpsNum.textContent       = fmt(candyPerSecond);
-      renderBuildings();
-      renderUpgrades();
+      cpsNum.textContent = fmt(candyPerSecond);
+      renderBuildings(); renderUpgrades();
     }
 
     function renderBuildings() {
       buildingListEl.innerHTML = "";
       buildings.forEach(function(b, i) {
         var cost = getBuildingCost(b);
-        var div  = document.createElement("div");
+        var div = document.createElement("div");
         div.className = "shop-item" + (candy >= cost ? " affordable" : " locked");
-        div.innerHTML =
-          '<span class="shop-icon">' + b.icon + '</span>' +
-          '<div class="shop-info"><strong>' + b.name + '</strong>' +
-          '<span class="shop-cost">🍬 ' + fmt(cost) + '</span></div>' +
-          '<span class="shop-owned">' + b.owned + '</span>';
+        div.innerHTML = '<span class="shop-icon">'+b.icon+'</span><div class="shop-info"><strong>'+b.name+'</strong><span class="shop-cost">🍬 '+fmt(cost)+'</span></div><span class="shop-owned">'+b.owned+'</span>';
         div.onclick = function() { buyBuilding(i); };
         buildingListEl.appendChild(div);
       });
@@ -204,11 +152,7 @@
         if (u.bought) return;
         var div = document.createElement("div");
         div.className = "shop-item upgrade-item" + (candy >= u.cost ? " affordable" : " locked");
-        div.innerHTML =
-          '<span class="shop-icon">⬆️</span>' +
-          '<div class="shop-info"><strong>' + u.name + '</strong>' +
-          '<span class="shop-desc">' + u.desc + '</span>' +
-          '<span class="shop-cost">🍬 ' + fmt(u.cost) + '</span></div>';
+        div.innerHTML = '<span class="shop-icon">⬆️</span><div class="shop-info"><strong>'+u.name+'</strong><span class="shop-desc">'+u.desc+'</span><span class="shop-cost">🍬 '+fmt(u.cost)+'</span></div>';
         div.onclick = function() { buyUpgrade(i); };
         upgradeListEl.appendChild(div);
       });
@@ -231,62 +175,45 @@
     }
 
     bucketWrap.addEventListener("click", function(e) {
-      candy      += candyPerClick;
-      totalCandy += candyPerClick;
-      bucketWrap.classList.remove("bounce");
-      void bucketWrap.offsetWidth;
-      bucketWrap.classList.add("bounce");
-      spawnFloat(e, candyPerClick);
-      updateUI();
+      candy += candyPerClick; totalCandy += candyPerClick;
+      bucketWrap.classList.remove("bounce"); void bucketWrap.offsetWidth; bucketWrap.classList.add("bounce");
+      spawnFloat(e, candyPerClick); updateUI(); saveGame();
     });
 
     function spawnFloat(e, amount) {
       var el = document.createElement("div");
       el.className = "float-candy";
       el.textContent = "+" + fmt(amount);
-      el.style.left = (e.clientX + (Math.random() * 40 - 20)) + "px";
+      el.style.left = (e.clientX + (Math.random()*40-20)) + "px";
       el.style.top  = (e.clientY - 20) + "px";
       floatContainer.appendChild(el);
       setTimeout(function() { el.remove(); }, 1200);
     }
 
     setInterval(function() {
-      if (candyPerSecond > 0) {
-        candy      += candyPerSecond / 10;
-        totalCandy += candyPerSecond / 10;
-        updateUI();
-      }
+      if (candyPerSecond > 0) { candy += candyPerSecond/10; totalCandy += candyPerSecond/10; updateUI(); }
     }, 100);
 
     function saveGame() {
-      localStorage.setItem(SAVE_KEY, JSON.stringify({
-        candy: candy, candyPerClick: candyPerClick,
-        candyPerSecond: candyPerSecond, totalCandy: totalCandy,
-        buildings: buildings.map(function(b) { return b.owned; }),
-        upgrades:  upgrades.map(function(u)  { return u.bought; })
-      }));
+      window.__CC_SAVE(SAVE_KEY, {
+        candy: candy, candyPerClick: candyPerClick, candyPerSecond: candyPerSecond, totalCandy: totalCandy,
+        buildings: buildings.map(function(b){return b.owned;}),
+        upgrades:  upgrades.map(function(u){return u.bought;})
+      });
     }
 
     function loadGame() {
-      var raw = localStorage.getItem(SAVE_KEY);
-      if (!raw) return;
-      try {
-        var s = JSON.parse(raw);
-        candy         = s.candy         || 0;
-        candyPerClick = s.candyPerClick || 1;
-        totalCandy    = s.totalCandy    || 0;
-        if (s.buildings) s.buildings.forEach(function(n, i) { if (buildings[i]) buildings[i].owned = n; });
-        if (s.upgrades)  s.upgrades.forEach(function(b, i)  { if (upgrades[i])  upgrades[i].bought = b; });
-        recalcCPS();
-      } catch(e) {}
+      var s = window.__CC_LOAD(SAVE_KEY);
+      if (!s) return;
+      candy = s.candy || 0; candyPerClick = s.candyPerClick || 1; totalCandy = s.totalCandy || 0;
+      if (s.buildings) s.buildings.forEach(function(n,i){ if(buildings[i]) buildings[i].owned=n; });
+      if (s.upgrades)  s.upgrades.forEach(function(b,i){  if(upgrades[i])  upgrades[i].bought=b; });
+      recalcCPS();
     }
 
-    setInterval(saveGame, 15000);
+    setInterval(saveGame, 10000);
     window.addEventListener("beforeunload", saveGame);
-
-    loadGame();
-    updateUI();
+    loadGame(); updateUI();
   </script>
-
 </body>
 </html>
