@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Candy Clicker</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="game-page">
+
+  <!-- Top Bar -->
+  <div id="gameTopBar">
+    <a href="index.html" class="back-btn">← Home</a>
+    <h2 class="game-title">🪣 Candy Clicker</h2>
+    <div id="gameProfileBtn">
+      <div id="gameProfileAvatar" class="avatar-small"></div>
+    </div>
+  </div>
+
+  <div id="wrapper">
+
+    <!-- MIDDLE PANEL: Clicker -->
+    <div id="sectionMiddle">
+      <div id="candyCounter">
+        <span id="candyDisplay">0</span> candies
+      </div>
+      <div id="cpsDisplay">per second: <span id="cpsNum">0</span></div>
+
+      <div id="clickerArea">
+        <div id="bucketWrap">
+          <img
+            id="bucketImg"
+            src="IMAGES/clicker/candy_bucket.png"
+            alt=""
+            draggable="false"
+          >
+          <div id="bucketFallback">🪣</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="separator"></div>
+
+    <!-- RIGHT PANEL: Shop -->
+    <div id="sectionRight">
+      <h2>🏪 Shop</h2>
+
+      <div class="shop-section">
+        <h3>Upgrades</h3>
+        <div id="upgradeList"></div>
+      </div>
+
+      <div class="shop-section">
+        <h3>Buildings</h3>
+        <div id="buildingList"></div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Floating candy animations -->
+  <div id="floatingContainer"></div>
+
+  <script>
+    // ============================================================
+    //  CANDY CLICKER - GAME ENGINE
+    // ============================================================
+
+    var SAVE_KEY = "candyClickerSave";
+    var USER_KEY = "candyclick_user";
+
+    // ====== CHECK LOGIN ======
+    var userRaw = localStorage.getItem(USER_KEY);
+    if (!userRaw) {
+      window.location.href = "index.html";
+    }
+    var currentUser = null;
+    try { currentUser = JSON.parse(userRaw); } catch(e) { window.location.href = "index.html"; }
+
+    // Set avatar
+    var avatarEl = document.getElementById("gameProfileAvatar");
+    if (currentUser) {
+      var letter = (currentUser.name || "?").charAt(0).toUpperCase();
+      avatarEl.textContent = letter;
+      var colors = ["#e74c3c","#e67e22","#f1c40f","#2ecc71","#1abc9c","#3498db","#9b59b6","#e91e63"];
+      avatarEl.style.background = colors[letter.charCodeAt(0) % colors.length];
+    }
+
+    // ====== GAME STATE ======
+    var candy = 0;
+    var candyPerClick = 1;
+    var candyPerSecond = 0;
+    var totalCandy = 0;
+
+    // ====== BUILDINGS ======
+    var buildings = [
+      { name: "Trick-or-Treater",   baseCost: 15,      cps: 0.1,    owned: 0, icon: "🧒" },
+      { name: "Candy Bowl",         baseCost: 100,     cps: 1,      owned: 0, icon: "🍬" },
+      { name: "Candy Corn Farm",    baseCost: 1100,    cps: 8,      owned: 0, icon: "🌽" },
+      { name: "Chocolate Factory",  baseCost: 12000,   cps: 47,     owned: 0, icon: "🏭" },
+      { name: "Sugar Mine",         baseCost: 130000,  cps: 260,    owned: 0, icon: "⛏️" },
+      { name: "Gummy Lab",          baseCost: 1400000, cps: 1400,   owned: 0, icon: "🧪" },
+    ];
+
+    // ====== UPGRADES ======
+    var upgrades = [
+      { name: "Sticky Fingers",  cost: 100,     mult: 2, bought: false, desc: "Clicking is 2x sweeter" },
+      { name: "Sugar Rush",      cost: 500,     mult: 2, bought: false, desc: "Another 2x click power" },
+      { name: "Caramel Coating", cost: 10000,   mult: 2, bought: false, desc: "Yet another 2x click power" },
+      { name: "Golden Wrapper",  cost: 100000,  mult: 2, bought: false, desc: "2x click power again!" },
+      { name: "Haunted Bucket",  cost: 1000000, mult: 3, bought: false, desc: "3x click power... spooky" },
+    ];
+
+    // ====== DOM REFS ======
+    var candyDisplay   = document.getElementById("candyDisplay");
+    var cpsNum         = document.getElementById("cpsNum");
+    var buildingListEl = document.getElementById("buildingList");
+    var upgradeListEl  = document.getElementById("upgradeList");
+    var bucketWrap     = document.getElementById("bucketWrap");
+    var bucketImg      = document.getElementById("bucketImg");
+    var bucketFallback = document.getElementById("bucketFallback");
+    var floatContainer = document.getElementById("floatingContainer");
+
+    // ====== IMAGE FALLBACK ======
+    bucketImg.addEventListener("load", function() {
+      bucketImg.style.display = "block";
+      bucketFallback.style.display = "none";
+    });
+    bucketImg.addEventListener("error", function() {
+      bucketImg.style.display = "none";
+      bucketFallback.style.display = "flex";
+    });
+    if (!bucketImg.complete) {
+      bucketFallback.style.display = "flex";
+    }
+
+    // ====== FORMAT NUMBERS ======
+    function fmt(n) {
+      if (n >= 1e12) return (n / 1e12).toFixed(1) + " trillion";
+      if (n >= 1e9)  return (n / 1e9).toFixed(1) + " billion";
+      if (n >= 1e6)  return (n / 1e6).toFixed(1) + " million";
+      if (n >= 1e3)  return (n / 1e3).toFixed(1) + "k";
+      return Math.floor(n).toLocaleString();
+    }
+
+    // ====== GET BUILDING COST ======
+    function getBuildingCost(b) {
+      return Math.ceil(b.baseCost * Math.pow(1.15, b.owned));
+    }
+
+    // ====== UPDATE UI ======
+    function updateUI() {
+      candyDisplay.textContent = fmt(candy);
+      cpsNum.textContent       = fmt(candyPerSecond);
+      renderBuildings();
+      renderUpgrades();
+    }
+
+    // ====== RENDER BUILDINGS ======
+    function renderBuildings() {
+      buildingListEl.innerHTML = "";
+      buildings.forEach(function(b, i) {
+        var cost   = getBuildingCost(b);
+        var canBuy = candy >= cost;
+        var div    = document.createElement("div");
+        div.className = "shop-item" + (canBuy ? " affordable" : " locked");
+        div.innerHTML =
+          '<span class="shop-icon">' + b.icon + '</span>' +
+          '<div class="shop-info">' +
+            '<strong>' + b.name + '</strong>' +
+            '<span class="shop-cost">🍬 ' + fmt(cost) + '</span>' +
+          '</div>' +
+          '<span class="shop-owned">' + b.owned + '</span>';
+        div.onclick = function() { buyBuilding(i); };
+        buildingListEl.appendChild(div);
+      });
+    }
+
+    // ====== RENDER UPGRADES ======
+    function renderUpgrades() {
+      upgradeListEl.innerHTML = "";
+      upgrades.forEach(function(u, i) {
+        if (u.bought) return;
+        var canBuy = candy >= u.cost;
+        var div    = document.createElement("div");
+        div.className = "shop-item upgrade-item" + (canBuy ? " affordable" : " locked");
+        div.innerHTML =
+          '<span class="shop-icon">⬆️</span>' +
+          '<div class="shop-info">' +
+            '<strong>' + u.name + '</strong>' +
+            '<span class="shop-desc">' + u.desc + '</span>' +
+            '<span class="shop-cost">🍬 ' + fmt(u.cost) + '</span>' +
+          '</div>';
+        div.onclick = function() { buyUpgrade(i); };
+        upgradeListEl.appendChild(div);
+      });
+    }
+
+    // ====== BUY BUILDING ======
+    function buyBuilding(i) {
+      var b    = buildings[i];
+      var cost = getBuildingCost(b);
+      if (candy >= cost) {
+        candy -= cost;
+        b.owned++;
+        recalcCPS();
+        updateUI();
+        saveGame();
+      }
+    }
+
+    // ====== BUY UPGRADE ======
+    function buyUpgrade(i) {
+      var u = upgrades[i];
+      if (candy >= u.cost && !u.bought) {
+        candy -= u.cost;
+        u.bought = true;
+        candyPerClick *= u.mult;
+        updateUI();
+        saveGame();
+      }
+    }
+
+    // ====== RECALCULATE CPS ======
+    function recalcCPS() {
+      candyPerSecond = 0;
+      buildings.forEach(function(b) {
+        candyPerSecond += b.cps * b.owned;
+      });
+      candyPerSecond = Math.round(candyPerSecond * 10) / 10;
+    }
+
+    // ====== CLICK HANDLER ======
+    bucketWrap.addEventListener("click", function(e) {
+      candy      += candyPerClick;
+      totalCandy += candyPerClick;
+
+      bucketWrap.classList.remove("bounce");
+      void bucketWrap.offsetWidth;
+      bucketWrap.classList.add("bounce");
+
+      spawnFloat(e, candyPerClick);
+      updateUI();
+    });
+
+    // ====== FLOATING TEXT ======
+    function spawnFloat(e, amount) {
+      var el = document.createElement("div");
+      el.className = "float-candy";
+      el.textContent = "+" + fmt(amount);
+      el.style.left = (e.clientX - 20 + Math.random() * 40 - 20) + "px";
+      el.style.top  = (e.clientY - 20) + "px";
+      floatContainer.appendChild(el);
+      setTimeout(function() { el.remove(); }, 1200);
+    }
+
+    // ====== GAME LOOP ======
+    setInterval(function() {
+      if (candyPerSecond > 0) {
+        candy      += candyPerSecond / 10;
+        totalCandy += candyPerSecond / 10;
+        updateUI();
+      }
+    }, 100);
+
+    // ====== SAVE / LOAD ======
+    function saveGame() {
+      var state = {
+        candy: candy,
+        candyPerClick: candyPerClick,
+        candyPerSecond: candyPerSecond,
+        totalCandy: totalCandy,
+        buildings: buildings.map(function(b) { return b.owned; }),
+        upgrades:  upgrades.map(function(u) { return u.bought; })
+      };
+      localStorage.setItem(SAVE_KEY, JSON.stringify(state));
+    }
+
+    function loadGame() {
+      var raw = localStorage.getItem(SAVE_KEY);
+      if (!raw) return;
+      try {
+        var s = JSON.parse(raw);
+        candy         = s.candy         || 0;
+        candyPerClick = s.candyPerClick || 1;
+        totalCandy    = s.totalCandy    || 0;
+        if (s.buildings) s.buildings.forEach(function(owned, i) { if (buildings[i]) buildings[i].owned = owned; });
+        if (s.upgrades)  s.upgrades.forEach(function(bought, i) { if (upgrades[i]) upgrades[i].bought = bought; });
+        recalcCPS();
+      } catch(e) {}
+    }
+
+    // Auto-save every 15 seconds
+    setInterval(saveGame, 15000);
+    // Save on page leave
+    window.addEventListener("beforeunload", saveGame);
+
+    loadGame();
+    updateUI();
+  </script>
+
+</body>
+</html>
