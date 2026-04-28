@@ -10,20 +10,6 @@
 
   <div id="wrapper">
 
-    <!-- LEFT PANEL: Stats -->
-    <div id="sectionLeft">
-      <h2>🍬 Candy Stats</h2>
-      <div class="stat-box">
-        <p>Total Candy: <span id="totalCandy">0</span></p>
-        <p>Per Click: <span id="perClick">1</span></p>
-        <p>Per Second: <span id="perSecond">0</span></p>
-      </div>
-      <h3>Buildings Owned</h3>
-      <ul id="ownedList"></ul>
-    </div>
-
-    <div class="separator sep-left"></div>
-
     <!-- MIDDLE PANEL: Clicker -->
     <div id="sectionMiddle">
       <div id="candyCounter">
@@ -32,16 +18,19 @@
       <div id="cpsDisplay">per second: <span id="cpsNum">0</span></div>
 
       <div id="clickerArea">
-        <img
-          id="bucket"
-          src="IMAGES/clicker/candy_bucket.png"
-          alt="Click the candy bucket!"
-          draggable="false"
-        >
+        <div id="bucketWrap">
+          <img
+            id="bucketImg"
+            src="IMAGES/clicker/candy_bucket.png"
+            alt=""
+            draggable="false"
+          >
+          <div id="bucketFallback">🪣</div>
+        </div>
       </div>
     </div>
 
-    <div class="separator sep-right"></div>
+    <div class="separator"></div>
 
     <!-- RIGHT PANEL: Shop -->
     <div id="sectionRight">
@@ -86,24 +75,36 @@
 
     // ====== UPGRADES ======
     const upgrades = [
-      { name: "Sticky Fingers",  cost: 100,     mult: 2, req: 1,   bought: false, desc: "Clicking is 2x sweeter" },
-      { name: "Sugar Rush",      cost: 500,     mult: 2, req: 1,   bought: false, desc: "Another 2x click power" },
-      { name: "Caramel Coating", cost: 10000,   mult: 2, req: 5,   bought: false, desc: "Yet another 2x click power" },
-      { name: "Golden Wrapper",  cost: 100000,  mult: 2, req: 25,  bought: false, desc: "2x click power again!" },
-      { name: "Haunted Bucket",  cost: 1000000, mult: 3, req: 100, bought: false, desc: "3x click power... spooky" },
+      { name: "Sticky Fingers",  cost: 100,     mult: 2, bought: false, desc: "Clicking is 2x sweeter" },
+      { name: "Sugar Rush",      cost: 500,     mult: 2, bought: false, desc: "Another 2x click power" },
+      { name: "Caramel Coating", cost: 10000,   mult: 2, bought: false, desc: "Yet another 2x click power" },
+      { name: "Golden Wrapper",  cost: 100000,  mult: 2, bought: false, desc: "2x click power again!" },
+      { name: "Haunted Bucket",  cost: 1000000, mult: 3, bought: false, desc: "3x click power... spooky" },
     ];
 
     // ====== DOM REFS ======
     const candyDisplay   = document.getElementById("candyDisplay");
     const cpsNum         = document.getElementById("cpsNum");
-    const totalCandyEl   = document.getElementById("totalCandy");
-    const perClickEl     = document.getElementById("perClick");
-    const perSecondEl    = document.getElementById("perSecond");
-    const ownedList      = document.getElementById("ownedList");
     const buildingListEl = document.getElementById("buildingList");
     const upgradeListEl  = document.getElementById("upgradeList");
-    const bucket         = document.getElementById("bucket");
+    const bucketWrap     = document.getElementById("bucketWrap");
+    const bucketImg      = document.getElementById("bucketImg");
+    const bucketFallback = document.getElementById("bucketFallback");
     const floatContainer = document.getElementById("floatingContainer");
+
+    // ====== IMAGE FALLBACK ======
+    bucketImg.addEventListener("load", () => {
+      bucketImg.style.display = "block";
+      bucketFallback.style.display = "none";
+    });
+    bucketImg.addEventListener("error", () => {
+      bucketImg.style.display = "none";
+      bucketFallback.style.display = "flex";
+    });
+    // If image hasn't loaded yet, show fallback
+    if (!bucketImg.complete) {
+      bucketFallback.style.display = "flex";
+    }
 
     // ====== FORMAT NUMBERS ======
     function fmt(n) {
@@ -123,12 +124,8 @@
     function updateUI() {
       candyDisplay.textContent = fmt(candy);
       cpsNum.textContent       = fmt(candyPerSecond);
-      totalCandyEl.textContent = fmt(totalCandy);
-      perClickEl.textContent   = fmt(candyPerClick);
-      perSecondEl.textContent  = fmt(candyPerSecond);
       renderBuildings();
       renderUpgrades();
-      renderOwned();
     }
 
     // ====== RENDER BUILDINGS ======
@@ -139,15 +136,14 @@
         const canBuy = candy >= cost;
         const div    = document.createElement("div");
         div.className = "shop-item" + (canBuy ? " affordable" : " locked");
-        div.innerHTML = `
-          <span class="shop-icon">${b.icon}</span>
-          <div class="shop-info">
-            <strong>${b.name}</strong>
-            <span class="shop-cost">🍬 ${fmt(cost)}</span>
-          </div>
-          <span class="shop-owned">${b.owned}</span>
-        `;
-        div.addEventListener("click", () => buyBuilding(i));
+        div.innerHTML =
+          '<span class="shop-icon">' + b.icon + '</span>' +
+          '<div class="shop-info">' +
+            '<strong>' + b.name + '</strong>' +
+            '<span class="shop-cost">🍬 ' + fmt(cost) + '</span>' +
+          '</div>' +
+          '<span class="shop-owned">' + b.owned + '</span>';
+        div.onclick = function() { buyBuilding(i); };
         buildingListEl.appendChild(div);
       });
     }
@@ -160,35 +156,22 @@
         const canBuy = candy >= u.cost;
         const div    = document.createElement("div");
         div.className = "shop-item upgrade-item" + (canBuy ? " affordable" : " locked");
-        div.innerHTML = `
-          <span class="shop-icon">⬆️</span>
-          <div class="shop-info">
-            <strong>${u.name}</strong>
-            <span class="shop-desc">${u.desc}</span>
-            <span class="shop-cost">🍬 ${fmt(u.cost)}</span>
-          </div>
-        `;
-        div.addEventListener("click", () => buyUpgrade(i));
+        div.innerHTML =
+          '<span class="shop-icon">⬆️</span>' +
+          '<div class="shop-info">' +
+            '<strong>' + u.name + '</strong>' +
+            '<span class="shop-desc">' + u.desc + '</span>' +
+            '<span class="shop-cost">🍬 ' + fmt(u.cost) + '</span>' +
+          '</div>';
+        div.onclick = function() { buyUpgrade(i); };
         upgradeListEl.appendChild(div);
-      });
-    }
-
-    // ====== RENDER OWNED LIST ======
-    function renderOwned() {
-      ownedList.innerHTML = "";
-      buildings.forEach(b => {
-        if (b.owned > 0) {
-          const li = document.createElement("li");
-          li.textContent = `${b.icon} ${b.name}: ${b.owned}`;
-          ownedList.appendChild(li);
-        }
       });
     }
 
     // ====== BUY BUILDING ======
     function buyBuilding(i) {
-      const b    = buildings[i];
-      const cost = getBuildingCost(b);
+      var b    = buildings[i];
+      var cost = getBuildingCost(b);
       if (candy >= cost) {
         candy -= cost;
         b.owned++;
@@ -199,7 +182,7 @@
 
     // ====== BUY UPGRADE ======
     function buyUpgrade(i) {
-      const u = upgrades[i];
+      var u = upgrades[i];
       if (candy >= u.cost && !u.bought) {
         candy -= u.cost;
         u.bought = true;
@@ -211,20 +194,20 @@
     // ====== RECALCULATE CPS ======
     function recalcCPS() {
       candyPerSecond = 0;
-      buildings.forEach(b => {
+      buildings.forEach(function(b) {
         candyPerSecond += b.cps * b.owned;
       });
       candyPerSecond = Math.round(candyPerSecond * 10) / 10;
     }
 
-    // ====== CLICK HANDLER ======
-    bucket.addEventListener("click", (e) => {
+    // ====== CLICK HANDLER (on wrapper, works for image OR fallback) ======
+    bucketWrap.addEventListener("click", function(e) {
       candy      += candyPerClick;
       totalCandy += candyPerClick;
 
-      bucket.classList.remove("bounce");
-      void bucket.offsetWidth;
-      bucket.classList.add("bounce");
+      bucketWrap.classList.remove("bounce");
+      void bucketWrap.offsetWidth;
+      bucketWrap.classList.add("bounce");
 
       spawnFloat(e, candyPerClick);
       updateUI();
@@ -232,46 +215,47 @@
 
     // ====== FLOATING TEXT ======
     function spawnFloat(e, amount) {
-      const el = document.createElement("div");
+      var el = document.createElement("div");
       el.className = "float-candy";
       el.textContent = "+" + fmt(amount);
       el.style.left = (e.clientX - 20 + Math.random() * 40 - 20) + "px";
       el.style.top  = (e.clientY - 20) + "px";
       floatContainer.appendChild(el);
-      setTimeout(() => el.remove(), 1200);
+      setTimeout(function() { el.remove(); }, 1200);
     }
 
     // ====== GAME LOOP (ticks 10x per second) ======
-    setInterval(() => {
-      candy      += candyPerSecond / 10;
-      totalCandy += candyPerSecond / 10;
-      updateUI();
+    setInterval(function() {
+      if (candyPerSecond > 0) {
+        candy      += candyPerSecond / 10;
+        totalCandy += candyPerSecond / 10;
+        updateUI();
+      }
     }, 100);
 
     // ====== SAVE / LOAD ======
     function saveGame() {
-      const state = {
-        candy,
-        candyPerClick,
-        totalCandy,
-        buildings: buildings.map(b => b.owned),
-        upgrades:  upgrades.map(u => u.bought)
+      var state = {
+        candy: candy,
+        candyPerClick: candyPerClick,
+        totalCandy: totalCandy,
+        buildings: buildings.map(function(b) { return b.owned; }),
+        upgrades:  upgrades.map(function(u) { return u.bought; })
       };
       localStorage.setItem("candyClickerSave", JSON.stringify(state));
     }
 
     function loadGame() {
-      const raw = localStorage.getItem("candyClickerSave");
+      var raw = localStorage.getItem("candyClickerSave");
       if (!raw) return;
       try {
-        const s = JSON.parse(raw);
+        var s = JSON.parse(raw);
         candy         = s.candy         || 0;
         candyPerClick = s.candyPerClick || 1;
         totalCandy    = s.totalCandy    || 0;
-        s.buildings.forEach((owned, i) => { if (buildings[i]) buildings[i].owned = owned; });
-        s.upgrades.forEach((bought, i) => { if (upgrades[i]) upgrades[i].bought = bought; });
+        if (s.buildings) s.buildings.forEach(function(owned, i) { if (buildings[i]) buildings[i].owned = owned; });
+        if (s.upgrades)  s.upgrades.forEach(function(bought, i) { if (upgrades[i]) upgrades[i].bought = bought; });
         recalcCPS();
-        updateUI();
       } catch(e) {}
     }
 

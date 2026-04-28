@@ -10,64 +10,11 @@ body {
   user-select: none;
 }
 
-/* ====== THREE-COLUMN LAYOUT ====== */
+/* ====== TWO-COLUMN LAYOUT (clicker + shop) ====== */
 #wrapper {
   display: flex;
   height: 100vh;
   width: 100%;
-}
-
-/* ---- LEFT PANEL: Stats ---- */
-#sectionLeft {
-  width: 280px;
-  min-width: 200px;
-  background: #120822;
-  padding: 20px;
-  overflow-y: auto;
-  border-right: 2px solid #2a1a3e;
-}
-
-#sectionLeft h2 {
-  color: #ff9933;
-  font-size: 1.3em;
-  margin-bottom: 15px;
-  text-align: center;
-}
-
-#sectionLeft h3 {
-  color: #cc7722;
-  font-size: 1em;
-  margin-top: 20px;
-  margin-bottom: 8px;
-  border-bottom: 1px solid #2a1a3e;
-  padding-bottom: 5px;
-}
-
-.stat-box {
-  background: #1e0e33;
-  border: 1px solid #3a2a55;
-  border-radius: 8px;
-  padding: 12px;
-}
-
-.stat-box p {
-  margin: 6px 0;
-  font-size: 0.95em;
-}
-
-.stat-box span {
-  color: #ffcc00;
-  font-weight: bold;
-}
-
-#ownedList {
-  list-style: none;
-  font-size: 0.9em;
-}
-
-#ownedList li {
-  padding: 4px 0;
-  border-bottom: 1px solid #1e0e33;
 }
 
 /* ---- MIDDLE PANEL: Clicker ---- */
@@ -99,19 +46,46 @@ body {
   cursor: pointer;
 }
 
-#bucket {
+/* ---- BUCKET WRAPPER (handles image + fallback) ---- */
+#bucketWrap {
+  width: 250px;
+  height: 250px;
+  cursor: pointer;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#bucketImg {
   width: 250px;
   height: 250px;
   object-fit: contain;
-  transition: transform 0.1s ease;
   filter: drop-shadow(0 0 25px rgba(255, 120, 0, 0.4));
+  display: none;
 }
 
-#bucket:hover {
+#bucketImg:hover,
+#bucketWrap:hover #bucketImg {
   filter: drop-shadow(0 0 35px rgba(255, 120, 0, 0.7));
 }
 
-#bucket.bounce {
+#bucketFallback {
+  width: 250px;
+  height: 250px;
+  font-size: 10em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  filter: drop-shadow(0 0 25px rgba(255, 120, 0, 0.4));
+  transition: transform 0.1s ease;
+}
+
+#bucketWrap:hover #bucketFallback {
+  filter: drop-shadow(0 0 35px rgba(255, 120, 0, 0.7));
+}
+
+#bucketWrap.bounce {
   animation: bucketBounce 0.15s ease;
 }
 
@@ -138,7 +112,7 @@ body {
   text-align: center;
 }
 
-/* ====== SEPARATORS ====== */
+/* ====== SEPARATOR ====== */
 .separator {
   width: 4px;
   background: linear-gradient(to bottom, #ff6600, #993300, #ff6600);
