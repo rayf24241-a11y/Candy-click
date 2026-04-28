@@ -4,64 +4,99 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Candy Clicker</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="../style.css">
+
+  <!--
+    ============================================================
+    ANTI-CHEAT SCRIPTS — DO NOT REMOVE ANY OF THESE
+    The game will not load if any of these files are missing.
+    ============================================================
+  -->
+  <script src="../AntiCheat/ac_core.js"></script>
+  <script src="../AntiCheat/ac_verify.js"></script>
+  <script src="../AntiCheat/ac_guard.js"></script>
+  <script src="../AntiCheat/ac_integrity.js"></script>
 </head>
 <body class="game-page">
 
-  <!-- Top Bar -->
-  <div id="gameTopBar">
-    <a href="index.html" class="back-btn">← Home</a>
-    <h2 class="game-title">🪣 Candy Clicker</h2>
-    <div id="gameProfileBtn">
-      <div id="gameProfileAvatar" class="avatar-small"></div>
+  <!-- ====== ANTI-CHEAT BLOCKED SCREEN (hidden by default) ====== -->
+  <div id="acBlockScreen" style="display:none;">
+    <div class="ac-icon">🚫</div>
+    <div class="ac-title">Anti-Cheat Missing</div>
+    <div class="ac-desc">
+      One or more required anti-cheat files are missing or have been modified.<br><br>
+      Please restore the <strong>AntiCheat</strong> folder and its original files to play.
     </div>
+    <div class="ac-code">Error: AC_INTEGRITY_FAIL — modules not loaded</div>
+    <a href="../index.html" style="color:#554444; font-size:0.85em; margin-top:10px;">← Back to home</a>
   </div>
 
-  <div id="wrapper">
+  <!-- ====== GAME (hidden until AC passes) ====== -->
+  <div id="gameRoot" style="display:none; height:100vh; flex-direction:column;">
 
-    <!-- MIDDLE PANEL: Clicker -->
-    <div id="sectionMiddle">
-      <div id="candyCounter">
-        <span id="candyDisplay">0</span> candies
+    <!-- Top Bar -->
+    <div id="gameTopBar">
+      <a href="../index.html" class="back-btn">← Home</a>
+      <h2 class="game-title">🪣 Candy Clicker</h2>
+      <div id="gameProfileBtn">
+        <div id="gameProfileAvatar" class="avatar-small"></div>
       </div>
-      <div id="cpsDisplay">per second: <span id="cpsNum">0</span></div>
+    </div>
 
-      <div id="clickerArea">
-        <div id="bucketWrap">
-          <img
-            id="bucketImg"
-            src="IMAGES/clicker/candy_bucket.png"
-            alt=""
-            draggable="false"
-          >
-          <div id="bucketFallback">🪣</div>
+    <div id="wrapper">
+
+      <!-- MIDDLE PANEL: Clicker -->
+      <div id="sectionMiddle">
+        <div id="candyCounter">
+          <span id="candyDisplay">0</span> candies
+        </div>
+        <div id="cpsDisplay">per second: <span id="cpsNum">0</span></div>
+        <div id="clickerArea">
+          <div id="bucketWrap">
+            <img id="bucketImg" src="images/candy_bucket.png" alt="" draggable="false">
+            <div id="bucketFallback">🪣</div>
+          </div>
         </div>
       </div>
-    </div>
 
-    <div class="separator"></div>
+      <div class="separator"></div>
 
-    <!-- RIGHT PANEL: Shop -->
-    <div id="sectionRight">
-      <h2>🏪 Shop</h2>
-
-      <div class="shop-section">
-        <h3>Upgrades</h3>
-        <div id="upgradeList"></div>
+      <!-- RIGHT PANEL: Shop -->
+      <div id="sectionRight">
+        <h2>🏪 Shop</h2>
+        <div class="shop-section">
+          <h3>Upgrades</h3>
+          <div id="upgradeList"></div>
+        </div>
+        <div class="shop-section">
+          <h3>Buildings</h3>
+          <div id="buildingList"></div>
+        </div>
       </div>
 
-      <div class="shop-section">
-        <h3>Buildings</h3>
-        <div id="buildingList"></div>
-      </div>
     </div>
-
   </div>
 
   <!-- Floating candy animations -->
   <div id="floatingContainer"></div>
 
   <script>
+    // ============================================================
+    //  ANTI-CHEAT CHECK — runs before anything else
+    // ============================================================
+    (function() {
+      var ok = (typeof window.__CC_CHECK === "function") && window.__CC_CHECK();
+      if (!ok) {
+        document.getElementById("acBlockScreen").style.display = "flex";
+        document.getElementById("gameRoot").style.display = "none";
+        // Stop execution of the rest of the page
+        document.body.classList.remove("game-page"); // prevent overflow:hidden lock
+        throw new Error("AC_INTEGRITY_FAIL: Anti-cheat modules missing or tampered.");
+      }
+      document.getElementById("acBlockScreen").style.display = "none";
+      document.getElementById("gameRoot").style.display = "flex";
+    })();
+
     // ============================================================
     //  CANDY CLICKER - GAME ENGINE
     // ============================================================
@@ -71,11 +106,9 @@
 
     // ====== CHECK LOGIN ======
     var userRaw = localStorage.getItem(USER_KEY);
-    if (!userRaw) {
-      window.location.href = "index.html";
-    }
+    if (!userRaw) { window.location.href = "../index.html"; }
     var currentUser = null;
-    try { currentUser = JSON.parse(userRaw); } catch(e) { window.location.href = "index.html"; }
+    try { currentUser = JSON.parse(userRaw); } catch(e) { window.location.href = "../index.html"; }
 
     // Set avatar
     var avatarEl = document.getElementById("gameProfileAvatar");
@@ -87,19 +120,16 @@
     }
 
     // ====== GAME STATE ======
-    var candy = 0;
-    var candyPerClick = 1;
-    var candyPerSecond = 0;
-    var totalCandy = 0;
+    var candy = 0, candyPerClick = 1, candyPerSecond = 0, totalCandy = 0;
 
     // ====== BUILDINGS ======
     var buildings = [
-      { name: "Trick-or-Treater",   baseCost: 15,      cps: 0.1,    owned: 0, icon: "🧒" },
-      { name: "Candy Bowl",         baseCost: 100,     cps: 1,      owned: 0, icon: "🍬" },
-      { name: "Candy Corn Farm",    baseCost: 1100,    cps: 8,      owned: 0, icon: "🌽" },
-      { name: "Chocolate Factory",  baseCost: 12000,   cps: 47,     owned: 0, icon: "🏭" },
-      { name: "Sugar Mine",         baseCost: 130000,  cps: 260,    owned: 0, icon: "⛏️" },
-      { name: "Gummy Lab",          baseCost: 1400000, cps: 1400,   owned: 0, icon: "🧪" },
+      { name: "Trick-or-Treater",  baseCost: 15,      cps: 0.1,  owned: 0, icon: "🧒" },
+      { name: "Candy Bowl",        baseCost: 100,     cps: 1,    owned: 0, icon: "🍬" },
+      { name: "Candy Corn Farm",   baseCost: 1100,    cps: 8,    owned: 0, icon: "🌽" },
+      { name: "Chocolate Factory", baseCost: 12000,   cps: 47,   owned: 0, icon: "🏭" },
+      { name: "Sugar Mine",        baseCost: 130000,  cps: 260,  owned: 0, icon: "⛏️" },
+      { name: "Gummy Lab",         baseCost: 1400000, cps: 1400, owned: 0, icon: "🧪" },
     ];
 
     // ====== UPGRADES ======
@@ -130,9 +160,7 @@
       bucketImg.style.display = "none";
       bucketFallback.style.display = "flex";
     });
-    if (!bucketImg.complete) {
-      bucketFallback.style.display = "flex";
-    }
+    bucketFallback.style.display = "flex"; // default until image loads
 
     // ====== FORMAT NUMBERS ======
     function fmt(n) {
@@ -143,12 +171,10 @@
       return Math.floor(n).toLocaleString();
     }
 
-    // ====== GET BUILDING COST ======
     function getBuildingCost(b) {
       return Math.ceil(b.baseCost * Math.pow(1.15, b.owned));
     }
 
-    // ====== UPDATE UI ======
     function updateUI() {
       candyDisplay.textContent = fmt(candy);
       cpsNum.textContent       = fmt(candyPerSecond);
@@ -156,105 +182,74 @@
       renderUpgrades();
     }
 
-    // ====== RENDER BUILDINGS ======
     function renderBuildings() {
       buildingListEl.innerHTML = "";
       buildings.forEach(function(b, i) {
-        var cost   = getBuildingCost(b);
-        var canBuy = candy >= cost;
-        var div    = document.createElement("div");
-        div.className = "shop-item" + (canBuy ? " affordable" : " locked");
+        var cost = getBuildingCost(b);
+        var div  = document.createElement("div");
+        div.className = "shop-item" + (candy >= cost ? " affordable" : " locked");
         div.innerHTML =
           '<span class="shop-icon">' + b.icon + '</span>' +
-          '<div class="shop-info">' +
-            '<strong>' + b.name + '</strong>' +
-            '<span class="shop-cost">🍬 ' + fmt(cost) + '</span>' +
-          '</div>' +
+          '<div class="shop-info"><strong>' + b.name + '</strong>' +
+          '<span class="shop-cost">🍬 ' + fmt(cost) + '</span></div>' +
           '<span class="shop-owned">' + b.owned + '</span>';
         div.onclick = function() { buyBuilding(i); };
         buildingListEl.appendChild(div);
       });
     }
 
-    // ====== RENDER UPGRADES ======
     function renderUpgrades() {
       upgradeListEl.innerHTML = "";
       upgrades.forEach(function(u, i) {
         if (u.bought) return;
-        var canBuy = candy >= u.cost;
-        var div    = document.createElement("div");
-        div.className = "shop-item upgrade-item" + (canBuy ? " affordable" : " locked");
+        var div = document.createElement("div");
+        div.className = "shop-item upgrade-item" + (candy >= u.cost ? " affordable" : " locked");
         div.innerHTML =
           '<span class="shop-icon">⬆️</span>' +
-          '<div class="shop-info">' +
-            '<strong>' + u.name + '</strong>' +
-            '<span class="shop-desc">' + u.desc + '</span>' +
-            '<span class="shop-cost">🍬 ' + fmt(u.cost) + '</span>' +
-          '</div>';
+          '<div class="shop-info"><strong>' + u.name + '</strong>' +
+          '<span class="shop-desc">' + u.desc + '</span>' +
+          '<span class="shop-cost">🍬 ' + fmt(u.cost) + '</span></div>';
         div.onclick = function() { buyUpgrade(i); };
         upgradeListEl.appendChild(div);
       });
     }
 
-    // ====== BUY BUILDING ======
     function buyBuilding(i) {
-      var b    = buildings[i];
-      var cost = getBuildingCost(b);
-      if (candy >= cost) {
-        candy -= cost;
-        b.owned++;
-        recalcCPS();
-        updateUI();
-        saveGame();
-      }
+      var b = buildings[i], cost = getBuildingCost(b);
+      if (candy >= cost) { candy -= cost; b.owned++; recalcCPS(); updateUI(); saveGame(); }
     }
 
-    // ====== BUY UPGRADE ======
     function buyUpgrade(i) {
       var u = upgrades[i];
-      if (candy >= u.cost && !u.bought) {
-        candy -= u.cost;
-        u.bought = true;
-        candyPerClick *= u.mult;
-        updateUI();
-        saveGame();
-      }
+      if (candy >= u.cost && !u.bought) { candy -= u.cost; u.bought = true; candyPerClick *= u.mult; updateUI(); saveGame(); }
     }
 
-    // ====== RECALCULATE CPS ======
     function recalcCPS() {
       candyPerSecond = 0;
-      buildings.forEach(function(b) {
-        candyPerSecond += b.cps * b.owned;
-      });
+      buildings.forEach(function(b) { candyPerSecond += b.cps * b.owned; });
       candyPerSecond = Math.round(candyPerSecond * 10) / 10;
     }
 
-    // ====== CLICK HANDLER ======
     bucketWrap.addEventListener("click", function(e) {
       candy      += candyPerClick;
       totalCandy += candyPerClick;
-
       bucketWrap.classList.remove("bounce");
       void bucketWrap.offsetWidth;
       bucketWrap.classList.add("bounce");
-
       spawnFloat(e, candyPerClick);
       updateUI();
     });
 
-    // ====== FLOATING TEXT ======
     function spawnFloat(e, amount) {
       var el = document.createElement("div");
       el.className = "float-candy";
       el.textContent = "+" + fmt(amount);
-      el.style.left = (e.clientX - 20 + Math.random() * 40 - 20) + "px";
+      el.style.left = (e.clientX + (Math.random() * 40 - 20)) + "px";
       el.style.top  = (e.clientY - 20) + "px";
       floatContainer.appendChild(el);
       setTimeout(function() { el.remove(); }, 1200);
     }
 
-    // ====== GAME LOOP ======
     setInterval(function() {
       if (candyPerSecond > 0) {
         candy      += candyPerSecond / 10;
@@ -263,17 +258,13 @@
       }
     }, 100);
 
-    // ====== SAVE / LOAD ======
     function saveGame() {
-      var state = {
-        candy: candy,
-        candyPerClick: candyPerClick,
-        candyPerSecond: candyPerSecond,
-        totalCandy: totalCandy,
+      localStorage.setItem(SAVE_KEY, JSON.stringify({
+        candy: candy, candyPerClick: candyPerClick,
+        candyPerSecond: candyPerSecond, totalCandy: totalCandy,
         buildings: buildings.map(function(b) { return b.owned; }),
-        upgrades:  upgrades.map(function(u) { return u.bought; })
-      };
-      localStorage.setItem(SAVE_KEY, JSON.stringify(state));
+        upgrades:  upgrades.map(function(u)  { return u.bought; })
+      }));
     }
 
     function loadGame() {
@@ -284,15 +275,13 @@
         candy         = s.candy         || 0;
         candyPerClick = s.candyPerClick || 1;
         totalCandy    = s.totalCandy    || 0;
-        if (s.buildings) s.buildings.forEach(function(owned, i) { if (buildings[i]) buildings[i].owned = owned; });
-        if (s.upgrades)  s.upgrades.forEach(function(bought, i) { if (upgrades[i]) upgrades[i].bought = bought; });
+        if (s.buildings) s.buildings.forEach(function(n, i) { if (buildings[i]) buildings[i].owned = n; });
+        if (s.upgrades)  s.upgrades.forEach(function(b, i)  { if (upgrades[i])  upgrades[i].bought = b; });
         recalcCPS();
       } catch(e) {}
     }
 
-    // Auto-save every 15 seconds
     setInterval(saveGame, 15000);
-    // Save on page leave
     window.addEventListener("beforeunload", saveGame);
 
     loadGame();

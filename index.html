@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Candy Click - Home</title>
+  <title>Candy Click</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <!-- ====== SETUP SCREEN (first visit) ====== -->
+  <!-- ====== SETUP SCREEN ====== -->
   <div id="setupScreen" class="screen">
     <div class="setup-box">
       <h1>🍬 Candy Click</h1>
@@ -69,65 +69,71 @@
       </div>
     </div>
 
-    <!-- Game List -->
-    <div id="gameList">
-      <h2 class="section-title">Your Games</h2>
-
-      <div class="game-card" id="candyClickerCard">
-        <div class="game-card-top">
-          <div class="game-icon">🪣</div>
-          <div class="game-card-info">
-            <h3>Candy Clicker</h3>
-            <p class="game-status">Click the bucket. Get candy. Buy stuff.</p>
-          </div>
-        </div>
-        <div class="game-card-stats">
-          <div class="stat">
-            <span class="stat-label">Candies</span>
-            <span class="stat-value" id="homeCandy">0</span>
-          </div>
-          <div class="stat">
-            <span class="stat-label">Per Click</span>
-            <span class="stat-value" id="homePerClick">1</span>
-          </div>
-          <div class="stat">
-            <span class="stat-label">Per Second</span>
-            <span class="stat-value" id="homePerSec">0</span>
-          </div>
-          <div class="stat">
-            <span class="stat-label">Buildings</span>
-            <span class="stat-value" id="homeBuildings">0</span>
-          </div>
-        </div>
-        <div class="game-card-desc">
-          <h4>About</h4>
-          <p>A classic idle clicker game inspired by the genre. Click a rusty old candy bucket to collect candy. Spend candy on buildings that auto-generate more candy, and buy upgrades to boost your clicking power. Features 6 buildings and 5 upgrades, with an auto-save system so you never lose progress.</p>
-          <h4>Buildings</h4>
-          <ul>
-            <li>🧒 Trick-or-Treater — 0.1 candy/sec</li>
-            <li>🍬 Candy Bowl — 1 candy/sec</li>
-            <li>🌽 Candy Corn Farm — 8 candy/sec</li>
-            <li>🏭 Chocolate Factory — 47 candy/sec</li>
-            <li>⛏️ Sugar Mine — 260 candy/sec</li>
-            <li>🧪 Gummy Lab — 1,400 candy/sec</li>
-          </ul>
-        </div>
-        <a href="game.html" class="btn-play">▶ Play</a>
+    <!-- Featured Banner -->
+    <div id="featuredBanner">
+      <div class="banner-bg-glow"></div>
+      <div class="banner-emoji">🪣</div>
+      <div class="banner-content">
+        <div class="banner-tag">⭐ Featured</div>
+        <div class="banner-title">Candy Clicker</div>
+        <div class="banner-desc">Click the bucket. Get candy. Buy stuff.</div>
+        <a href="CandyClicker/game.html" class="banner-play">▶ Play Now</a>
       </div>
+    </div>
 
+    <!-- Game Grid -->
+    <div id="gameGrid">
+      <div class="grid-section-title">🕹️ All Games</div>
+      <div class="game-grid">
+
+        <!-- Candy Clicker tile -->
+        <a href="CandyClicker/game.html" class="game-tile" id="tileCandy">
+          <div class="tile-thumb tile-thumb-candy">🪣</div>
+          <div class="tile-body">
+            <div class="tile-name">Candy Clicker</div>
+            <div class="tile-meta">
+              <span class="tile-players">
+                <span class="player-dot"></span>
+                <span id="tilePlayerCount">1</span> playing
+              </span>
+              <span class="tile-badge badge-hot">HOT</span>
+            </div>
+          </div>
+        </a>
+
+        <!-- Coming Soon tile 1 -->
+        <div class="game-tile" style="cursor:default;">
+          <div class="tile-thumb tile-thumb-soon">🔮</div>
+          <div class="tile-body">
+            <div class="tile-name">Spell Clicker</div>
+            <div class="tile-meta">
+              <span class="tile-players">Coming soon</span>
+              <span class="tile-badge badge-soon">SOON</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Coming Soon tile 2 -->
+        <div class="game-tile" style="cursor:default;">
+          <div class="tile-thumb tile-thumb-soon">🌟</div>
+          <div class="tile-body">
+            <div class="tile-name">Star Clicker</div>
+            <div class="tile-meta">
+              <span class="tile-players">Coming soon</span>
+              <span class="tile-badge badge-soon">SOON</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
     </div>
 
   </div>
 
   <script>
-    // ============================================================
-    //  USER / PROFILE SYSTEM
-    // ============================================================
-
     var USER_KEY = "candyclick_user";
     var SAVE_KEY = "candyClickerSave";
 
-    // ====== DOM REFS ======
     var setupScreen     = document.getElementById("setupScreen");
     var loginScreen     = document.getElementById("loginScreen");
     var homeScreen      = document.getElementById("homeScreen");
@@ -150,107 +156,72 @@
     var keyText         = document.getElementById("keyText");
     var copyKeyBtn      = document.getElementById("copyKeyBtn");
 
-    // ====== SHOW/HIDE SCREENS ======
     function showScreen(screen) {
-      setupScreen.classList.add("hidden");
-      loginScreen.classList.add("hidden");
-      homeScreen.classList.add("hidden");
+      [setupScreen, loginScreen, homeScreen].forEach(function(s) { s.classList.add("hidden"); });
       screen.classList.remove("hidden");
     }
 
-    // ====== GET USER ======
     function getUser() {
       var raw = localStorage.getItem(USER_KEY);
       if (!raw) return null;
       try { return JSON.parse(raw); } catch(e) { return null; }
     }
 
-    // ====== SAVE USER ======
     function saveUser(name) {
       var user = { name: name, created: Date.now() };
       localStorage.setItem(USER_KEY, JSON.stringify(user));
       return user;
     }
 
-    // ====== SET AVATAR ======
     function setAvatar(el, name) {
       var letter = (name || "?").charAt(0).toUpperCase();
       el.textContent = letter;
-      // Color based on letter
       var colors = ["#e74c3c","#e67e22","#f1c40f","#2ecc71","#1abc9c","#3498db","#9b59b6","#e91e63"];
-      var idx = letter.charCodeAt(0) % colors.length;
-      el.style.background = colors[idx];
+      el.style.background = colors[letter.charCodeAt(0) % colors.length];
     }
 
-    // ====== FORMAT NUMBERS ======
     function fmt(n) {
-      if (n >= 1e12) return (n / 1e12).toFixed(1) + "T";
-      if (n >= 1e9)  return (n / 1e9).toFixed(1) + "B";
-      if (n >= 1e6)  return (n / 1e6).toFixed(1) + "M";
-      if (n >= 1e3)  return (n / 1e3).toFixed(1) + "K";
+      if (n >= 1e9) return (n / 1e9).toFixed(1) + "B";
+      if (n >= 1e6) return (n / 1e6).toFixed(1) + "M";
+      if (n >= 1e3) return (n / 1e3).toFixed(1) + "K";
       return Math.floor(n).toString();
     }
 
-    // ====== LOAD HOME STATS ======
     function loadHomeStats() {
       var raw = localStorage.getItem(SAVE_KEY);
       if (!raw) return;
       try {
         var s = JSON.parse(raw);
-        document.getElementById("homeCandy").textContent    = fmt(s.candy || 0);
-        document.getElementById("homePerClick").textContent = fmt(s.candyPerClick || 1);
-        document.getElementById("homePerSec").textContent   = fmt(s.candyPerSecond || 0);
-        var totalBuildings = 0;
-        if (s.buildings) s.buildings.forEach(function(n) { totalBuildings += n; });
-        document.getElementById("homeBuildings").textContent = totalBuildings;
+        // Show a fake-ish player count based on your candy for fun
+        var candy = s.candy || 0;
+        var fakeCount = Math.max(1, Math.floor(candy / 500) + 1);
+        document.getElementById("tilePlayerCount").textContent = Math.min(fakeCount, 9999);
       } catch(e) {}
     }
 
-    // ====== GENERATE ACCOUNT KEY ======
     function generateKey() {
       var user = getUser();
       var save = localStorage.getItem(SAVE_KEY) || "{}";
       var payload = { user: user, save: JSON.parse(save) };
-      var encoded = btoa(unescape(encodeURIComponent(JSON.stringify(payload))));
-      return encoded;
+      return btoa(unescape(encodeURIComponent(JSON.stringify(payload))));
     }
 
-    // ====== IMPORT ACCOUNT KEY ======
     function importKey(name, key) {
       try {
         var decoded = decodeURIComponent(escape(atob(key.trim())));
         var payload = JSON.parse(decoded);
-        if (!payload.user || !payload.save) {
-          return { ok: false, msg: "Invalid key format." };
-        }
-        // Override name with what user typed
+        if (!payload.user || !payload.save) return { ok: false, msg: "Invalid key format." };
         payload.user.name = name;
         localStorage.setItem(USER_KEY, JSON.stringify(payload.user));
-        // Restore save, also store CPS so home screen shows it
         var saveData = payload.save;
-        // Recalc CPS
         var buildingCPS = [0.1, 1, 8, 47, 260, 1400];
         var cps = 0;
-        if (saveData.buildings) {
-          saveData.buildings.forEach(function(owned, i) {
-            cps += (buildingCPS[i] || 0) * owned;
-          });
-        }
+        if (saveData.buildings) saveData.buildings.forEach(function(owned, i) { cps += (buildingCPS[i] || 0) * owned; });
         saveData.candyPerSecond = Math.round(cps * 10) / 10;
         localStorage.setItem(SAVE_KEY, JSON.stringify(saveData));
         return { ok: true };
       } catch(e) {
         return { ok: false, msg: "Could not read that key. Make sure you pasted the whole thing." };
-      }
-    }
-
-    // ====== INIT ======
-    function init() {
-      var user = getUser();
-      if (user) {
-        showHomeScreen(user);
-      } else {
-        showScreen(setupScreen);
       }
     }
 
@@ -262,64 +233,48 @@
       loadHomeStats();
     }
 
-    // ====== SETUP ======
+    function init() {
+      var user = getUser();
+      if (user) { showHomeScreen(user); } else { showScreen(setupScreen); }
+    }
+
+    // Block "coming soon" tiles from navigating
+    document.querySelectorAll('.game-tile[style*="default"]').forEach(function(t) {
+      t.addEventListener('click', function(e) { e.preventDefault(); });
+    });
+
     setupBtn.addEventListener("click", function() {
       var name = setupName.value.trim();
       if (!name) { setupName.focus(); return; }
-      var user = saveUser(name);
-      showHomeScreen(user);
+      showHomeScreen(saveUser(name));
     });
+    setupName.addEventListener("keydown", function(e) { if (e.key === "Enter") setupBtn.click(); });
+    showLoginBtn.addEventListener("click", function() { showScreen(loginScreen); });
 
-    setupName.addEventListener("keydown", function(e) {
-      if (e.key === "Enter") setupBtn.click();
-    });
-
-    showLoginBtn.addEventListener("click", function() {
-      showScreen(loginScreen);
-    });
-
-    // ====== LOGIN ======
     loginBtn.addEventListener("click", function() {
       var name = loginName.value.trim();
       var key  = loginKeyInput.value.trim();
       if (!name) { loginName.focus(); return; }
       if (!key)  { loginKeyInput.focus(); return; }
-
       var result = importKey(name, key);
-      if (result.ok) {
-        var user = getUser();
-        showHomeScreen(user);
-      } else {
-        loginError.textContent = result.msg;
-        loginError.classList.remove("hidden");
-      }
+      if (result.ok) { showHomeScreen(getUser()); }
+      else { loginError.textContent = result.msg; loginError.classList.remove("hidden"); }
     });
+    backToSetupBtn.addEventListener("click", function() { loginError.classList.add("hidden"); showScreen(setupScreen); });
 
-    backToSetupBtn.addEventListener("click", function() {
-      loginError.classList.add("hidden");
-      showScreen(setupScreen);
-    });
-
-    // ====== PROFILE DROPDOWN ======
     profileBtn.addEventListener("click", function(e) {
       e.stopPropagation();
       profileDropdown.classList.toggle("hidden");
       keyDisplay.classList.add("hidden");
     });
-
     document.addEventListener("click", function(e) {
-      if (!profileDropdown.contains(e.target) && e.target !== profileBtn) {
-        profileDropdown.classList.add("hidden");
-      }
+      if (!profileDropdown.contains(e.target) && e.target !== profileBtn) profileDropdown.classList.add("hidden");
     });
 
-    // ====== GENERATE KEY ======
     genKeyBtn.addEventListener("click", function() {
-      var key = generateKey();
-      keyText.value = key;
+      keyText.value = generateKey();
       keyDisplay.classList.remove("hidden");
     });
-
     copyKeyBtn.addEventListener("click", function() {
       keyText.select();
       navigator.clipboard.writeText(keyText.value).then(function() {
@@ -327,10 +282,8 @@
         setTimeout(function() { copyKeyBtn.textContent = "📋 Copy"; }, 2000);
       });
     });
-
-    // ====== LOGOUT ======
     logoutBtn.addEventListener("click", function() {
-      if (confirm("Log out? Your progress will stay on this browser, but you won't be able to access it without a key.")) {
+      if (confirm("Log out? Your progress stays on this browser, but you'll need a key to restore it elsewhere.")) {
         localStorage.removeItem(USER_KEY);
         profileDropdown.classList.add("hidden");
         showScreen(setupScreen);
@@ -339,6 +292,5 @@
 
     init();
   </script>
-
 </body>
 </html>
