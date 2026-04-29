@@ -1131,7 +1131,107 @@ var V='+JSON.stringify(vars)+';
       html+='/* play sound on load */ ';
     }
   });
-  html+='<\/script></body></html>';
+  html+='<\/script>
+<script>
+/* ===== HARD FIX: Create New Game button ===== */
+(function(){
+  "use strict";
+  var PROJECTS_KEY = "rc_projects";
+
+  function safeReadProjects(){
+    try {
+      var raw = localStorage.getItem(PROJECTS_KEY);
+      var parsed = raw ? JSON.parse(raw) : [];
+      return Array.isArray(parsed) ? parsed : [];
+    } catch(e) {
+      return [];
+    }
+  }
+
+  function safeWriteProjects(list){
+    try { localStorage.setItem(PROJECTS_KEY, JSON.stringify(list)); } catch(e){}
+  }
+
+  function makeProject(){
+    var list = safeReadProjects();
+    var id = "project_" + Date.now() + "_" + Math.floor(Math.random() * 9999);
+    var count = list.length + 1;
+    var project = {
+      id: id,
+      name: "My Game " + count,
+      icon: "🎮",
+      desc: "A new game project",
+      created: Date.now(),
+      updated: Date.now(),
+      published: false,
+      scenes: [
+        {
+          id: "scene_" + Date.now(),
+          name: "Scene 1",
+          blocks: [
+            {
+              id: "block_" + Date.now(),
+              type: "text",
+              props: { content: "Hello from My Game " + count + "!", size: 32, x: 120, y: 120, color: "#ffffff" }
+            }
+          ]
+        }
+      ],
+      characters: []
+    };
+
+    list.push(project);
+    safeWriteProjects(list);
+
+    try { window.projects = list; } catch(e){}
+    try { window.currentProject = project; } catch(e){}
+
+    if (typeof window.renderLibrary === "function") {
+      window.renderLibrary();
+    }
+
+    if (typeof window.openProject === "function") {
+      window.openProject(project.id);
+      return;
+    }
+
+    if (typeof window.openEditor === "function") {
+      window.openEditor(project.id);
+      return;
+    }
+
+    var lib = document.getElementById("libraryScreen");
+    var editor = document.getElementById("editorScreen");
+    if (lib) lib.classList.add("hidden");
+    if (editor) editor.classList.remove("hidden");
+
+    var nameInput = document.getElementById("projectNameInput");
+    if (nameInput) nameInput.value = project.name;
+
+    alert("Created " + project.name + "! If the editor did not open, refresh and open it from My Projects.");
+  }
+
+  function bindCreateButton(){
+    var btn = document.getElementById("btnNewProject");
+    if (!btn) return;
+    var clone = btn.cloneNode(true);
+    btn.parentNode.replaceChild(clone, btn);
+    clone.addEventListener("click", function(e){
+      e.preventDefault();
+      e.stopPropagation();
+      makeProject();
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", bindCreateButton);
+  } else {
+    bindCreateButton();
+  }
+})();
+</script>
+
+</body></html>';
   return html;
 }
 
@@ -1180,5 +1280,105 @@ if(window.location.hash==='#library'){
   document.getElementById('libraryScreen').classList.remove('hidden');
 }
 </script>
+
+<script>
+/* ===== HARD FIX: Create New Game button ===== */
+(function(){
+  "use strict";
+  var PROJECTS_KEY = "rc_projects";
+
+  function safeReadProjects(){
+    try {
+      var raw = localStorage.getItem(PROJECTS_KEY);
+      var parsed = raw ? JSON.parse(raw) : [];
+      return Array.isArray(parsed) ? parsed : [];
+    } catch(e) {
+      return [];
+    }
+  }
+
+  function safeWriteProjects(list){
+    try { localStorage.setItem(PROJECTS_KEY, JSON.stringify(list)); } catch(e){}
+  }
+
+  function makeProject(){
+    var list = safeReadProjects();
+    var id = "project_" + Date.now() + "_" + Math.floor(Math.random() * 9999);
+    var count = list.length + 1;
+    var project = {
+      id: id,
+      name: "My Game " + count,
+      icon: "🎮",
+      desc: "A new game project",
+      created: Date.now(),
+      updated: Date.now(),
+      published: false,
+      scenes: [
+        {
+          id: "scene_" + Date.now(),
+          name: "Scene 1",
+          blocks: [
+            {
+              id: "block_" + Date.now(),
+              type: "text",
+              props: { content: "Hello from My Game " + count + "!", size: 32, x: 120, y: 120, color: "#ffffff" }
+            }
+          ]
+        }
+      ],
+      characters: []
+    };
+
+    list.push(project);
+    safeWriteProjects(list);
+
+    try { window.projects = list; } catch(e){}
+    try { window.currentProject = project; } catch(e){}
+
+    if (typeof window.renderLibrary === "function") {
+      window.renderLibrary();
+    }
+
+    if (typeof window.openProject === "function") {
+      window.openProject(project.id);
+      return;
+    }
+
+    if (typeof window.openEditor === "function") {
+      window.openEditor(project.id);
+      return;
+    }
+
+    var lib = document.getElementById("libraryScreen");
+    var editor = document.getElementById("editorScreen");
+    if (lib) lib.classList.add("hidden");
+    if (editor) editor.classList.remove("hidden");
+
+    var nameInput = document.getElementById("projectNameInput");
+    if (nameInput) nameInput.value = project.name;
+
+    alert("Created " + project.name + "! If the editor did not open, refresh and open it from My Projects.");
+  }
+
+  function bindCreateButton(){
+    var btn = document.getElementById("btnNewProject");
+    if (!btn) return;
+    var clone = btn.cloneNode(true);
+    btn.parentNode.replaceChild(clone, btn);
+    clone.addEventListener("click", function(e){
+      e.preventDefault();
+      e.stopPropagation();
+      makeProject();
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", bindCreateButton);
+  } else {
+    bindCreateButton();
+  }
+})();
+</script>
+
 </body>
 </html>
