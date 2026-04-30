@@ -1,72 +1,267 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>RAYS COOL GAMES</title>
-<link rel="icon" href="CandyClicker/images/bucket_stage1.svg" type="image/svg+xml">
-<style>
-@import url('https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;700;800;900&display=swap');
-*{box-sizing:border-box;margin:0;padding:0}
-body{
-  min-height:100vh;font-family:'Nunito',sans-serif;color:#e6edf3;padding:28px;
-  background:
-    radial-gradient(circle at top left,rgba(168,85,247,.38),transparent 36%),
-    radial-gradient(circle at bottom right,rgba(255,209,102,.22),transparent 34%),
-    #0d1117;
-}
-.wrap{max-width:1100px;margin:0 auto}
-.hero{
-  padding:42px 26px;border:1px solid #30363d;border-radius:28px;background:rgba(22,27,34,.82);
-  box-shadow:0 20px 60px rgba(0,0,0,.35);text-align:center
-}
-h1{font-family:'Fredoka One',cursive;font-size:clamp(2.4rem,7vw,5rem);color:#c084fc;letter-spacing:1px}
-.sub{color:#8b949e;font-size:1.1rem;margin-top:10px}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px;margin-top:26px}
-.card{
-  display:flex;flex-direction:column;min-height:250px;text-decoration:none;color:#e6edf3;
-  background:#161b22;border:1px solid #30363d;border-radius:22px;padding:24px;
-  transition:.18s transform,.18s border-color,.18s box-shadow
-}
-.card:hover{transform:translateY(-4px);border-color:#a855f7;box-shadow:0 12px 30px rgba(124,58,237,.25)}
-.icon{font-size:3.2rem;margin-bottom:12px}
-.card h2{font-family:'Fredoka One',cursive;color:#fff;font-size:1.5rem;margin-bottom:8px}
-.card p{color:#8b949e;line-height:1.45;flex:1}
-.badge{display:inline-block;margin-top:18px;padding:10px 14px;border-radius:999px;background:linear-gradient(135deg,#a855f7,#7c3aed);font-weight:900;color:#fff;width:max-content}
-.footer{margin-top:22px;text-align:center;color:#6e7681;font-size:.9rem}
-</style>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>RAYS CREAT3R</title>
+<link rel="stylesheet" href="style.css">
+<link rel="icon" type="image/svg+xml" href="CandyClicker/images/bucket_stage1.svg">
+<script src="auth.js"></script>
 </head>
 <body>
-<div class="wrap">
-  <section class="hero">
-    <h1>🎮 RAYS COOL GAMES</h1>
-    <p class="sub">Play games, make games, and manage your save data.</p>
 
-    <div class="grid">
-      <a class="card" href="Games/index.html">
-        <div class="icon">🕹️</div>
-        <h2>Games</h2>
-        <p>See the game library. Candy Clicker is inside — press it, then press Play.</p>
-        <span class="badge">Open Games</span>
-      </a>
+<!-- SETUP -->
+<div id="setupScreen" class="screen hidden">
+  <div class="setup-box">
+    <div style="display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:8px;">
+      <span style="font-size:2em">🎮</span>
+      <h1 style="font-family:'Fredoka One',cursive;background:linear-gradient(135deg,#fff 30%,#c084fc);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;font-size:2em;">RAYS CREAT3R</h1>
+    </div>
+    <p>Create games. Publish them. Let the world play.</p>
+    <input type="text" id="setupName" placeholder="Choose a username..." maxlength="20" autocomplete="off">
+    <button id="setupBtn" class="btn-primary">Create Account 🚀</button>
+    <div class="setup-divider">already have an account?</div>
+    <button id="showLoginBtn" class="btn-secondary">🔑 Log In With Key</button>
+  </div>
+</div>
 
-      <a class="card" href="Creator/index.html">
-        <div class="icon">🛠️</div>
-        <h2>Game Maker</h2>
-        <p>Create a new game project, edit scenes, add blocks, and publish your work.</p>
-        <span class="badge">Create Game</span>
-      </a>
+<!-- LOGIN -->
+<div id="loginScreen" class="screen hidden">
+  <div class="setup-box">
+    <h1 style="font-family:'Fredoka One',cursive;color:#c084fc;font-size:1.8em;margin-bottom:8px;">🔑 Log In</h1>
+    <p>Enter your username and paste your account key.</p>
+    <input type="text" id="loginName" placeholder="Your username..." maxlength="20" autocomplete="off">
+    <textarea id="loginKey" placeholder="Paste your account key here..." rows="4" style="resize:none;"></textarea>
+    <button id="loginBtn" class="btn-primary">Log In</button>
+    <button id="backToSetupBtn" class="btn-secondary">← Back</button>
+    <p id="loginError" class="error-msg hidden"></p>
+  </div>
+</div>
 
-      <a class="card" href="PlayerData/viewer.html">
-        <div class="icon">🗂️</div>
-        <h2>Player Data</h2>
-        <p>View saves, projects, achievements, and export your account key.</p>
-        <span class="badge">Open Data</span>
+<!-- HOME -->
+<div id="homeScreen" class="screen hidden">
+  <div id="topBar">
+    <div class="logo-wrap">
+      <span class="logo-icon">🎮</span>
+      <h1 class="logo"><span>RAYS</span> <b>CREAT3R</b></h1>
+    </div>
+    <div id="topBarRight">
+      <a href="creator/index.html" class="create-btn">+ Create</a>
+      <a href="PlayerData/viewer.html" class="create-btn" style="background:rgba(255,255,255,.07);border:1px solid #30363d;">🗂️ My Data</a>
+      <div id="profileBtn"><div id="profileAvatar"></div></div>
+    </div>
+  </div>
+
+  <div id="profileDropdown" class="hidden">
+    <div class="profile-header">
+      <div id="dropdownAvatar" class="avatar-large"></div>
+      <div class="profile-name-wrap">
+        <h3 id="profileName"></h3>
+        <p class="profile-label" id="visitLabel">Creator</p>
+      </div>
+    </div>
+    <div class="profile-actions">
+      <button id="genKeyBtn" class="btn-profile">🔑 Generate Save Key</button>
+      <a href="PlayerData/viewer.html" class="btn-profile" style="display:block;text-decoration:none;">🗂️ View Player Data</a>
+      <button id="logoutBtn" class="btn-profile btn-danger">🚪 Log Out</button>
+    </div>
+    <div id="keyDisplay" class="hidden">
+      <p class="key-label">Your Account Key — save this!</p>
+      <textarea id="keyText" readonly rows="5"></textarea>
+      <button id="copyKeyBtn" class="btn-small">📋 Copy Key</button>
+      <p class="key-hint">This key holds your profile, all saves, and all projects. Paste it on any browser to restore everything.</p>
+    </div>
+  </div>
+
+  <div id="heroBanner">
+    <div class="hero-orbs"><span></span><span></span><span></span></div>
+    <div class="hero-content">
+      <div class="hero-eyebrow">🎮 Game Creation Platform</div>
+      <div class="hero-title" id="heroTitle">Build. Publish.<br>Play.</div>
+      <div class="hero-sub" id="heroSub">Create your own games with visual code blocks and pixel art — no experience needed.</div>
+      <div class="hero-actions">
+        <a href="creator/index.html" class="hero-btn-primary">+ Create a Game</a>
+        <a href="creator/index.html" class="hero-btn-secondary">📚 My Library</a>
+      </div>
+    </div>
+  </div>
+
+  <div id="gameGrid">
+    <div class="grid-label">🕹️ Official Games</div>
+    <div class="game-grid">
+      <a href="CandyClicker/game.html" class="game-tile">
+        <div class="tile-thumb tile-thumb-candy"><img src="CandyClicker/images/bucket_stage1.svg" alt="" id="homeBucket"></div>
+        <div class="tile-body">
+          <div class="tile-name-row"><span class="tile-name">Candy Clicker</span><span class="tile-ver">v1.1</span></div>
+          <div class="tile-meta"><span class="tile-author">by Raygoats</span><span class="tile-badge badge-official">OFFICIAL</span></div>
+        </div>
       </a>
     </div>
-  </section>
-
-  <p class="footer">Upload this whole folder’s contents to your GitHub repo root.</p>
+    <div class="grid-label">🌟 Community Games</div>
+    <div class="game-grid" id="communityGrid">
+      <div class="empty-games" id="emptyGames">
+        <div class="empty-icon">🎮</div>
+        <p>No community games yet.<br><a href="creator/index.html" style="color:#a855f7;">Be the first!</a></p>
+      </div>
+    </div>
+  </div>
 </div>
+
+<div id="welcomeToast" style="position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(120px);
+  background:#161b22;border:1px solid #a855f7;border-radius:12px;padding:14px 24px;
+  color:#c084fc;font-family:'Fredoka One',cursive;font-size:1.05em;z-index:300;
+  transition:transform .4s cubic-bezier(.34,1.56,.64,1);text-align:center;max-width:360px;">
+  <span id="welcomeMsg">Welcome back!</span>
+  <p id="welcomeSub" style="font-family:'Nunito',sans-serif;font-size:.75em;color:#8b949e;margin-top:4px;font-weight:600;"></p>
+</div>
+
+<script>
+function setAv(el,name){var l=(name||"?").charAt(0).toUpperCase();el.textContent=l;el.style.background=RC.avatarColor(name);}
+function escH(s){return(s||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");}
+
+function showSetup(){document.getElementById("setupScreen").classList.remove("hidden");}
+function showLogin(){document.getElementById("loginScreen").classList.remove("hidden");document.getElementById("setupScreen").classList.add("hidden");}
+function hideAll(){["setupScreen","loginScreen","homeScreen"].forEach(function(id){document.getElementById(id).classList.add("hidden");});}
+
+function showHome(user,isReturn){
+  hideAll();
+  document.getElementById("homeScreen").classList.remove("hidden");
+  setAv(document.getElementById("profileAvatar"),user.name);
+  setAv(document.getElementById("dropdownAvatar"),user.name);
+  document.getElementById("profileName").textContent=user.name;
+  // Session info in dropdown
+  var sess=RC.getSession();
+  if(sess){document.getElementById("visitLabel").textContent="Visit #"+(sess.visitCount||1);}
+  // Personalise hero if returning
+  if(isReturn){
+    document.getElementById("heroTitle").textContent="Welcome back,\n"+user.name+"!";
+    showWelcomeToast(user,sess);
+  }
+  // Show correct bucket stage from candy save
+  updateHomeBucket();
+  // Community games
+  loadCommunityGames();
+}
+
+function updateHomeBucket(){
+  var craw=localStorage.getItem("candyClickerSave");
+  if(!craw)return;
+  try{
+    var CIPHER="CandyClickAntiHack2026!@#$";
+    var raw=atob(craw);var out="";
+    for(var i=0;i<raw.length;i++)out+=String.fromCharCode(raw.charCodeAt(i)^CIPHER.charCodeAt(i%CIPHER.length));
+    var p=JSON.parse(out);var save=JSON.parse(p.d||"{}");
+    var total=save.totalCandy||0;
+    var stages=[{t:0,s:1},{t:500000,s:2},{t:500000000,s:3},{t:500000000000,s:4}];
+    var stage=1;for(var i=stages.length-1;i>=0;i--){if(total>=stages[i].t){stage=stages[i].s;break;}}
+    var img=document.getElementById("homeBucket");
+    if(img)img.src="CandyClicker/images/bucket_stage"+stage+".svg?v="+Date.now();
+  }catch(e){}
+}
+
+function showWelcomeToast(user,sess){
+  var toast=document.getElementById("welcomeToast");
+  var msg="👋 Welcome back, "+user.name+"!";
+  var sub="";
+  if(sess){
+    var last=sess.lastVisit;
+    if(last){var diff=Date.now()-last;var mins=Math.floor(diff/60000);
+      if(mins<60)sub="Away for "+mins+" minutes";
+      else if(mins<1440)sub="Away for "+Math.floor(mins/60)+" hours";
+      else sub="Away for "+Math.floor(mins/1440)+" days";}
+    if(sess.visitCount>1)sub+=" · Visit #"+sess.visitCount;
+  }
+  document.getElementById("welcomeMsg").textContent=msg;
+  document.getElementById("welcomeSub").textContent=sub;
+  toast.style.transform="translateX(-50%) translateY(0)";
+  setTimeout(function(){toast.style.transform="translateX(-50%) translateY(120px)";},4000);
+}
+
+function loadCommunityGames(){
+  var pubs=[];try{pubs=JSON.parse(localStorage.getItem("rc_published")||"[]");}catch(e){}
+  var grid=document.getElementById("communityGrid");
+  var empty=document.getElementById("emptyGames");
+  Array.from(grid.querySelectorAll(".game-tile")).forEach(function(c){c.remove();});
+  if(pubs.length===0){empty.style.display="block";return;}
+  empty.style.display="none";
+  pubs.forEach(function(g){
+    var tile=document.createElement("a");tile.href="creator/index.html#play_"+g.id;tile.className="game-tile";
+    tile.innerHTML='<div class="tile-thumb tile-thumb-user" style="background:#1a1030;font-size:4em;">'+escH(g.icon||"🎮")+'</div>'+
+      '<div class="tile-body"><div class="tile-name-row"><span class="tile-name">'+escH(g.name)+'</span><span class="tile-badge badge-new">NEW</span></div>'+
+      '<div class="tile-meta"><span class="tile-author">by '+escH(g.author||"Creator")+'</span></div></div>';
+    grid.insertBefore(tile,empty);
+  });
+}
+
+function init(){
+  var user=RC.getUser();
+  if(user){
+    RC.touchUser();
+    RC.startSession();
+    var sess=RC.getSession();
+    var isReturn=(sess&&sess.visitCount>1);
+    showHome(user,isReturn);
+    if(sess&&sess.visitCount>=10)RC.unlockAchievement("visitor_10");
+    if(sess&&sess.totalPlayTime>=3600)RC.unlockAchievement("playtime_1h");
+  } else {
+    showSetup();
+  }
+}
+
+// Setup
+document.getElementById("setupBtn").addEventListener("click",function(){
+  var n=document.getElementById("setupName").value.trim();
+  if(!n){document.getElementById("setupName").focus();return;}
+  RC.setUser(n);RC.startSession();showHome(RC.getUser(),false);
+});
+document.getElementById("setupName").addEventListener("keydown",function(e){if(e.key==="Enter")document.getElementById("setupBtn").click();});
+document.getElementById("showLoginBtn").addEventListener("click",showLogin);
+
+// Login
+document.getElementById("loginBtn").addEventListener("click",function(){
+  var n=document.getElementById("loginName").value.trim();
+  var k=document.getElementById("loginKey").value.trim();
+  if(!n){document.getElementById("loginName").focus();return;}
+  if(!k){document.getElementById("loginKey").focus();return;}
+  var r=RC.importKey(n,k);
+  if(r.ok){RC.startSession();showHome(r.user,true);}
+  else{document.getElementById("loginError").textContent=r.msg;document.getElementById("loginError").classList.remove("hidden");}
+});
+document.getElementById("backToSetupBtn").addEventListener("click",function(){
+  document.getElementById("loginError").classList.add("hidden");
+  document.getElementById("loginScreen").classList.add("hidden");
+  document.getElementById("setupScreen").classList.remove("hidden");
+});
+
+// Profile
+document.getElementById("profileBtn").addEventListener("click",function(e){
+  e.stopPropagation();
+  document.getElementById("profileDropdown").classList.toggle("hidden");
+  document.getElementById("keyDisplay").classList.add("hidden");
+});
+document.addEventListener("click",function(e){
+  var pd=document.getElementById("profileDropdown");
+  if(!pd.contains(e.target)&&e.target!==document.getElementById("profileBtn"))pd.classList.add("hidden");
+});
+document.getElementById("genKeyBtn").addEventListener("click",function(){
+  var key=RC.exportKey();
+  if(!key){alert("Not logged in!");return;}
+  document.getElementById("keyText").value=key;
+  document.getElementById("keyDisplay").classList.remove("hidden");
+});
+document.getElementById("copyKeyBtn").addEventListener("click",function(){
+  var kt=document.getElementById("keyText");kt.select();
+  navigator.clipboard.writeText(kt.value).then(function(){
+    document.getElementById("copyKeyBtn").textContent="✅ Copied!";
+    setTimeout(function(){document.getElementById("copyKeyBtn").textContent="📋 Copy Key";},2500);
+  }).catch(function(){try{kt.select();document.execCommand("copy");}catch(e){}});
+});
+document.getElementById("logoutBtn").addEventListener("click",function(){
+  if(confirm("Log out? Make sure you've saved your key first!")){
+    RC.logout();hideAll();showSetup();
+  }
+});
+
+init();
+</script>
 </body>
 </html>
