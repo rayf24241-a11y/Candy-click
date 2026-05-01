@@ -8,13 +8,16 @@
 @import url('https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800;900&family=JetBrains+Mono:wght@400;600&display=swap');
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
 :root{
-  --bg:#0d1117;--bg2:#161b22;--bg3:#21262d;--bg4:#30363d;
-  --border:#30363d;--border2:#444c56;
-  --text:#e6edf3;--muted:#8b949e;--dim:#484f58;
-  --accent:#7c3aed;--accent2:#a855f7;--accent3:#c084fc;
-  --blue:#58a6ff;--green:#3fb950;--orange:#ffa657;
-  --red:#f85149;--gold:#ffd700;--yellow:#e3b341;
-  --sidebar:#161b22;--editor:#0d1117;
+  /* VS Code Dark+ Theme Colors */
+  --bg:#1e1e1e;--bg2:#252526;--bg3:#2d2d30;--bg4:#3e3e42;
+  --border:#454545;--border2:#5a5a5a;
+  --text:#d4d4d4;--muted:#858585;--dim:#6e6e6e;
+  --accent:#007acc;--accent2:#0098ff;--accent3:#4fc1ff;
+  --blue:#569cd6;--green:#6a9955;--orange:#ce9178;
+  --red:#f44747;--gold:#dcdcaa;--yellow:#ffd700;
+  --sidebar:#252526;--editor:#1e1e1e;--activity:#333333;
+  --status:#007acc;--status-bg:#007acc;--tab-active:#1e1e1e;
+  --tab-inactive:#2d2d30;--title:#3c3c3c;--panel:#252526;
 }
 html,body{background:var(--bg);color:var(--text);font-family:'Nunito',sans-serif;height:100vh;overflow:hidden;user-select:none;}
 .hidden{display:none!important;}
@@ -66,36 +69,62 @@ input,textarea,select{font-family:'Nunito',sans-serif;}
 .lib-empty{text-align:center;padding:50px 20px;color:var(--muted);}
 .lib-empty-icon{font-size:3.5em;margin-bottom:14px;}
 
-/* ===== EDITOR SCREEN ===== */
+/* ===== EDITOR SCREEN - VS CODE STYLE ===== */
 #editorScreen{height:100vh;display:flex;flex-direction:column;background:var(--bg);}
-#editorTopBar{display:flex;align-items:center;justify-content:space-between;padding:0 14px;
-  height:48px;background:var(--bg2);border-bottom:1px solid var(--border);flex-shrink:0;gap:10px;}
-.editor-logo{font-family:'Fredoka One',cursive;font-size:1.1em;color:var(--accent3);}
-.editor-project-name{background:transparent;border:1px solid transparent;border-radius:6px;
-  color:var(--text);font-size:.95em;font-weight:700;padding:4px 10px;font-family:'Nunito',sans-serif;
-  min-width:140px;text-align:center;outline:none;transition:border-color .2s;}
-.editor-project-name:focus{border-color:var(--accent2);background:var(--bg3);}
-.editor-actions{display:flex;align-items:center;gap:7px;}
-.ed-btn{padding:6px 14px;border:1px solid var(--border2);border-radius:6px;background:transparent;
-  color:var(--muted);font-size:.82em;font-weight:700;cursor:pointer;transition:all .15s;}
-.ed-btn:hover{border-color:var(--accent2);color:var(--accent3);}
-.ed-btn.run{background:var(--green);border-color:var(--green);color:#000;}
-.ed-btn.run:hover{background:#2ea043;border-color:#2ea043;}
-.ed-btn.publish{background:linear-gradient(135deg,var(--accent2),var(--accent));border-color:transparent;color:#fff;}
-.ed-btn.publish:hover{box-shadow:0 2px 12px rgba(124,58,237,.4);}
-.ed-btn.lib{color:var(--accent3);border-color:rgba(168,85,247,.3);}
-.ed-btn.lib:hover{border-color:var(--accent2);}
+
+/* Activity Bar - VS Code style left sidebar */
+#activityBar{width:48px;background:var(--activity);border-right:1px solid var(--border);
+  display:flex;flex-direction:column;align-items:center;padding:8px 0;flex-shrink:0;}
+.act-item{width:36px;height:36px;display:flex;align-items:center;justify-content:center;
+  font-size:1.3em;margin-bottom:4px;cursor:pointer;border-radius:4px;transition:all .15s;
+  color:var(--muted);}
+.act-item:hover{background:var(--bg3);color:var(--text);}
+.act-item.active{color:var(--text);border-left:2px solid var(--accent);padding-left:2px;}
+.act-spacer{flex:1;}
+.act-bottom{margin-top:auto;}
+
+/* Title Bar - VS Code style */
+#editorTopBar{display:flex;align-items:center;justify-content:space-between;padding:0 10px;
+  height:35px;background:var(--title);border-bottom:1px solid var(--border);flex-shrink:0;gap:10px;
+  -webkit-app-region:drag;}
+.editor-logo{font-family:'Fredoka One',cursive;font-size:1em;color:var(--accent3);display:none;}
+.editor-project-name{background:transparent;border:1px solid transparent;border-radius:3px;
+  color:var(--text);font-size:.9em;font-weight:400;padding:2px 8px;font-family:'Nunito',sans-serif;
+  min-width:120px;text-align:left;outline:none;transition:border-color .2s;-webkit-app-region:no-drag;}
+.editor-project-name:focus{border-color:var(--accent);background:var(--bg3);}
+.editor-actions{display:flex;align-items:center;gap:4px;-webkit-app-region:no-drag;}
+.ed-btn{padding:4px 12px;border:1px solid transparent;border-radius:3px;background:transparent;
+  color:var(--muted);font-size:.75em;font-weight:600;cursor:pointer;transition:all .15s;}
+.ed-btn:hover{background:var(--bg3);color:var(--text);}
+.ed-btn.run{background:var(--green);border-color:var(--green);color:#fff;}
+.ed-btn.run:hover{background:#5a8a3a;}
+.ed-btn.publish{background:var(--accent);border-color:var(--accent);color:#fff;}
+.ed-btn.publish:hover{background:#005a9e;}
+.ed-btn.lib{color:var(--text);background:var(--bg3);}
+.ed-btn.lib:hover{background:var(--bg4);}
+
+/* Status Bar - VS Code style bottom bar */
+#statusBar{height:22px;background:var(--status-bg);color:#fff;display:flex;align-items:center;
+  justify-content:space-between;padding:0 12px;font-size:.75em;flex-shrink:0;}
+.status-left,.status-right{display:flex;align-items:center;gap:16px;}
+.status-item{display:flex;align-items:center;gap:4px;cursor:pointer;padding:2px 6px;border-radius:3px;}
+.status-item:hover{background:rgba(255,255,255,.1);}
+.status-error{color:#f48771;}
+.status-warning{color:#cca700;}
 
 #editorMain{display:flex;flex:1;overflow:hidden;}
 
-/* SIDEBAR */
-#edSidebar{width:200px;background:var(--sidebar);border-right:1px solid var(--border);
+/* SIDEBAR - VS Code Explorer style */
+#edSidebar{width:250px;background:var(--sidebar);border-right:1px solid var(--border);
   display:flex;flex-direction:column;flex-shrink:0;}
-#edSidebarTabs{display:flex;border-bottom:1px solid var(--border);}
-.ed-stab{flex:1;padding:8px 4px;text-align:center;font-size:.7em;font-weight:700;text-transform:uppercase;
+#edSidebarHeader{padding:8px 12px;background:var(--bg2);border-bottom:1px solid var(--border);
+  font-size:.85em;font-weight:600;color:var(--muted);display:flex;align-items:center;justify-content:space-between;}
+#edSidebarTabs{display:flex;border-bottom:1px solid var(--border);background:var(--bg2);}
+.ed-stab{flex:1;padding:6px 4px;text-align:center;font-size:.7em;font-weight:600;text-transform:uppercase;
   letter-spacing:.5px;color:var(--muted);cursor:pointer;border-bottom:2px solid transparent;transition:all .15s;}
-.ed-stab.active{color:var(--accent3);border-bottom-color:var(--accent2);}
-#edSidebarBody{flex:1;overflow-y:auto;padding:8px 0;}
+.ed-stab.active{color:var(--text);border-bottom-color:var(--accent);background:var(--sidebar);}
+.ed-stab:hover{color:var(--text);}
+#edSidebarBody{flex:1;overflow-y:auto;padding:4px 0;}
 
 /* File tree */
 .tree-section{margin-bottom:2px;}
@@ -130,17 +159,24 @@ input,textarea,select{font-family:'Nunito',sans-serif;}
 .ctx-item:hover{background:rgba(124,58,237,.16);color:var(--accent3);}
 .ctx-item.danger:hover{background:rgba(248,81,73,.12);color:var(--red);}
 
-/* Tabs row */
-#edTabs{display:flex;background:var(--bg2);border-bottom:1px solid var(--border);overflow-x:auto;flex-shrink:0;}
-.ed-tab{display:flex;align-items:center;gap:6px;padding:8px 14px;font-size:.82em;color:var(--muted);
-  cursor:pointer;border-right:1px solid var(--border);border-bottom:2px solid transparent;
-  white-space:nowrap;transition:color .1s;}
-.ed-tab.active{color:var(--text);border-bottom-color:var(--accent2);background:var(--bg);}
-.ed-tab:hover{color:var(--text);}
+/* Tabs row - VS Code style */
+#edTabs{display:flex;background:var(--tab-inactive);border-bottom:1px solid var(--border);overflow-x:auto;flex-shrink:0;min-height:35px;}
+.ed-tab{display:flex;align-items:center;gap:6px;padding:8px 12px;font-size:.82em;color:var(--muted);
+  cursor:pointer;border-right:1px solid var(--border);background:var(--tab-inactive);
+  white-space:nowrap;transition:all .1s;}
+.ed-tab.active{color:var(--text);background:var(--tab-active);border-top:1px solid var(--accent);}
+.ed-tab:hover{background:var(--bg3);color:var(--text);}
 .ed-tab-close{opacity:0;font-size:.9em;margin-left:4px;border-radius:3px;width:16px;height:16px;
   display:flex;align-items:center;justify-content:center;transition:opacity .1s,background .1s;}
 .ed-tab:hover .ed-tab-close{opacity:.6;}
-.ed-tab-close:hover{opacity:1!important;background:var(--border2);}
+.ed-tab-close:hover{opacity:1!important;background:var(--red);color:#fff;}
+
+/* Breadcrumbs - VS Code style */
+#breadcrumbs{height:22px;background:var(--bg);border-bottom:1px solid var(--border);display:flex;
+  align-items:center;padding:0 12px;font-size:.75em;color:var(--muted);gap:4px;}
+.bc-item{cursor:pointer;padding:2px 6px;border-radius:3px;}
+.bc-item:hover{background:var(--bg3);color:var(--text);}
+.bc-sep{color:var(--dim);}
 
 /* Main editor area */
 #edContent{flex:1;display:flex;overflow:hidden;}
@@ -311,8 +347,9 @@ document.addEventListener('DOMContentLoaded', function() {
   </div>
 </div>
 
-<!-- ===== EDITOR SCREEN ===== -->
+<!-- ===== EDITOR SCREEN - VS CODE STYLE ===== -->
 <div id="editorScreen" class="hidden">
+  <!-- Title Bar -->
   <div id="editorTopBar">
     <div class="editor-logo">CREAT3R</div>
     <input class="editor-project-name" id="projectNameInput" value="My Game" maxlength="40">
@@ -326,8 +363,24 @@ document.addEventListener('DOMContentLoaded', function() {
   </div>
 
   <div id="editorMain">
+    <!-- Activity Bar - VS Code Style -->
+    <div id="activityBar">
+      <div class="act-item active" title="Explorer" id="actExplorer">📁</div>
+      <div class="act-item" title="Search" id="actSearch">🔍</div>
+      <div class="act-item" title="Source Control" id="actGit">📦</div>
+      <div class="act-item" title="Debug" id="actDebug">🐛</div>
+      <div class="act-item" title="Extensions" id="actExtensions">🧩</div>
+      <div class="act-spacer"></div>
+      <div class="act-item act-bottom" title="AI Assistant" id="actAI">🤖</div>
+      <div class="act-item act-bottom" title="Settings" id="actSettings">⚙️</div>
+    </div>
+
     <!-- Sidebar -->
     <div id="edSidebar">
+      <div id="edSidebarHeader">
+        <span>EXPLORER</span>
+        <span style="cursor:pointer;">⋯</span>
+      </div>
       <div id="edSidebarTabs">
         <div class="ed-stab active" data-tab="files">Explorer</div>
         <div class="ed-stab" data-tab="chars">Characters</div>
@@ -428,6 +481,22 @@ document.addEventListener('DOMContentLoaded', function() {
           </div>
         </div>
       </div>
+    </div>
+  </div>
+
+  <!-- Status Bar - VS Code Style -->
+  <div id="statusBar">
+    <div class="status-left">
+      <span class="status-item" id="statusBranch">🌿 main</span>
+      <span class="status-item" id="statusErrors">✖ 0</span>
+      <span class="status-item" id="statusWarnings">⚠ 0</span>
+    </div>
+    <div class="status-right">
+      <span class="status-item" id="statusCursor">Ln 1, Col 1</span>
+      <span class="status-item" id="statusSpaces">Spaces: 2</span>
+      <span class="status-item" id="statusEncoding">UTF-8</span>
+      <span class="status-item" id="statusLang">JavaScript</span>
+      <span class="status-item" id="statusAICredits">🤖 AI: <span id="statusCredits">9999</span></span>
     </div>
   </div>
 </div>
@@ -1683,18 +1752,103 @@ function addDinoCharacter(){
 }
 
 function aiWriteTemplate(kind){
-  if(kind==='platformer'){
-    createFileByPath('main.admin','<main id="game"><h1>Platformer</h1><div id="player">🧍</div><div class="ground"></div></main>');
-    createFileByPath('style.css','body{margin:0;background:#0b1020;color:#fff;font-family:Nunito,sans-serif;}#game{position:relative;height:100vh;overflow:hidden;}#player{position:absolute;left:100px;top:100px;font-size:42px;transition:transform .05s linear;}.ground{position:absolute;left:0;right:0;bottom:0;height:80px;background:#1f2937;}');
-    createFileByPath('game.js','(function(){const p=document.getElementById("player");if(!p)return;let x=100,y=100,vy=0,g=0.9,j=false;function draw(){p.style.left=x+"px";p.style.top=y+"px";}document.addEventListener("keydown",e=>{if(e.key==="a")x-=12;if(e.key==="d")x+=12;if((e.key==="w"||e.key===" ")&&!j){vy=-14;j=true;}});setInterval(()=>{vy+=g;y+=vy;if(y>calcGround()){y=calcGround();vy=0;j=false;}draw();},16);function calcGround(){return window.innerHeight-130;}})();');
-    return 'Generated platformer starter files (main.admin, style.css, game.js).';
+  // ===== PLATFORMER =====
+  if(kind==='platformer'||kind==='mario'||kind==='jump'){
+    createFileByPath('main.admin','<main id="game"><div id="ui"><h1>🏃 Platformer</h1><div id="score">Score: 0</div></div><div id="player">🦊</div><div class="platform ground"></div><div class="platform" style="left:200px;top:300px;width:100px;"></div><div class="platform" style="left:400px;top:250px;width:100px;"></div><div class="coin" style="left:230px;top:260px;">🪙</div><div class="coin" style="left:430px;top:210px;">🪙</div></main>');
+    createFileByPath('style.css','*{margin:0;padding:0;box-sizing:border-box}body{margin:0;background:linear-gradient(180deg,#1e3a5f 0%,#0d1117 100%);color:#fff;font-family:Nunito,sans-serif;height:100vh;overflow:hidden}#game{position:relative;height:100vh;width:100vw}#ui{position:absolute;top:10px;left:10px;z-index:100}#ui h1{font-size:1.2em;color:#a855f7}#score{color:#ffd700;font-weight:800}#player{position:absolute;left:50px;top:200px;font-size:42px;transition:none;z-index:10}.platform{position:absolute;background:#30363d;border:2px solid #444c56;border-radius:4px}.ground{left:0;right:0;bottom:0;height:80px}.coin{position:absolute;font-size:24px;animation:float 1s ease-in-out infinite}@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}');
+    createFileByPath('game.js','(function(){const p=document.getElementById("player"),scoreEl=document.getElementById("score");if(!p)return;let x=50,y=200,vy=0,vx=0,g=0.6,speed=6,jumpPower=14,onGround=false,score=0;const platforms=document.querySelectorAll(".platform"),coins=document.querySelectorAll(".coin");function rect(e){const r=e.getBoundingClientRect();return{x:r.left,y:r.top,w:r.width,h:r.height}}function checkCollision(){onGround=false;const pr=rect(p);platforms.forEach(plat=>{const r=rect(plat);if(pr.x<r.x+r.w&&pr.x+40>r.x&&pr.y+40>r.y&&pr.y<r.y+30&&vy>=0){y=r.y-40;vy=0;onGround=true;}});coins.forEach((c,i)=>{const r=rect(c);if(!c.collected&&pr.x<r.x+r.w&&pr.x+40>r.x&&pr.y<r.y+r.h&&pr.y+40>r.y){c.collected=true;c.style.display="none";score+=10;scoreEl.textContent="Score: "+score;}});}function update(){vy+=g;y+=vy;x+=vx;checkCollision();if(y>window.innerHeight){y=200;x=50;vy=0;}p.style.left=x+"px";p.style.top=y+"px";requestAnimationFrame(update);}document.addEventListener("keydown",e=>{if(e.key==="a"||e.key==="ArrowLeft")vx=-speed;if(e.key==="d"||e.key==="ArrowRight")vx=speed;if((e.key==="w"||e.key==="ArrowUp"||e.key===" ")&&onGround){vy=-jumpPower;}});document.addEventListener("keyup",e=>{if(e.key==="a"||e.key==="ArrowLeft"||e.key==="d"||e.key==="ArrowRight")vx=0;});update();})();');
+    return '✅ Generated complete platformer with physics, coins, and scoring!';
   }
-  if(kind==='menu'){
-    createFileByPath('main.admin','<main class="menu"><h1>My Game</h1><button id="playBtn">Play</button><button id="settingsBtn">Settings</button></main>');
-    createFileByPath('style.css','body{margin:0;background:radial-gradient(circle at top,#1f1147,#090c14);font-family:Nunito,sans-serif;color:#fff}.menu{height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px}button{padding:12px 18px;border:0;border-radius:10px;background:#7c3aed;color:#fff;font-weight:800}');
-    createFileByPath('game.js','document.getElementById("playBtn")?.addEventListener("click",()=>alert("Start game"));document.getElementById("settingsBtn")?.addEventListener("click",()=>alert("Settings"));');
-    return 'Generated menu starter files.';
+
+  // ===== MENU =====
+  if(kind==='menu'||kind==='mainmenu'||kind==='ui'){
+    createFileByPath('main.admin','<main class="menu"><div class="logo">🎮 MY GAME</div><nav><button id="playBtn">▶ Play</button><button id="levelsBtn">🗺️ Levels</button><button id="settingsBtn">⚙️ Settings</button><button id="creditsBtn">📜 Credits</button></nav><div class="version">v1.0</div></main>');
+    createFileByPath('style.css','*{margin:0;padding:0;box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at center,#1a1030 0%,#0d0820 100%);font-family:Nunito,sans-serif;color:#fff;height:100vh;display:flex;align-items:center;justify-content:center}.menu{text-align:center}.logo{font-size:3em;font-weight:900;background:linear-gradient(135deg,#a855f7,#7c3aed);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:40px;animation:glow 2s ease-in-out infinite}@keyframes glow{0%,100%{filter:drop-shadow(0 0 20px rgba(168,85,247,.5))}50%{filter:drop-shadow(0 0 40px rgba(168,85,247,.8))}}nav{display:flex;flex-direction:column;gap:12px}button{padding:14px 32px;border:none;border-radius:12px;background:linear-gradient(135deg,#7c3aed,#a855f7);color:#fff;font-size:1.1em;font-weight:700;cursor:pointer;transition:transform .2s,box-shadow .2s}button:hover{transform:translateY(-3px);box-shadow:0 10px 30px rgba(124,58,237,.4)}.version{position:absolute;bottom:20px;left:50%;transform:translateX(-50%);color:#484f58;font-size:.8em}');
+    createFileByPath('game.js','document.getElementById("playBtn")?.addEventListener("click",()=>{alert("Game starting...");});document.getElementById("levelsBtn")?.addEventListener("click",()=>{alert("Level select coming soon!");});document.getElementById("settingsBtn")?.addEventListener("click",()=>{alert("Settings: Sound ON, Music ON");});document.getElementById("creditsBtn")?.addEventListener("click",()=>{alert("Made with ❤️ by You!");});');
+    return '✅ Generated polished main menu with animated logo!';
   }
+
+  // ===== SNAKE =====
+  if(kind==='snake'||kind==='snakegame'){
+    createFileByPath('main.admin','<main id="game"><div id="header"><h1>🐍 Snake</h1><div id="score">Score: 0</div><div id="high">High: 0</div></div><canvas id="canvas" width="600" height="400"></canvas><div id="controls"><button id="start">Start</button><button id="pause">Pause</button></div></main>');
+    createFileByPath('style.css','*{margin:0;padding:0;box-sizing:border-box}body{margin:0;background:#0d1117;color:#fff;font-family:Nunito,sans-serif;height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center}#game{text-align:center}#header{display:flex;gap:20px;justify-content:center;margin-bottom:10px}#score,#high{color:#3fb950;font-weight:800;font-size:1.2em}h1{color:#a855f7}canvas{border:3px solid #30363d;border-radius:8px;background:#161b22;box-shadow:0 0 30px rgba(124,58,237,.2)}#controls{margin-top:15px;display:flex;gap:10px}button{padding:10px 24px;border:none;border-radius:8px;background:#7c3aed;color:#fff;font-weight:700;cursor:pointer}button:hover{background:#a855f7}');
+    createFileByPath('game.js','const canvas=document.getElementById("canvas"),ctx=canvas.getContext("2d"),scoreEl=document.getElementById("score"),highEl=document.getElementById("high");const gs=20,tc=canvas.width/gs;let snake=[{x:10,y:10}],velocity={x:0,y:0},food={x:15,y:15},score=0,high=localStorage.getItem("snakeHigh")||0,playing=false;highEl.textContent="High: "+high;function draw(){ctx.fillStyle="#161b22";ctx.fillRect(0,0,canvas.width,canvas.height);ctx.fillStyle="#f85149";ctx.fillRect(food.x*gs,food.y*gs,gs-2,gs-2);ctx.fillStyle="#3fb950";snake.forEach((s,i)=>{ctx.fillRect(s.x*gs,s.y*gs,gs-2,gs-2);if(i===0){ctx.fillStyle="#2ea043";ctx.fillRect(s.x*gs+4,s.y*gs+4,4,4);ctx.fillRect(s.x*gs+12,s.y*gs+4,4,4);}});}function update(){if(!playing)return;const head={x:snake[0].x+velocity.x,y:snake[0].y+velocity.y};if(head.x<0)head.x=tc-1;if(head.x>=tc)head.x=0;if(head.y<0)head.y=canvas.height/gs-1;if(head.y>=canvas.height/gs)head.y=0;if(snake.some(s=>s.x===head.x&&s.y===head.y)){playing=false;alert("Game Over! Score: "+score);if(score>high){high=score;localStorage.setItem("snakeHigh",high);highEl.textContent="High: "+high;}return;}snake.unshift(head);if(head.x===food.x&&head.y===food.y){score+=10;scoreEl.textContent="Score: "+score;food={x:Math.floor(Math.random()*tc),y:Math.floor(Math.random()*(canvas.height/gs))};}else{snake.pop();}}setInterval(()=>{update();draw();},100);document.addEventListener("keydown",e=>{if(e.key==="ArrowUp"&&velocity.y===0){velocity={x:0,y:-1};playing=true;}if(e.key==="ArrowDown"&&velocity.y===0){velocity={x:0,y:1};playing=true;}if(e.key==="ArrowLeft"&&velocity.x===0){velocity={x:-1,y:0};playing=true;}if(e.key==="ArrowRight"&&velocity.x===0){velocity={x:1,y:0};playing=true;}});document.getElementById("start").addEventListener("click",()=>{snake=[{x:10,y:10}];velocity={x:0,y:0};score=0;scoreEl.textContent="Score: 0";playing=true;});document.getElementById("pause").addEventListener("click",()=>{playing=!playing;});draw();');
+    return '✅ Generated complete Snake game with scoring and high score!';
+  }
+
+  // ===== TETRIS =====
+  if(kind==='tetris'||kind==='blocks'||kind==='puzzle'){
+    createFileByPath('main.admin','<main id="game"><div id="side"><h1>🧱 Tetris</h1><div id="score">Score: 0</div><div id="level">Level: 1</div><div id="lines">Lines: 0</div><button id="start">New Game</button><div class="controls"><p>← → Move</p><p>↑ Rotate</p><p>↓ Soft Drop</p><p>Space Hard Drop</p></div></div><canvas id="canvas" width="300" height="600"></canvas></main>');
+    createFileByPath('style.css','*{margin:0;padding:0;box-sizing:border-box}body{margin:0;background:#0d1117;color:#fff;font-family:Nunito,sans-serif;height:100vh;display:flex;align-items:center;justify-content:center}#game{display:flex;gap:30px;align-items:flex-start}#side{width:150px}h1{color:#a855f7;margin-bottom:15px;font-size:1.5em}#score,#level,#lines{margin:8px 0;padding:10px;background:#161b22;border-radius:6px;font-weight:700}#score{color:#ffd700}#level{color:#58a6ff}#lines{color:#3fb950}button{margin-top:20px;width:100%;padding:12px;border:none;border-radius:8px;background:#7c3aed;color:#fff;font-weight:700;cursor:pointer}button:hover{background:#a855f7}.controls{margin-top:20px;font-size:.75em;color:#8b949e}.controls p{margin:4px 0}canvas{border:3px solid #30363d;border-radius:8px;background:#161b22;box-shadow:0 0 30px rgba(124,58,237,.2)}');
+    createFileByPath('game.js','const canvas=document.getElementById("canvas"),ctx=canvas.getContext("2d"),COLS=10,ROWS=20,BLOCK=30;const COLORS=["#f85149","#ffa657","#ffd700","#3fb950","#58a6ff","#a855f7","#ff6b9d"];const SHAPES=[[[1,1,1,1]],[[1,1],[1,1]],[[1,1,1],[0,1,0]],[[1,1,1],[1,0,0]],[[1,1,1],[0,0,1]],[[0,1,1],[1,1,0]],[[1,1,0],[0,1,1]]];let board=Array(ROWS).fill().map(()=>Array(COLS).fill(0)),currentPiece=null,score=0,level=1,lines=0,dropCounter=0,lastTime=0,playing=false;function newPiece(){const type=Math.floor(Math.random()*SHAPES.length);return{shape:SHAPES[type],color:COLORS[type],x:Math.floor(COLS/2)-1,y:0};}function draw(){ctx.fillStyle="#161b22";ctx.fillRect(0,0,canvas.width,canvas.height);for(let r=0;r<ROWS;r++)for(let c=0;c<COLS;c++)if(board[r][c]){ctx.fillStyle=board[r][c];ctx.fillRect(c*BLOCK,r*BLOCK,BLOCK-2,BLOCK-2);}if(currentPiece){ctx.fillStyle=currentPiece.color;currentPiece.shape.forEach((row,y)=>row.forEach((val,x)=>{if(val)ctx.fillRect((currentPiece.x+x)*BLOCK,(currentPiece.y+y)*BLOCK,BLOCK-2,BLOCK-2);}));}}function collide(){return currentPiece.shape.some((row,y)=>row.some((val,x)=>{if(!val)return false;const ny=currentPiece.y+y,nx=currentPiece.x+x;return ny>=ROWS||nx<0||nx>=COLS||board[ny]?.[nx];}));}function merge(){currentPiece.shape.forEach((row,y)=>row.forEach((val,x)=>{if(val)board[currentPiece.y+y][currentPiece.x+x]=currentPiece.color;}));}function clearLines(){let linesCleared=0;for(let r=ROWS-1;r>=0;r--){if(board[r].every(c=>c!==0)){board.splice(r,1);board.unshift(Array(COLS).fill(0));linesCleared++;r++;}}if(linesCleared>0){lines+=linesCleared;score+=linesCleared*100*level;level=Math.floor(lines/10)+1;document.getElementById("score").textContent="Score: "+score;document.getElementById("level").textContent="Level: "+level;document.getElementById("lines").textContent="Lines: "+lines;}}function rotate(){const rotated=currentPiece.shape[0].map((_,i)=>currentPiece.shape.map(r=>r[i]).reverse());const old=currentPiece.shape;currentPiece.shape=rotated;if(collide())currentPiece.shape=old;}function update(time=0){const dt=time-lastTime;lastTime=time;dropCounter+=dt;if(dropCounter>1000/level){currentPiece.y++;if(collide()){currentPiece.y--;merge();clearLines();currentPiece=newPiece();if(collide()){playing=false;alert("Game Over! Score: "+score);return;}}dropCounter=0;}if(playing)requestAnimationFrame(update);draw();}document.addEventListener("keydown",e=>{if(!playing)return;if(e.key==="ArrowLeft"){currentPiece.x--;if(collide())currentPiece.x++;}if(e.key==="ArrowRight"){currentPiece.x++;if(collide())currentPiece.x--;}if(e.key==="ArrowDown"){currentPiece.y++;if(collide()){currentPiece.y--;merge();clearLines();}}if(e.key==="ArrowUp")rotate();if(e.key===" "){while(!collide())currentPiece.y++;currentPiece.y--;merge();clearLines();}});document.getElementById("start").addEventListener("click",()=>{board=Array(ROWS).fill().map(()=>Array(COLS).fill(0));score=0;level=1;lines=0;document.getElementById("score").textContent="Score: 0";document.getElementById("level").textContent="Level: 1";document.getElementById("lines").textContent="Lines: 0";currentPiece=newPiece();playing=true;update();});currentPiece=newPiece();draw();');
+    return '✅ Generated complete Tetris with rotation, scoring, and level progression!';
+  }
+
+  // ===== PONG =====
+  if(kind==='pong'||kind==='tennis'||kind==='ball'){
+    createFileByPath('main.admin','<main id="game"><div id="header"><h1>🏓 Pong</h1><div id="score"><span id="p1">0</span> - <span id="p2">0</span></div></div><canvas id="canvas" width="800" height="400"></canvas><div id="controls"><button id="start">Start</button><button id="reset">Reset</button></div><p class="help">W/S for Player 1 | ↑/↓ for Player 2</p></main>');
+    createFileByPath('style.css','*{margin:0;padding:0;box-sizing:border-box}body{margin:0;background:#0d1117;color:#fff;font-family:Nunito,sans-serif;height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center}#game{text-align:center}h1{color:#a855f7;margin-bottom:10px}#score{font-size:2em;font-weight:800;color:#ffd700;margin-bottom:10px}canvas{border:3px solid #30363d;border-radius:8px;background:#161b22;box-shadow:0 0 40px rgba(124,58,237,.3)}#controls{margin-top:15px;display:flex;gap:10px}button{padding:12px 28px;border:none;border-radius:8px;background:#7c3aed;color:#fff;font-weight:700;cursor:pointer;font-size:1em}button:hover{background:#a855f7}.help{margin-top:15px;color:#8b949e;font-size:.9em}');
+    createFileByPath('game.js','const canvas=document.getElementById("canvas"),ctx=canvas.getContext("2d"),P1=document.getElementById("p1"),P2=document.getElementById("p2");const PADDLE_W=15,PADDLE_H=80,BALL=12;let p1Y=160,p2Y=160,ball={x:400,y:200,dx:5,dy:3},p1Score=0,p2Score=0,playing=false;const keys={};document.addEventListener("keydown",e=>keys[e.key]=true);document.addEventListener("keyup",e=>keys[e.key]=false);function draw(){ctx.fillStyle="#161b22";ctx.fillRect(0,0,canvas.width,canvas.height);ctx.strokeStyle="#30363d";ctx.setLineDash([5,5]);ctx.beginPath();ctx.moveTo(canvas.width/2,0);ctx.lineTo(canvas.width/2,canvas.height);ctx.stroke();ctx.setLineDash([]);ctx.fillStyle="#58a6ff";ctx.fillRect(20,p1Y,PADDLE_W,PADDLE_H);ctx.fillStyle="#f85149";ctx.fillRect(canvas.width-35,p2Y,PADDLE_W,PADDLE_H);ctx.fillStyle="#ffd700";ctx.beginPath();ctx.arc(ball.x,ball.y,BALL/2,0,Math.PI*2);ctx.fill();}function update(){if(!playing)return;if(keys["w"]||keys["W"])p1Y=Math.max(0,p1Y-8);if(keys["s"]||keys["S"])p1Y=Math.min(canvas.height-PADDLE_H,p1Y+8);if(keys["ArrowUp"])p2Y=Math.max(0,p2Y-8);if(keys["ArrowDown"])p2Y=Math.min(canvas.height-PADDLE_H,p2Y+8);ball.x+=ball.dx;ball.y+=ball.dy;if(ball.y<0||ball.y>canvas.height)ball.dy=-ball.dy;if(ball.x<35&&ball.y>p1Y&&ball.y<p1Y+PADDLE_H){ball.dx=-ball.dx*1.05;ball.x=35;}if(ball.x>canvas.width-35&&ball.y>p2Y&&ball.y<p2Y+PADDLE_H){ball.dx=-ball.dx*1.05;ball.x=canvas.width-35;}if(ball.x<0){p2Score++;P2.textContent=p2Score;resetBall();}if(ball.x>canvas.width){p1Score++;P1.textContent=p1Score;resetBall();}}function resetBall(){ball.x=400;ball.y=200;ball.dx=(Math.random()>.5?1:-1)*5;ball.dy=(Math.random()-.5)*6;}function loop(){update();draw();requestAnimationFrame(loop);}document.getElementById("start").addEventListener("click",()=>{playing=!playing;if(playing)loop();});document.getElementById("reset").addEventListener("click",()=>{p1Score=0;p2Score=0;P1.textContent="0";P2.textContent="0";resetBall();playing=false;});loop();');
+    return '✅ Generated complete Pong with 2-player controls and scoring!';
+  }
+
+  // ===== FLAPPY BIRD =====
+  if(kind==='flappy'||kind==='bird'||kind==='flappybird'){
+    createFileByPath('main.admin','<main id="game"><div id="header"><h1>🐦 Flappy</h1><div id="score">0</div></div><canvas id="canvas" width="400" height="600"></canvas><div id="controls"><button id="start">Start / Jump</button></div></main>');
+    createFileByPath('style.css','*{margin:0;padding:0;box-sizing:border-box}body{margin:0;background:linear-gradient(180deg,#87CEEB 0%,#E0F6FF 100%);font-family:Nunito,sans-serif;height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center}#game{text-align:center}h1{color:#333;margin-bottom:5px}#score{font-size:2.5em;font-weight:800;color:#ffd700;text-shadow:2px 2px 4px rgba(0,0,0,.3)}canvas{border:4px solid #333;border-radius:12px;background:linear-gradient(180deg,#87CEEB 0%,#E0F6FF 70%,#7CFC00 70%,#228B22 100%);box-shadow:0 10px 40px rgba(0,0,0,.3)}#controls{margin-top:15px}button{padding:15px 40px;border:none;border-radius:30px;background:#FF6B6B;color:#fff;font-weight:800;font-size:1.1em;cursor:pointer;box-shadow:0 5px 15px rgba(255,107,107,.4)}button:hover{background:#FF5252;transform:translateY(-2px)}');
+    createFileByPath('game.js','const canvas=document.getElementById("canvas"),ctx=canvas.getContext("2d"),scoreEl=document.getElementById("score");let bird={x:80,y:250,velocity:0,gravity:.5,jump:-9},pipes=[],score=0,playing=false;function drawBird(){ctx.fillStyle="#FFD700";ctx.beginPath();ctx.arc(bird.x,bird.y,15,0,Math.PI*2);ctx.fill();ctx.fillStyle="#FFA500";ctx.beginPath();ctx.arc(bird.x+5,bird.y+5,8,0,Math.PI*2);ctx.fill();ctx.fillStyle="#FFF";ctx.beginPath();ctx.arc(bird.x-3,bird.y-3,4,0,Math.PI*2);ctx.fill();ctx.fillStyle="#000";ctx.beginPath();ctx.arc(bird.x-3,bird.y-3,2,0,Math.PI*2);ctx.fill();ctx.fillStyle="#FF6B35";ctx.beginPath();ctx.moveTo(bird.x+10,bird.y+2);ctx.lineTo(bird.x+20,bird.y+5);ctx.lineTo(bird.x+10,bird.y+8);ctx.fill();}function draw(){ctx.clearRect(0,0,canvas.width,canvas.height);ctx.fillStyle="#228B22";ctx.fillRect(0,canvas.height-50,canvas.width,50);pipes.forEach(p=>{ctx.fillStyle="#3fb950";ctx.fillRect(p.x,0,60,p.top);ctx.fillRect(p.x,p.bottom,60,canvas.height-p.bottom);ctx.fillStyle="#2ea043";ctx.fillRect(p.x-3,p.top-20,66,20);ctx.fillRect(p.x-3,p.bottom,66,20);});drawBird();}function update(){if(!playing)return;bird.velocity+=bird.gravity;bird.y+=bird.velocity;if(bird.y>canvas.height-65||bird.y<0){gameOver();return;}pipes.forEach(p=>{p.x-=3;if(p.x+60<bird.x&&!p.passed){p.passed=true;score++;scoreEl.textContent=score;}if(bird.x+15>p.x&&bird.x-15<p.x+60&&(bird.y-15<p.top||bird.y+15>p.bottom)){gameOver();}});pipes=pipes.filter(p=>p.x>-100);if(pipes.length===0||pipes[pipes.length-1].x<canvas.width-200){const gap=160;const top=Math.random()*(canvas.height-gap-150)+50;pipes.push({x:canvas.width,top:top,bottom:top+gap,passed:false});}}function gameOver(){playing=false;alert("Game Over! Score: "+score);bird.y=250;bird.velocity=0;pipes=[];score=0;scoreEl.textContent="0";}function jump(){if(!playing){playing=true;bird.velocity=bird.jump;loop();}else{bird.velocity=bird.jump;}}function loop(){if(playing){update();draw();requestAnimationFrame(loop);}}document.getElementById("start").addEventListener("click",jump);document.addEventListener("keydown",e=>{if(e.key===" "||e.key==="ArrowUp")jump();});canvas.addEventListener("click",jump);draw();');
+    return '✅ Generated complete Flappy Bird with smooth physics!';
+  }
+
+  // ===== CLICKER/IDLE =====
+  if(kind==='clicker'||kind==='idle'||kind==='incremental'){
+    createFileByPath('main.admin','<main id="game"><div id="header"><h1>🍪 Cookie Clicker</h1><div id="stats"><div>🍪 <span id="cookies">0</span></div><div>cps: <span id="cps">0</span></div></div></div><div id="main"><div id="clicker"><div id="cookie">🍪</div></div><div id="shop"><h2>Shop</h2><div id="items"></div></div></div></main>');
+    createFileByPath('style.css','*{margin:0;padding:0;box-sizing:border-box}body{margin:0;background:linear-gradient(135deg,#1e3a5f 0%,#0d1117 100%);color:#fff;font-family:Nunito,sans-serif;height:100vh;overflow:hidden}#game{height:100vh;display:flex;flex-direction:column}#header{padding:15px 30px;background:rgba(0,0,0,.3);display:flex;justify-content:space-between;align-items:center}h1{color:#a855f7;font-size:1.5em}#stats{font-size:1.3em;font-weight:800}#stats span{color:#ffa657}#main{flex:1;display:flex}#clicker{flex:1;display:flex;align-items:center;justify-content:center}#cookie{font-size:200px;cursor:pointer;transition:transform .1s;user-select:none;filter:drop-shadow(0 10px 30px rgba(0,0,0,.5))}#cookie:hover{transform:scale(1.05)}#cookie:active{transform:scale(.95)}#shop{width:300px;background:rgba(0,0,0,.2);padding:20px;overflow-y:auto}h2{margin-bottom:15px;color:#a855f7}.item{padding:12px;margin-bottom:10px;background:rgba(255,255,255,.05);border-radius:8px;cursor:pointer;transition:background .2s;border:2px solid transparent}.item:hover{background:rgba(255,255,255,.1);border-color:#a855f7}.item.disabled{opacity:.5;cursor:not-allowed}.item-name{font-weight:700;margin-bottom:4px}.item-desc{font-size:.8em;color:#8b949e;margin-bottom:4px}.item-cost{color:#ffa657;font-weight:800}');
+    createFileByPath('game.js','let cookies=0,cps=0,clickPower=1;const items=[{name:"Cursor",desc:"+0.1 cps",cost:15,baseCps:.1},{name:"Grandma",desc:"+1 cps",cost:100,baseCps:1},{name:"Farm",desc:"+8 cps",cost:1100,baseCps:8},{name:"Mine",desc:"+47 cps",cost:12000,baseCps:47},{name:"Factory",desc:"+260 cps",cost:130000,baseCps:260}];const owned=items.map(()=>0);function updateUI(){document.getElementById("cookies").textContent=Math.floor(cookies).toLocaleString();document.getElementById("cps").textContent=cps.toFixed(1);const container=document.getElementById("items");container.innerHTML="";items.forEach((item,i)=>{const div=document.createElement("div");div.className="item"+(cookies<item.cost?" disabled":"");div.innerHTML=`<div class="item-name">${item.name} <small>(${owned[i]})</small></div><div class="item-desc">${item.desc}</div><div class="item-cost">🍪 ${item.cost.toLocaleString()}</div>`;div.onclick=()=>buyItem(i);container.appendChild(div);});}function buyItem(i){if(cookies<items[i].cost)return;cookies-=items[i].cost;owned[i]++;items[i].cost=Math.floor(items[i].cost*1.15);recalculateCps();updateUI();}function recalculateCps(){cps=items.reduce((sum,item,i)=>sum+item.baseCps*owned[i],0);}document.getElementById("cookie").onclick=function(){cookies+=clickPower;const c=this;c.style.transform="scale(.9)";setTimeout(()=>c.style.transform="scale(1)",100);updateUI();};setInterval(()=>{cookies+=cps/10;updateUI();},100);function renderShop(){updateUI();}renderShop();');
+    return '✅ Generated complete cookie clicker with shop and upgrades!';
+  }
+
+  // ===== RPG =====
+  if(kind==='rpg'||kind==='adventure'||kind==='dungeon'){
+    createFileByPath('main.admin','<main id="game"><div id="ui"><div id="stats"><div>❤️ <span id="hp">100</span>/<span id="maxHp">100</span></div><div>⚔️ <span id="atk">10</span></div><div>🛡️ <span id="def">5</span></div><div>💰 <span id="gold">0</span></div><div>⭐ Lv<span id="level">1</span></div></div><div id="xpBar"><div id="xpFill"></div></div></div><div id="world"><div id="player">🧙</div><div class="enemy" style="left:300px;top:200px;">👺</div><div class="enemy" style="left:500px;top:350px;">👹</div><div class="chest" style="left:200px;top:400px;">📦</div><div class="potion" style="left:450px;top:150px;">🧪</div></div><div id="controls"><button id="attack">⚔️ Attack</button><button id="heal">🧪 Heal</button><button id="flee">🏃 Flee</button></div><div id="log"></div></main>');
+    createFileByPath('style.css','*{margin:0;padding:0;box-sizing:border-box}body{margin:0;background:#0d1117;color:#fff;font-family:Nunito,sans-serif;height:100vh;overflow:hidden}#game{height:100vh;display:flex;flex-direction:column}#ui{padding:10px 20px;background:rgba(0,0,0,.5)}#stats{display:flex;gap:20px;justify-content:center;font-size:1.1em;font-weight:700}#stats span{color:#a855f7}#xpBar{height:8px;background:#21262d;border-radius:4px;margin-top:8px;overflow:hidden}#xpFill{height:100%;width:0%;background:linear-gradient(90deg,#a855f7,#c084fc);transition:width .3s}#world{flex:1;position:relative;background:linear-gradient(180deg,#1a1030 0%,#0d0820 100%)}#player,.enemy,.chest,.potion{position:absolute;font-size:48px;cursor:pointer;transition:transform .2s;user-select:none}#player{left:100px;top:300px;z-index:10;filter:drop-shadow(0 0 10px rgba(168,85,247,.5))}.enemy:hover{transform:scale(1.2)}.chest{animation:glow 2s infinite}@keyframes glow{0%,100%{filter:drop-shadow(0 0 5px gold)}50%{filter:drop-shadow(0 0 20px gold)}}.potion{animation:bob 1s infinite}@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}#controls{display:flex;gap:10px;justify-content:center;padding:10px;background:rgba(0,0,0,.3)}button{padding:12px 24px;border:none;border-radius:8px;font-weight:700;cursor:pointer;font-size:1em}#attack{background:#f85149;color:#fff}#heal{background:#3fb950;color:#fff}#flee{background:#58a6ff;color:#fff}#log{height:80px;background:#161b22;padding:10px;overflow-y:auto;font-size:.9em;border-top:2px solid #30363d}');
+    createFileByPath('game.js','const player={x:100,y:300,hp:100,maxHp:100,atk:10,def:5,gold:0,xp:0,level:1,maxXp:100};const enemies=[{el:document.querySelector(".enemy"),hp:30,atk:8,gold:15,xp:25},{el:document.querySelectorAll(".enemy")[1],hp:50,atk:12,gold:25,xp:40}];let activeEnemy=null;const logEl=document.getElementById("log");function log(msg){logEl.innerHTML+=`<div>${msg}</div>`;logEl.scrollTop=logEl.scrollHeight;}function updateUI(){document.getElementById("hp").textContent=player.hp;document.getElementById("maxHp").textContent=player.maxHp;document.getElementById("atk").textContent=player.atk;document.getElementById("def").textContent=player.def;document.getElementById("gold").textContent=player.gold;document.getElementById("level").textContent=player.level;document.getElementById("xpFill").style.width=(player.xp/player.maxXp*100)+"%";}function movePlayer(dx,dy){player.x+=dx;player.y+=dy;player.x=Math.max(0,Math.min(window.innerWidth-100,player.x));player.y=Math.max(80,Math.min(window.innerHeight-200,player.y));const p=document.getElementById("player");p.style.left=player.x+"px";p.style.top=player.y+"px";checkCollisions();}function checkCollisions(){enemies.forEach(e=>{if(!e.el||e.hp<=0)return;const r=e.el.getBoundingClientRect();const p=document.getElementById("player").getBoundingClientRect();if(Math.abs(r.left-p.left)<40&&Math.abs(r.top-p.top)<40){activeEnemy=e;log(`Encountered enemy! HP:${e.hp} ATK:${e.atk}`);}});document.querySelectorAll(".chest").forEach(c=>{if(c.opened)return;const r=c.getBoundingClientRect();const p=document.getElementById("player").getBoundingClientRect();if(Math.abs(r.left-p.left)<40&&Math.abs(r.top-p.top)<40){c.opened=true;c.textContent="📭";player.gold+=50;log("Found 50 gold in chest!");updateUI();}});document.querySelectorAll(".potion").forEach(pot=>{if(pot.used)return;const r=pot.getBoundingClientRect();const p=document.getElementById("player").getBoundingClientRect();if(Math.abs(r.left-p.left)<40&&Math.abs(r.top-p.top)<40){pot.used=true;pot.style.display="none";player.hp=Math.min(player.maxHp,player.hp+30);log("Healed 30 HP!");updateUI();}});}function attack(){if(!activeEnemy||activeEnemy.hp<=0){log("No enemy to attack!");return;}const dmg=Math.max(1,player.atk+Math.floor(Math.random()*5)-2);activeEnemy.hp-=dmg;log(`You deal ${dmg} damage! Enemy HP: ${activeEnemy.hp}`);if(activeEnemy.hp<=0){player.gold+=activeEnemy.gold;player.xp+=activeEnemy.xp;log(`Enemy defeated! +${activeEnemy.gold}g +${activeEnemy.xp}xp`);activeEnemy.el.style.display="none";activeEnemy=null;checkLevelUp();}else{const enemyDmg=Math.max(1,activeEnemy.atk-player.def);player.hp-=enemyDmg;log(`Enemy deals ${enemyDmg} damage!`);if(player.hp<=0){log("You died! Game Over.");player.hp=player.maxHp;player.gold=Math.floor(player.gold/2);}}updateUI();}function checkLevelUp(){if(player.xp>=player.maxXp){player.level++;player.xp-=player.maxXp;player.maxXp=Math.floor(player.maxXp*1.5);player.maxHp+=20;player.hp=player.maxHp;player.atk+=3;player.def+=2;log(`LEVEL UP! You are now level ${player.level}!`);}}function heal(){if(player.hp>=player.maxHp){log("Already at full HP!");return;}player.hp=Math.min(player.maxHp,player.hp+20);log("Healed 20 HP.");updateUI();}function flee(){activeEnemy=null;log("You fled from combat!");}document.addEventListener("keydown",e=>{if(e.key==="w"||e.key==="ArrowUp")movePlayer(0,-20);if(e.key==="s"||e.key==="ArrowDown")movePlayer(0,20);if(e.key==="a"||e.key==="ArrowLeft")movePlayer(-20,0);if(e.key==="d"||e.key==="ArrowRight")movePlayer(20,0);});document.getElementById("attack").onclick=attack;document.getElementById("heal").onclick=heal;document.getElementById("flee").onclick=flee;enemies.forEach(e=>e.el.onclick=()=>activeEnemy=e);log("Welcome adventurer! Use WASD to move. Click enemies or touch them to fight!");updateUI();');
+    return '✅ Generated complete RPG with stats, combat, leveling, and loot!';
+  }
+
+  // ===== RACING =====
+  if(kind==='racing'||kind==='racer'||kind==='car'||kind==='drive'){
+    createFileByPath('main.admin','<main id="game"><div id="ui"><h1>🏎️ Turbo Racer</h1><div id="stats"><div>Speed: <span id="speed">0</span> mph</div><div>Lap: <span id="lap">1</span>/3</div><div>Time: <span id="time">0</span>s</div></div></div><canvas id="canvas" width="800" height="600"></canvas><div id="controls"><p>Use WASD or Arrow Keys to drive!</p><button id="restart">Restart Race</button></div></main>');
+    createFileByPath('style.css','*{margin:0;padding:0;box-sizing:border-box}body{margin:0;background:#0d1117;color:#fff;font-family:Nunito,sans-serif;height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center}#game{text-align:center}h1{color:#a855f7;margin-bottom:10px}#stats{display:flex;gap:30px;justify-content:center;margin-bottom:10px;font-size:1.2em;font-weight:700}#stats span{color:#ffa657}canvas{border:4px solid #30363d;border-radius:8px;background:#1a1a2e}#controls{margin-top:10px}button{padding:12px 30px;border:none;border-radius:8px;background:#7c3aed;color:#fff;font-weight:700;cursor:pointer}button:hover{background:#a855f7}p{color:#8b949e}');
+    createFileByPath('game.js','const canvas=document.getElementById("canvas"),ctx=canvas.getContext("2d"),W=canvas.width,H=canvas.height;const car={x:400,y:500,angle:-Math.PI/2,speed:0,maxSpeed:12,accel:.2,friction:.95,turnSpeed:.07};let lap=1,lapStart=0,bestTime=Infinity,keys={};const checkpoints=[{x:400,y:50,r:60},{x:750,y:300,r:60},{x:400,y:550,r:60},{x:50,y:300,r:60}];let cpPassed=[false,false,false,false];document.addEventListener("keydown",e=>keys[e.key]=true);document.addEventListener("keyup",e=>keys[e.key]=false);function updateCar(){if(keys["ArrowUp"]||keys["w"])car.speed+=car.accel;if(keys["ArrowDown"]||keys["s"])car.speed-=car.accel;car.speed*=car.friction;if(Math.abs(car.speed)>0.1){const turn=(keys["ArrowLeft"]||keys["a"]?-1:0)+(keys["ArrowRight"]||keys["d"]?1:0);car.angle+=turn*car.turnSpeed*Math.min(Math.abs(car.speed)/car.maxSpeed,1);}car.x+=Math.cos(car.angle)*car.speed;car.y+=Math.sin(car.angle)*car.speed;if(car.x<20)car.x=20;if(car.x>W-20)car.x=W-20;if(car.y<20)car.y=20;if(car.y>H-20)car.y=H-20;checkpoints.forEach((cp,i)=>{const dx=car.x-cp.x,dy=car.y-cp.y,dist=Math.sqrt(dx*dx+dy*dy);if(dist<cp.r&&!cpPassed[i]){cpPassed[i]=true;if(i===0&&cpPassed.every(p=>p)){lap++;cpPassed=[false,false,false,false];const lapTime=Math.floor((Date.now()-lapStart)/1000);if(lapTime<bestTime)bestTime=lapTime;document.getElementById("lap").textContent=lap;}}});document.getElementById("speed").textContent=Math.abs(Math.round(car.speed*10));document.getElementById("time").textContent=Math.floor((Date.now()-lapStart)/1000);}function draw(){ctx.fillStyle="#1a1a2e";ctx.fillRect(0,0,W,H);ctx.strokeStyle="#333";ctx.lineWidth=80;ctx.strokeRect(40,40,W-80,H-80);ctx.strokeStyle="#555";ctx.lineWidth=4;ctx.setLineDash([20,20]);ctx.strokeRect(40,40,W-80,H-80);ctx.setLineDash([]);checkpoints.forEach((cp,i)=>{ctx.beginPath();ctx.arc(cp.x,cp.y,cp.r,0,Math.PI*2);ctx.fillStyle=cpPassed[i]?"rgba(63,185,80,.3)":"rgba(88,166,255,.3)";ctx.fill();ctx.strokeStyle=cpPassed[i]?"#3fb950":"#58a6ff";ctx.stroke();});ctx.save();ctx.translate(car.x,car.y);ctx.rotate(car.angle);ctx.fillStyle="#e74c3c";ctx.fillRect(-15,-10,30,20);ctx.fillStyle="#c0392b";ctx.fillRect(-10,-8,20,16);ctx.fillStyle="#333";ctx.fillRect(-12,-12,8,4);ctx.fillRect(4,-12,8,4);ctx.fillRect(-12,8,8,4);ctx.fillRect(4,8,8,4);ctx.restore();requestAnimationFrame(loop);}function loop(){updateCar();draw();}lapStart=Date.now();loop();document.getElementById("restart").onclick=()=>{car.x=400;car.y=500;car.speed=0;car.angle=-Math.PI/2;lap=1;cpPassed=[false,false,false,false];lapStart=Date.now();};');
+    return '✅ Generated complete racing game with lap timing and drifting!';
+  }
+
+  // ===== FIGHTING/BEAT EM UP =====
+  if(kind==='fighting'||kind==='fight'||kind==='brawler'||kind==='beat'){
+    createFileByPath('main.admin','<main id="game"><div id="ui"><h1>👊 Street Brawler</h1><div id="stats"><div id="p1Stats">P1 ❤️<span id="p1Hp">100</span> 🔥<span id="p1Meter">0</span>%</div><div id="timer">60</div><div id="p2Stats">P2 ❤️<span id="p2Hp">100</span> 🔥<span id="p2Meter">0</span>%</div></div></div><canvas id="canvas" width="900" height="500"></canvas><div id="controls"><div><strong>P1:</strong> WASD Move, F Punch, G Kick, H Special</div><div><strong>P2:</strong> Arrows Move, L Punch, K Kick, J Special</div><button id="reset">New Fight</button></div></main>');
+    createFileByPath('style.css','*{margin:0;padding:0;box-sizing:border-box}body{margin:0;background:linear-gradient(180deg,#1a1a2e 0%,#0d0d1a 100%);color:#fff;font-family:Nunito,sans-serif;height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center}#game{width:900px}h1{color:#a855f7;text-align:center;margin-bottom:10px}#stats{display:flex;justify-content:space-between;padding:10px 20px;background:rgba(0,0,0,.5);border-radius:8px;margin-bottom:5px}#p1Stats{color:#58a6ff;font-weight:800;font-size:1.1em}#p2Stats{color:#f85149;font-weight:800;font-size:1.1em}#timer{font-size:2em;font-weight:900;color:#ffd700}canvas{border:4px solid #30363d;border-radius:8px;background:linear-gradient(180deg,#2d1b4e 0%,#1a1a2e 100%)}#controls{margin-top:10px;display:flex;justify-content:space-between;align-items:center;font-size:.85em;color:#8b949e}button{padding:10px 24px;border:none;border-radius:6px;background:#7c3aed;color:#fff;font-weight:700;cursor:pointer}button:hover{background:#a855f7}');
+    createFileByPath('game.js','const canvas=document.getElementById("canvas"),ctx=canvas.getContext("2d"),GRAVITY=.8,GROUND=420;const p1={x:200,y:GROUND,w:50,h:80,hp:100,maxHp:100,vx:0,vy:0,speed:6,facing:1,state:"idle",anim:0,meter:0,color:"#58a6ff",keys:{left:"a",right:"d",jump:"w",punch:"f",kick:"g",special:"h"}};const p2={x:600,y:GROUND,w:50,h:80,hp:100,maxHp:100,vx:0,vy:0,speed:6,facing:-1,state:"idle",anim:0,meter:0,color:"#f85149",keys:{left:"ArrowLeft",right:"ArrowRight",jump:"ArrowUp",punch:"l",kick:"k",special:"j"}};let time=60,keys={},lastTime=Date.now();document.addEventListener("keydown",e=>keys[e.key]=true);document.addEventListener("keyup",e=>keys[e.key]=false);function updatePlayer(p,op){p.anim++;if(p.state!=="hit"&&p.state!=="attack"){p.vx=0;if(keys[p.keys.left]){p.vx=-p.speed;p.facing=-1;}if(keys[p.keys.right]){p.vx=p.speed;p.facing=1;}if(keys[p.keys.jump]&&p.y>=GROUND){p.vy=-18;}if(keys[p.keys.punch]&&p.state!=="attack"){p.state="attack";p.anim=0;p.attackType="punch";}if(keys[p.keys.kick]&&p.state!=="attack"){p.state="attack";p.anim=0;p.attackType="kick";}if(keys[p.keys.special]&&p.meter>=50&&p.state!=="attack"){p.state="attack";p.anim=0;p.attackType="special";p.meter=0;}}p.vy+=GRAVITY;p.x+=p.vx;p.y+=p.vy;if(p.y>GROUND){p.y=GROUND;p.vy=0;}if(p.x<0)p.x=0;if(p.x>canvas.width-p.w)p.x=canvas.width-p.w;if(p.state==="attack"&&p.anim>20){p.state="idle";checkHit(p,op);}if(p.state==="hit"&&p.anim>30)p.state="idle";p.meter=Math.min(100,p.meter+.05);}function checkHit(att,def){const reach=att.attackType==="kick"?100:70;const dist=Math.abs(att.x-def.x);if(dist<reach&&Math.abs(att.y-def.y)<40){let dmg=att.attackType==="punch"?8:att.attackType==="kick"?12:25;def.hp-=dmg;def.state="hit";def.anim=0;def.vx=att.facing*10;def.vy=-5;att.meter=Math.min(100,att.meter+10);createParticles(def.x+def.w/2,def.y+def.h/2,att.attackType==="special"?20:10,att.color);}}let particles=[];function createParticles(x,y,count,color){for(let i=0;i<count;i++){particles.push({x,y,vx:(Math.random()-.5)*10,vy:(Math.random()-.5)*10,life:30,color});}}function updateParticles(){particles=particles.filter(p=>{p.x+=p.vx;p.y+=p.vy;p.vy+=.5;p.life--;return p.life>0;});}function drawPlayer(p){ctx.fillStyle=p.color;ctx.fillRect(p.x,p.y-p.h,p.w,p.h);ctx.fillStyle="#fff";ctx.fillRect(p.x+(p.facing>0?35:10),p.y-p.h+15,12,8);ctx.fillRect(p.x+(p.facing>0?35:10),p.y-p.h+30,12,8);if(p.state==="attack"){ctx.fillStyle="#ffd700";const reach=p.attackType==="kick"?100:70;const ax=p.x+(p.facing>0?p.w:-reach);ctx.fillRect(ax,p.y-p.h+20,reach,20);ctx.fillStyle="#fff";ctx.font="20px Arial";ctx.fillText(p.attackType==="special"?"💥":p.attackType==="kick"?"🦶":"👊",ax+10,p.y-p.h);}if(p.state==="hit"){ctx.fillStyle="rgba(255,0,0,.5)";ctx.fillRect(p.x,p.y-p.h,p.w,p.h);}}function draw(){ctx.clearRect(0,0,canvas.width,canvas.height);ctx.fillStyle="#2d1b4e";ctx.fillRect(0,GROUND+80,canvas.width,100);ctx.fillStyle="#1a1a2e";ctx.fillRect(0,GROUND+20,canvas.width,60);ctx.strokeStyle="#7c3aed";ctx.lineWidth=3;ctx.strokeRect(0,GROUND+20,canvas.width,60);updatePlayer(p1,p2);updatePlayer(p2,p1);updateParticles();drawPlayer(p1);drawPlayer(p2);particles.forEach(p=>{ctx.fillStyle=p.color;ctx.beginPath();ctx.arc(p.x,p.y,4,0,Math.PI*2);ctx.fill();});document.getElementById("p1Hp").textContent=Math.max(0,p1.hp);document.getElementById("p2Hp").textContent=Math.max(0,p2.hp);document.getElementById("p1Meter").textContent=Math.floor(p1.meter);document.getElementById("p2Meter").textContent=Math.floor(p2.meter);if(Date.now()-lastTime>1000){time--;lastTime=Date.now();document.getElementById("timer").textContent=time;}if(time<=0||p1.hp<=0||p2.hp<=0){if(p1.hp>p2.hp)alert("P1 WINS!");else if(p2.hp>p1.hp)alert("P2 WINS!");else alert("DRAW!");return;}requestAnimationFrame(draw);}draw();document.getElementById("reset").onclick=()=>{p1.hp=100;p2.hp=100;p1.x=200;p2.x=600;time=60;p1.meter=0;p2.meter=0;};');
+    return '✅ Generated complete fighting game with combos, special moves, and meter system!';
+  }
+
+  // ===== SHOOTER/FPS =====
+  if(kind==='shooter'||kind==='fps'||kind==='shoot'||kind==='gun'){
+    createFileByPath('main.admin','<main id="game"><div id="ui"><h1>🔫 Space Shooter</h1><div id="stats"><div>Score: <span id="score">0</span></div><div>Wave: <span id="wave">1</span></div><div>Lives: <span id="lives">3</span></div></div></div><canvas id="canvas" width="800" height="600"></canvas><div id="controls"><p>WASD = Move | Click = Shoot | Space = Bomb</p><button id="start">Start Game</button></div></main>');
+    createFileByPath('style.css','*{margin:0;padding:0;box-sizing:border-box}body{margin:0;background:#0d1117;color:#fff;font-family:Nunito,sans-serif;height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center}#game{text-align:center}h1{color:#a855f7;margin-bottom:10px}#stats{display:flex;gap:30px;justify-content:center;margin-bottom:10px;font-size:1.1em;font-weight:700}#stats span{color:#ffa657}canvas{border:3px solid #30363d;border-radius:8px;background:radial-gradient(ellipse at bottom,#1a0b2e 0%,#0d0520 100%);cursor:crosshair}#controls{margin-top:10px}button{padding:12px 30px;border:none;border-radius:8px;background:#7c3aed;color:#fff;font-weight:700;cursor:pointer}button:hover{background:#a855f7}p{color:#8b949e;margin-top:8px}');
+    createFileByPath('game.js','const canvas=document.getElementById("canvas"),ctx=canvas.getContext("2d");const player={x:400,y:500,speed:6,size:20};let bullets=[],enemies=[],particles=[],score=0,wave=1,lives=3,playing=false,keys={},mouse={x:0,y:0};document.addEventListener("keydown",e=>keys[e.key]=true);document.addEventListener("keyup",e=>keys[e.key]=false);canvas.addEventListener("mousemove",e=>{const r=canvas.getBoundingClientRect();mouse.x=e.clientX-r.left;mouse.y=e.clientY-r.top;});canvas.addEventListener("mousedown",()=>{if(playing)bullets.push({x:player.x,y:player.y-20,vx:(mouse.x-player.x)*.05,vy:(mouse.y-player.y)*.05}));});function spawnEnemy(){const types=[{emoji:"👾",hp:1,score:10,speed:2},{emoji:"🚀",hp:2,score:20,speed:3},{emoji:"👻",hp:3,score:30,speed:1.5},{emoji:"🛸",hp:5,score:50,speed:1}];const type=types[Math.min(Math.floor(Math.random()*wave/2+Math.random()*2),types.length-1)];enemies.push({...type,x:Math.random()*(canvas.width-40)+20,y:-40,vy:type.speed});}function createParticles(x,y,color,count=8){for(let i=0;i<count;i++){particles.push({x,y,vx:(Math.random()-.5)*8,vy:(Math.random()-.5)*8,life:30,color});}}function update(){if(!playing)return;if(keys["w"]||keys["W"])player.y-=player.speed;if(keys["s"]||keys["S"])player.y+=player.speed;if(keys["a"]||keys["A"])player.x-=player.speed;if(keys["d"]||keys["D"])player.x+=player.speed;player.x=Math.max(20,Math.min(canvas.width-20,player.x));player.y=Math.max(20,Math.min(canvas.height-20,player.y));bullets=bullets.filter(b=>{b.x+=b.vx;b.y+=b.vy;return b.x>0&&b.x<canvas.width&&b.y>0&&b.y<canvas.height;});if(Math.random()<0.02+wave*.005)spawnEnemy();enemies=enemies.filter(e=>{e.y+=e.vy;const hit=bullets.find(b=>Math.abs(b.x-e.x)<20&&Math.abs(b.y-e.y)<20);if(hit){e.hp--;if(e.hp<=0){createParticles(e.x,e.y,"#ff6b6b",15);score+=e.score;document.getElementById("score").textContent=score;if(score>wave*100){wave++;document.getElementById("wave").textContent=wave;}}return false;}if(Math.abs(e.x-player.x)<25&&Math.abs(e.y-player.y)<25){lives--;createParticles(player.x,player.y,"#58a6ff",20);document.getElementById("lives").textContent=lives;if(lives<=0){playing=false;alert("Game Over! Score: "+score);}return false;}return e.y<canvas.height+50;});particles=particles.filter(p=>{p.x+=p.vx;p.y+=p.vy;p.life--;return p.life>0;});}function draw(){ctx.fillStyle="rgba(13,5,32,.3)";ctx.fillRect(0,0,canvas.width,canvas.height);ctx.save();ctx.translate(player.x,player.y);const angle=Math.atan2(mouse.y-player.y,mouse.x-player.x);ctx.rotate(angle+Math.PI/2);ctx.fillStyle="#58a6ff";ctx.fillRect(-15,-20,30,40);ctx.fillStyle="#7c3aed";ctx.fillRect(-8,-25,16,10);ctx.restore();bullets.forEach(b=>{ctx.fillStyle="#ffd700";ctx.beginPath();ctx.arc(b.x,b.y,5,0,Math.PI*2);ctx.fill();});enemies.forEach(e=>{ctx.font="30px Arial";ctx.fillText(e.emoji,e.x-15,e.y+10);ctx.fillStyle="#f85149";ctx.fillRect(e.x-15,e.y-25,30*e.hp/5,4);});particles.forEach(p=>{ctx.fillStyle=p.color;ctx.globalAlpha=p.life/30;ctx.beginPath();ctx.arc(p.x,p.y,4,0,Math.PI*2);ctx.fill();ctx.globalAlpha=1;});if(playing){update();requestAnimationFrame(draw);}}document.getElementById("start").addEventListener("click",()=>{score=0;wave=1;lives=3;bullets=[];enemies=[];particles=[];player.x=400;player.y=500;playing=true;document.getElementById("score").textContent="0";document.getElementById("wave").textContent="1";document.getElementById("lives").textContent="3";draw();});draw();');
+    return '✅ Generated complete space shooter with waves, enemies, and mouse aiming!';
+  }
+
+  // ===== TOWER DEFENSE =====
+  if(kind==='td'||kind==='tower'||kind==='defense'||kind==='towers'){
+    createFileByPath('main.admin','<main id="game"><div id="ui"><h1>🏰 Tower Defense</h1><div id="stats"><div>💰 <span id="money">100</span></div><div>❤️ <span id="lives">20</span></div><div>Wave: <span id="wave">1</span></div></div></div><canvas id="canvas" width="800" height="600"></canvas><div id="towers"><button data-type="arrow">🏹 Arrow (50)</button><button data-type="cannon">💣 Cannon (100)</button><button data-type="magic">✨ Magic (150)</button><button data-type="ice">❄️ Ice (200)</button></div></main>');
+    createFileByPath('style.css','*{margin:0;padding:0;box-sizing:border-box}body{margin:0;background:#0d1117;color:#fff;font-family:Nunito,sans-serif;height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center}#game{text-align:center}h1{color:#a855f7;margin-bottom:10px}#stats{display:flex;gap:30px;justify-content:center;margin-bottom:10px;font-size:1.2em;font-weight:700}#stats span{color:#ffd700}canvas{border:3px solid #30363d;border-radius:8px;background:#1a1a2e;cursor:crosshair}#towers{display:flex;gap:10px;margin-top:10px}#towers button{padding:10px 20px;border:2px solid #30363d;border-radius:8px;background:#21262d;color:#fff;font-weight:700;cursor:pointer;transition:all .2s}#towers button:hover{border-color:#a855f7;background:#30363d}#towers button.selected{border-color:#a855f7;background:rgba(168,85,247,.2)}');
+    createFileByPath('game.js','const canvas=document.getElementById("canvas"),ctx=canvas.getContext("2d"),TILE=40;const path=[{x:0,y:5},{x:3,y:5},{x:3,y:2},{x:7,y:2},{x:7,y:8},{x:12,y:8},{x:12,y:4},{x:16,y:4},{x:16,y:7},{x:19,y:7}];const towerTypes={arrow:{emoji:"🏹",cost:50,dmg:15,range:120,rate:30,color:"#ffd700"},cannon:{emoji:"💣",cost:100,dmg:40,range:100,rate:60,color:"#ff6b6b"},magic:{emoji:"✨",cost:150,dmg:25,range:150,rate:20,color:"#a855f7"},ice:{emoji:"❄️",cost:200,dmg:10,range:140,rate:45,color:"#58a6ff",slow:.5}};let money=100,lives=20,wave=1,enemies=[],towers=[],projectiles=[],particles=[],selectedTower=null,waveInProgress=false;const TYPES=[{hp:20,speed:1,reward:10,emoji:"👹"},{hp:40,speed:1.5,reward:15,emoji:"👺"},{hp:80,speed:.8,reward:25,emoji:"🐲"},{hp:150,speed:.5,reward:50,emoji:"👑"}];document.querySelectorAll("#towers button").forEach(b=>b.onclick=function(){document.querySelectorAll("#towers button").forEach(x=>x.classList.remove("selected"));this.classList.add("selected");selectedTower=this.dataset.type;});canvas.onclick=function(e){const r=canvas.getBoundingClientRect();const tx=Math.floor((e.clientX-r.left)/TILE),ty=Math.floor((e.clientY-r.top)/TILE);if(!selectedTower||money<towerTypes[selectedTower].cost)return;const onPath=path.some((p,i)=>{if(i===path.length-1)return false;const next=path[i+1];const minX=Math.min(p.x,next.x),maxX=Math.max(p.x,next.x);const minY=Math.min(p.y,next.y),maxY=Math.max(p.y,next.y);return tx>=minX&&tx<=maxX&&ty>=minY&&ty<=maxY;});if(onPath)return;const existing=towers.find(t=>t.x===tx&&t.y===ty);if(existing)return;towers.push({x:tx,y:ty,type:selectedTower,cooldown:0});money-=towerTypes[selectedTower].cost;document.getElementById("money").textContent=money;};function spawnWave(){waveInProgress=true;let count=5+wave*2;const interval=setInterval(()=>{if(count<=0){clearInterval(interval);waveInProgress=false;return;}const type=TYPES[Math.min(Math.floor(Math.random()*wave/2+Math.random()),TYPES.length-1)];enemies.push({...type,x:path[0].x*TILE+TILE/2,y:path[0].y*TILE+TILE/2,pathIdx:0,hp:type.hp,maxHp:type.hp,slowed:0});count--;},800);}function update(){enemies=enemies.filter(e=>{const target=path[e.pathIdx+1];if(!target){lives--;document.getElementById("lives").textContent=lives;if(lives<=0)alert("Game Over!");return false;}const tx=target.x*TILE+TILE/2,ty=target.y*TILE+TILE/2;const dx=tx-e.x,dy=ty-e.y,dist=Math.sqrt(dx*dx+dy*dy);const speed=e.speed*(e.slowed>0?.5:1);e.x+=dx/dist*speed;e.y+=dy/dist*speed;e.slowed=Math.max(0,e.slowed-1);if(dist<5)e.pathIdx++;return e.hp>0;});towers.forEach(t=>{const type=towerTypes[t.type];t.cooldown=Math.max(0,t.cooldown-1);if(t.cooldown<=0){const target=enemies.find(e=>{const dx=e.x-(t.x*TILE+TILE/2),dy=e.y-(t.y*TILE+TILE/2);return Math.sqrt(dx*dx+dy*dy)<type.rate;});if(target){t.cooldown=type.rate;projectiles.push({x:t.x*TILE+TILE/2,y:t.y*TILE+TILE/2,target,type});}}});projectiles=projectiles.filter(p=>{if(!enemies.includes(p.target))return false;const dx=p.target.x-p.x,dy=p.target.y-p.y,dist=Math.sqrt(dx*dx+dy*dy);const speed=8;p.x+=dx/dist*speed;p.y+=dy/dist*speed;if(dist<20){p.target.hp-=towerTypes[p.type].dmg;if(p.target.hp<=0){money+=p.target.reward;document.getElementById("money").textContent=money;enemies=enemies.filter(e=>e!==p.target);}if(towerTypes[p.type].slow)p.target.slowed=60;createParticles(p.x,p.y,towerTypes[p.type].color);return false;}return true;});particles=particles.filter(p=>{p.x+=p.vx;p.y+=p.vy;p.life--;return p.life>0;});}function createParticles(x,y,color){for(let i=0;i<8;i++)particles.push({x,y,vx:(Math.random()-.5)*6,vy:(Math.random()-.5)*6,life:20,color});}function draw(){ctx.fillStyle="#1a1a2e";ctx.fillRect(0,0,canvas.width,canvas.height);ctx.strokeStyle="#7c3aed";ctx.lineWidth=3;ctx.beginPath();path.forEach((p,i)=>{const x=p.x*TILE+TILE/2,y=p.y*TILE+TILE/2;if(i===0)ctx.moveTo(x,y);else ctx.lineTo(x,y);});ctx.stroke();path.forEach(p=>{ctx.fillStyle="#30363d";ctx.fillRect(p.x*TILE,p.y*TILE,TILE,TILE);});towers.forEach(t=>{const type=towerTypes[t.type];ctx.font="25px Arial";ctx.fillText(type.emoji,t.x*TILE+8,t.y*TILE+30);if(t.cooldown<=5){ctx.strokeStyle=type.color;ctx.beginPath();ctx.arc(t.x*TILE+TILE/2,t.y*TILE+TILE/2,type.range,0,Math.PI*2);ctx.stroke();}});enemies.forEach(e=>{ctx.font="28px Arial";ctx.fillText(e.emoji,e.x-14,e.y+10);ctx.fillStyle="#f85149";ctx.fillRect(e.x-15,e.y-30,30*(e.hp/e.maxHp),5);});projectiles.forEach(p=>{ctx.fillStyle=towerTypes[p.type].color;ctx.beginPath();ctx.arc(p.x,p.y,6,0,Math.PI*2);ctx.fill();});particles.forEach(p=>{ctx.fillStyle=p.color;ctx.globalAlpha=p.life/20;ctx.beginPath();ctx.arc(p.x,p.y,4,0,Math.PI*2);ctx.fill();ctx.globalAlpha=1;});if(enemies.length===0&&!waveInProgress){wave++;document.getElementById("wave").textContent=wave;spawnWave();}update();requestAnimationFrame(draw);}spawnWave();draw();');
+    return '✅ Generated complete tower defense with 4 tower types and enemy waves!';
+  }
+
+  // ===== DEFAULT/STARTER =====
   return '';
 }
 
@@ -1704,43 +1858,69 @@ function aiDo(msg){
   var ml=m.toLowerCase();
   var mlLoose=ml.replace(/[!?.,]/g,' ').replace(/\s+/g,' ').trim();
   var mlCore=mlLoose
-    .replace(/^(please|just|can you|could you|yo|hey)\s+/,'')
-    .replace(/\s+(please|now)$/,'')
+    .replace(/^(please|just|can you|could you|yo|hey|ok|okay)\s+/,'')
+    .replace(/\s+(please|now|thanks|thank you)$/,'')
     .trim();
   aiMemory.push(m);
-  if(aiMemory.length>20)aiMemory.shift();
-  var fileRefMatch=m.match(/([A-Za-z0-9_./-]+\.(?:html|admin|readme|read|css|js|ray))/i);
+  if(aiMemory.length>30)aiMemory.shift();
+  var fileRefMatch=m.match(/([A-Za-z0-9_./-]+\.(?:html|admin|readme|read|css|js|ray|json|md|txt))/i);
   if(fileRefMatch){
     aiContextFile=fileRefMatch[1].split('/').filter(Boolean).pop();
   }
 
+  // ===== GREETINGS & IDENTITY =====
+  if(/^(hi|hello|hey|yo|sup|howdy|greetings)\b/.test(ml))return 'Yo! I\'m your Creator AI. I can build games, write code, manage files, create art, debug errors, and much more. Try "make rpg" or "create snake game"!';
+  if(/who are you|what are you|introduce yourself/.test(ml))return 'I\'m Creator AI v2.0 — a local AI that runs entirely in your browser. I can: create/delete files, generate complete games (RPG, FPS, platformer, puzzle, etc.), write HTML/CSS/JS, fix bugs, refactor code, create characters, manage scenes, and even give you game design advice. No internet required!';
+  if(/what can you do|help me|commands|capabilities/.test(ml)){
+    return '🎮 **GAME CREATION**: make rpg, make fps, make platformer, make snake, make tetris, make pong, make flappy, make clicker, make racer\n📁 **FILES**: create file X, delete file X, list files, rename X to Y, copy X to Y, search for X, replace X with Y\n💻 **CODE**: add CSS, add JavaScript, fix bugs, refactor, optimize, add animation, add particles, add sound\n🎨 **ART**: create character, make pixel art, generate palette, create animation\n🧹 **CLEANUP**: delete all files, clear project, organize files\nJust ask naturally — "make a Mario-style platformer" or "add a scoring system"!';
+  }
+
+  // ===== SETTINGS & UTILITIES =====
   if(/^(refresh|reset)\s+(ai\s+)?credits\b/.test(ml) || /^credits\b/.test(ml)){
-    aiCredits=50;
+    aiCredits=9999;
     currentProject.aiCredits=aiCredits;
     saveProjects();
     updateAiCreditsUI();
     aiLastAction='ran command';
-    return 'Credits refreshed to 50.';
+    return 'Credits refreshed to 9999. You have unlimited AI usage!';
   }
-
-  if(/^(turbo on|fast mode on|speed on)$/i.test(ml)){aiTurboMode=true;aiLastAction='ran command';return 'Turbo mode enabled. I will respond and write code as fast as possible.';}
+  if(/^(turbo on|fast mode on|speed on|unlimited)/i.test(ml)){aiTurboMode=true;aiCredits=9999;aiLastAction='ran command';return '⚡ TURBO MODE + UNLIMITED CREDITS ACTIVATED! I\'m now 50x smarter and faster!';
+  }
   if(/^(turbo off|fast mode off|speed off)$/i.test(ml)){aiTurboMode=false;aiLastAction='ran command';return 'Turbo mode disabled.';}
-  if(/10 code|10x|very fast|super fast/.test(ml)){aiTurboMode=true;aiLastAction='ran command';return 'Turbo mode is ON. I can generate multiple files and snippets in one shot.';}
+  if(/unlimited credits|infinite credits/.test(ml)){aiCredits=999999;currentProject.aiCredits=aiCredits;saveProjects();updateAiCreditsUI();aiLastAction='ran command';return '💎 UNLIMITED CREDITS ACTIVATED! You now have 999,999 credits.';}
 
-  if(/^(hi|hello|hey|yo)\b/.test(ml))return 'Yo. I am your local Creator AI. Ask me to build files, generate game code, or edit your current file.';
-  if(/who are you|what are you/.test(ml))return 'I run fully inside your Creator app (no external API). I can manage files, generate code, and modify project content.';
-  if(/list files|show files|what files/.test(ml)){
+  // ===== FILE MANAGEMENT =====
+  if(/list files|show files|what files|ls\b/.test(ml)){
     var files=listProjectFiles();
     aiLastAction='scanned files';
-    return files.length?'Files:\n- '+files.join('\n- '):'No files yet. Say "create file main.admin".';
+    return files.length?'📁 Files ('+files.length+'):\n- '+files.join('\n- '):'No files yet. Say "create file main.admin".';
+  }
+  if(/file count|how many files/.test(ml)){
+    var allFiles=[];collectFiles(currentProject.fileRoot,allFiles);
+    aiLastAction='counted files';
+    return 'You have '+allFiles.length+' files in this project.';
+  }
+  if(/show (?:me )?(?:the )?code|show content|read file/.test(ml)){
+    var af=getActiveFile();
+    if(!af)return 'No file selected. Click a file first.';
+    var content=af.content||'(empty)';
+    aiLastAction='read file';
+    return '📄 '+af.name+' ('+content.length+' chars):\n```\n'+content.slice(0,500)+(content.length>500?'...':'')+'\n```';
+  }
+  if(/file size|how big/.test(ml)){
+    var af=getActiveFile();if(!af)return 'No file selected.';
+    var size=(af.content||'').length;
+    aiLastAction='checked size';
+    return af.name+' is '+size+' characters ('+Math.round(size/1024*100)/100+' KB approx).';
   }
 
   // Plain-language destructive shortcuts
   if(/(delete|remove|wipe|clear)\s+(all\s+)?files\b/.test(mlCore) ||
      /(delete|remove|wipe|clear)\s+all\s+my\s+stuff\b/.test(mlCore) ||
      /(wipe|reset)\s+project\b/.test(mlCore) ||
-     /delete\s+everything\b/.test(mlCore)){
-    var keepMain={id:uid(),type:'file',name:'main.admin',content:'<main style="padding:24px;font-family:Nunito,sans-serif;"><h1>New Project</h1></main>'};
+     /delete\s+everything\b/.test(mlCore)||
+     /start fresh|new project|clean slate/.test(mlCore)){
+    var keepMain={id:uid(),type:'file',name:'main.admin',content:'<main style="padding:24px;font-family:Nunito,sans-serif;"><h1>New Project</h1><p>Ready to build something amazing!</p></main>'};
     currentProject.fileRoot.children=[keepMain];
     currentProject.scenes=[{id:uid(),name:'Scene 1',blocks:[]}];
     currentProject.characters=[];
@@ -1749,42 +1929,42 @@ function aiDo(msg){
     activeCodeFileId=keepMain.id;
     saveProjects();renderProjectFilesTree();renderSidebar();renderTabs();openCodeFile(keepMain.id);updateInfo();
     aiLastAction='deleted files';
-    return 'Deleted everything (files, scenes, characters) and created fresh main.admin.';
+    return '🗑️ Project wiped clean! Fresh main.admin created. Ready for your next masterpiece.';
   }
   if(/(delete|remove|clear)\s+all\s+scenes\b/.test(mlCore)){
     currentProject.scenes=[{id:uid(),name:'Scene 1',blocks:[]}];
     activeSceneId=currentProject.scenes[0].id;
     saveProjects();renderSidebar();
     aiLastAction='deleted scenes';
-    return 'Deleted all scenes and created a fresh Scene 1.';
+    return '🗑️ All scenes deleted. Fresh Scene 1 created.';
   }
   if(/(delete|remove|clear)\s+all\s+characters\b/.test(mlCore)){
     currentProject.characters=[];
     saveProjects();renderSidebar();updateInfo();
     aiLastAction='deleted characters';
-    return 'Deleted all characters.';
+    return '🗑️ All characters deleted.';
   }
   var deleteSceneByNum=mlCore.match(/(delete|remove)\s+scene\s+(\d+)/);
   if(deleteSceneByNum){
     var idx=parseInt(deleteSceneByNum[2],10)-1;
-    if(idx<0 || idx>=currentProject.scenes.length)return 'Scene not found.';
+    if(idx<0 || idx>=currentProject.scenes.length)return '❌ Scene not found.';
     var removed=currentProject.scenes.splice(idx,1)[0];
     if(!currentProject.scenes.length){currentProject.scenes=[{id:uid(),name:'Scene 1',blocks:[]}];}
     activeSceneId=currentProject.scenes[0].id;
     saveProjects();renderSidebar();openSceneTab(activeSceneId);
     aiLastAction='deleted scene';
-    return 'Deleted '+(removed.name||('Scene '+(idx+1)))+'.';
+    return '🗑️ Deleted '+(removed.name||('Scene '+(idx+1)))+'.';
   }
   var deleteSceneByNumAlt=mlCore.match(/scene\s+(\d+)\s+(delete|remove)/);
   if(deleteSceneByNumAlt){
     var idxAlt=parseInt(deleteSceneByNumAlt[1],10)-1;
-    if(idxAlt<0 || idxAlt>=currentProject.scenes.length)return 'Scene not found.';
+    if(idxAlt<0 || idxAlt>=currentProject.scenes.length)return '❌ Scene not found.';
     var removedAlt=currentProject.scenes.splice(idxAlt,1)[0];
     if(!currentProject.scenes.length){currentProject.scenes=[{id:uid(),name:'Scene 1',blocks:[]}];}
     activeSceneId=currentProject.scenes[0].id;
     saveProjects();renderSidebar();openSceneTab(activeSceneId);
     aiLastAction='deleted scene';
-    return 'Deleted '+(removedAlt.name||('Scene '+(idxAlt+1)))+'.';
+    return '🗑️ Deleted '+(removedAlt.name||('Scene '+(idxAlt+1)))+'.';
   }
   var deleteSceneByName=mlCore.match(/(delete|remove)\s+scenes?\/?(.+)$/);
   if(deleteSceneByName){
@@ -1796,7 +1976,7 @@ function aiDo(msg){
       activeSceneId=currentProject.scenes[0].id;
       saveProjects();renderSidebar();openSceneTab(activeSceneId);
       aiLastAction='deleted scene';
-      return 'Deleted '+removed2.name+'.';
+      return '🗑️ Deleted '+removed2.name+'.';
     }
   }
 
@@ -2007,13 +2187,65 @@ function aiDo(msg){
     aiLastAction='made character';
     return created?'Created a Dino character in Characters.':'Dino character already exists.';
   }
-  if(/platformer/.test(ml)){
+  // ===== NEW GAME TEMPLATES (50x MORE) =====
+  if(/\b(snake|snakegame)\b/.test(ml)){
+    var sn=aiWriteTemplate('snake');saveProjects();renderProjectFilesTree();
+    var sMain=findNodeByName('main.admin','file');if(sMain)openCodeFile(sMain.id);
+    aiLastAction='code done';return sn;
+  }
+  if(/\b(tetris|blocks|puzzle)\b/.test(ml)){
+    var te=aiWriteTemplate('tetris');saveProjects();renderProjectFilesTree();
+    var tMain=findNodeByName('main.admin','file');if(tMain)openCodeFile(tMain.id);
+    aiLastAction='code done';return te;
+  }
+  if(/\b(pong|tennis|ball)\b/.test(ml)){
+    var po=aiWriteTemplate('pong');saveProjects();renderProjectFilesTree();
+    var poMain=findNodeByName('main.admin','file');if(poMain)openCodeFile(poMain.id);
+    aiLastAction='code done';return po;
+  }
+  if(/\b(flappy|bird|flappybird)\b/.test(ml)){
+    var fl=aiWriteTemplate('flappy');saveProjects();renderProjectFilesTree();
+    var fMain=findNodeByName('main.admin','file');if(fMain)openCodeFile(fMain.id);
+    aiLastAction='code done';return fl;
+  }
+  if(/\b(clicker|idle|incremental|cookie)\b/.test(ml)){
+    var cl=aiWriteTemplate('clicker');saveProjects();renderProjectFilesTree();
+    var cMain=findNodeByName('main.admin','file');if(cMain)openCodeFile(cMain.id);
+    aiLastAction='code done';return cl;
+  }
+  if(/\b(rpg|adventure|dungeon|zelda)\b/.test(ml)){
+    var rp=aiWriteTemplate('rpg');saveProjects();renderProjectFilesTree();
+    var rMain=findNodeByName('main.admin','file');if(rMain)openCodeFile(rMain.id);
+    aiLastAction='code done';return rp;
+  }
+  if(/\b(racing|racer|car|drive|mario kart)\b/.test(ml)){
+    var ra=aiWriteTemplate('racing');saveProjects();renderProjectFilesTree();
+    var raMain=findNodeByName('main.admin','file');if(raMain)openCodeFile(raMain.id);
+    aiLastAction='code done';return ra;
+  }
+  if(/\b(fighting|fight|brawler|beat|street fighter)\b/.test(ml)){
+    var fi=aiWriteTemplate('fighting');saveProjects();renderProjectFilesTree();
+    var fiMain=findNodeByName('main.admin','file');if(fiMain)openCodeFile(fiMain.id);
+    aiLastAction='code done';return fi;
+  }
+  if(/\b(shooter|fps|shoot|gun|space invader)\b/.test(ml)){
+    var sh=aiWriteTemplate('shooter');saveProjects();renderProjectFilesTree();
+    var shMain=findNodeByName('main.admin','file');if(shMain)openCodeFile(shMain.id);
+    aiLastAction='code done';return sh;
+  }
+  if(/\b(td|tower|defense|towers)\b/.test(ml)){
+    var td=aiWriteTemplate('td');saveProjects();renderProjectFilesTree();
+    var tdMain=findNodeByName('main.admin','file');if(tdMain)openCodeFile(tdMain.id);
+    aiLastAction='code done';return td;
+  }
+  // Original templates
+  if(/\b(platformer|mario|jump)\b/.test(ml)){
     var pf=aiWriteTemplate('platformer');
     saveProjects();renderProjectFilesTree();var pMain=findNodeByName('main.admin','file');if(pMain)openCodeFile(pMain.id);
     aiLastAction='code done';
     return pf;
   }
-  if(/main menu|game menu|\bmenu\b/.test(ml)){
+  if(/\b(menu|mainmenu|ui)\b/.test(ml)){
     var mf=aiWriteTemplate('menu');
     saveProjects();renderProjectFilesTree();var mMain=findNodeByName('main.admin','file');if(mMain)openCodeFile(mMain.id);
     aiLastAction='code done';
@@ -2240,6 +2472,106 @@ renderLibrary();
 if(window.location.hash==='#library'){
   document.getElementById('libraryScreen').classList.remove('hidden');
 }
+
+// ====== VS CODE STYLE ACTIVITY BAR ======
+(function(){
+  var actItems=document.querySelectorAll('.act-item');
+  actItems.forEach(function(item){
+    item.addEventListener('click',function(){
+      actItems.forEach(function(i){i.classList.remove('active');});
+      this.classList.add('active');
+      var id=this.id;
+      if(id==='actAI')openAiModal();
+      if(id==='actExplorer'){
+        document.getElementById('edSidebar').style.display='flex';
+        document.getElementById('edSidebarHeader').innerHTML='<span>EXPLORER</span><span style="cursor:pointer;">⋯</span>';
+      }
+      if(id==='actSearch'){
+        document.getElementById('edSidebarHeader').innerHTML='<span>SEARCH</span><span style="cursor:pointer;">⋯</span>';
+        document.getElementById('stab-files').innerHTML='<div style="padding:20px;color:var(--muted);"><p>🔍 Search across files</p><input type="text" placeholder="Search..." style="width:100%;padding:8px;margin:10px 0;background:var(--bg3);border:1px solid var(--border);border-radius:4px;color:var(--text);"><p style="font-size:.8em;">Press Enter to search</p></div>';
+        document.getElementById('stab-chars').classList.add('hidden');
+        document.getElementById('stab-files').classList.remove('hidden');
+      }
+    });
+  });
+})();
+
+// ====== VS CODE STYLE KEYBOARD SHORTCUTS ======
+document.addEventListener('keydown',function(e){
+  // Ctrl+S = Save
+  if(e.ctrlKey && (e.key==='s'||e.key==='S')){
+    e.preventDefault();
+    if(currentProject){
+      currentProject.modified=Date.now();
+      saveProjects();
+      showToast('💾 Saved!');
+    }
+  }
+  // Ctrl+P = Quick Open / Run
+  if(e.ctrlKey && (e.key==='p'||e.key==='P')){
+    e.preventDefault();
+    if(currentProject)runGame();
+  }
+  // Ctrl+N = New File
+  if(e.ctrlKey && (e.key==='n'||e.key==='N')){
+    e.preventDefault();
+    var name=prompt('New file name:');if(name){
+      var r=createFileByPath(name,'');if(r.ok){saveProjects();renderProjectFilesTree();openCodeFile(r.file.id);}
+    }
+  }
+  // Ctrl+Shift+P = Command Palette (AI)
+  if(e.ctrlKey && e.shiftKey && (e.key==='p'||e.key==='P')){
+    e.preventDefault();
+    openAiModal();
+  }
+  // Ctrl+Shift+F = Search
+  if(e.ctrlKey && e.shiftKey && (e.key==='f'||e.key==='F')){
+    e.preventDefault();
+    document.getElementById('actSearch').click();
+  }
+  // Ctrl+B = Toggle Sidebar
+  if(e.ctrlKey && (e.key==='b'||e.key==='B')){
+    e.preventDefault();
+    var sb=document.getElementById('edSidebar');
+    sb.style.display=sb.style.display==='none'?'flex':'none';
+  }
+  // F5 = Run Game
+  if(e.key==='F5'){
+    e.preventDefault();
+    if(currentProject)runGame();
+  }
+  // F1 = Help
+  if(e.key==='F1'){
+    e.preventDefault();
+    alert('VS Code Style Shortcuts:\nCtrl+S - Save\nCtrl+P - Run Game\nCtrl+N - New File\nCtrl+I - AI Assistant\nCtrl+Shift+P - Command Palette\nCtrl+Shift+F - Search\nCtrl+B - Toggle Sidebar\nF5 - Run Game\nF1 - Help');
+  }
+  // Escape = Close modals
+  if(e.key==='Escape'){
+    document.getElementById('aiModal').classList.add('hidden');
+    document.getElementById('previewModal').classList.add('hidden');
+    document.getElementById('publishModal').classList.add('hidden');
+  }
+});
+
+function showToast(msg){
+  var t=document.createElement('div');
+  t.style.cssText='position:fixed;bottom:30px;right:30px;background:var(--accent);color:#fff;padding:10px 20px;border-radius:4px;z-index:1000;font-size:.9em;animation:fadeIn .3s;';
+  t.textContent=msg;
+  document.body.appendChild(t);
+  setTimeout(function(){t.style.opacity='0';t.style.transition='opacity .3s';},2000);
+  setTimeout(function(){t.remove();},2300);
+}
+
+// ====== STATUS BAR UPDATES ======
+setInterval(function(){
+  var el=document.getElementById('statusCredits');
+  if(el)el.textContent=aiCredits;
+  var cursorEl=document.getElementById('statusCursor');
+  if(cursorEl&&activeCodeFileId){
+    var ed=document.getElementById('codeEditor');
+    if(ed){var text=ed.value.substring(0,ed.selectionStart);var lines=text.split('\n');cursorEl.textContent='Ln '+lines.length+', Col '+(lines[lines.length-1].length+1);}
+  }
+},1000);
 </script>
 </body>
 </html>
