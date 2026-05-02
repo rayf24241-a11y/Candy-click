@@ -717,12 +717,11 @@ document.addEventListener('DOMContentLoaded', function() {
     </div>
     <div id="aiSettings" class="hidden" style="padding:16px;border-bottom:1px solid var(--border);background:var(--bg2);">
       <div style="display:flex;flex-direction:column;gap:12px;">
-        <div>
-          <label style="font-size:.8em;color:var(--muted);display:block;margin-bottom:4px;">OpenAI API Key</label>
-          <input id="aiApiKey" type="password" placeholder="sk-..." style="width:100%;padding:10px 14px;border:1px solid var(--border);border-radius:8px;background:var(--bg3);color:var(--text);font-size:.9em;" />
+        <div style="text-align:center;padding:8px;background:rgba(139,92,246,.1);border-radius:10px;border:1px solid rgba(139,92,246,.2);">
+          <span style="font-size:.85em;color:var(--accent3);">🔐 API secured via server proxy</span>
         </div>
         <div>
-          <label style="font-size:.8em;color:var(--muted);display:block;margin-bottom:4px;">Model</label>
+          <label style="font-size:.8em;color:var(--muted);display:block;margin-bottom:4px;">AI Model</label>
           <select id="aiModel" style="width:100%;padding:10px 14px;border:1px solid var(--border);border-radius:8px;background:var(--bg3);color:var(--text);font-size:.9em;">
             <option value="gpt-4o">GPT-4o (Recommended)</option>
             <option value="gpt-4o-mini">GPT-4o Mini (Faster)</option>
@@ -731,10 +730,7 @@ document.addEventListener('DOMContentLoaded', function() {
             <option value="local">Local Fallback</option>
           </select>
         </div>
-        <div style="display:flex;gap:8px;">
-          <button id="saveAiSettings" style="flex:1;padding:10px;background:var(--gradient-purple);border:none;border-radius:8px;color:#fff;font-weight:700;font-size:.85em;cursor:pointer;">Save Settings</button>
-          <button id="clearAiSettings" style="padding:10px 16px;background:var(--bg3);border:1px solid var(--border);border-radius:8px;color:var(--muted);font-size:.85em;cursor:pointer;">Clear</button>
-        </div>
+        <button id="saveAiSettings" style="padding:12px;background:var(--gradient-purple);border:none;border-radius:10px;color:#fff;font-weight:700;font-size:.9em;cursor:pointer;">Save Preference</button>
         <div id="aiSettingsStatus" style="font-size:.8em;text-align:center;"></div>
       </div>
     </div>
@@ -784,9 +780,8 @@ var aiLastAction = '';
 var aiContextFile = 'main.admin';
 
 // ====== AI API SETTINGS ======
-var aiApiKey = localStorage.getItem('rc_ai_key') || '';
 var aiModel = localStorage.getItem('rc_ai_model') || 'gpt-4o';
-var aiUseApi = !!aiApiKey;
+var aiUseApi = aiModel !== 'local';
 
 // ====== 20 BLOCK TYPES ======
 var BLOCK_TYPES = [
@@ -2665,29 +2660,15 @@ document.getElementById('closeAiBtn').addEventListener('click',closeAiModal);
 // AI Settings handlers
 document.getElementById('aiSettingsBtn').addEventListener('click',function(){
   document.getElementById('aiSettings').classList.toggle('hidden');
-  document.getElementById('aiApiKey').value = aiApiKey;
   document.getElementById('aiModel').value = aiModel;
 });
 document.getElementById('saveAiSettings').addEventListener('click',function(){
-  aiApiKey = document.getElementById('aiApiKey').value.trim();
   aiModel = document.getElementById('aiModel').value;
-  aiUseApi = !!aiApiKey && aiModel !== 'local';
-  localStorage.setItem('rc_ai_key', aiApiKey);
+  aiUseApi = aiModel !== 'local';
   localStorage.setItem('rc_ai_model', aiModel);
   updateAiModeIndicator();
-  document.getElementById('aiSettingsStatus').innerHTML = '<span style="color:var(--green);">✓ Settings saved!</span>';
+  document.getElementById('aiSettingsStatus').innerHTML = '<span style="color:var(--green);">✓ Model preference saved!</span>';
   setTimeout(function(){document.getElementById('aiSettingsStatus').innerHTML='';},2000);
-});
-document.getElementById('clearAiSettings').addEventListener('click',function(){
-  localStorage.removeItem('rc_ai_key');
-  localStorage.removeItem('rc_ai_model');
-  aiApiKey = '';
-  aiModel = 'gpt-4o';
-  aiUseApi = false;
-  document.getElementById('aiApiKey').value = '';
-  document.getElementById('aiModel').value = 'gpt-4o';
-  updateAiModeIndicator();
-  document.getElementById('aiSettingsStatus').innerHTML = '<span style="color:var(--orange);">Settings cleared</span>';
 });
 function updateAiModeIndicator(){
   var indicator = document.getElementById('aiModeIndicator');
@@ -2697,9 +2678,9 @@ function updateAiModeIndicator(){
 }
 updateAiModeIndicator();
 
-// ChatGPT API call function
+// ChatGPT API call via serverless proxy
 async function callChatGPT(userMessage, conversationHistory){
-  if(!aiApiKey || aiModel === 'local') return null;
+  if(aiModel === 'local') return null;
   
   var systemPrompt = `You are an expert game developer AI assistant for "RAYS CREAT3R" - a game creation tool. You help users create games, write code, and solve problems.
 
@@ -2726,27 +2707,24 @@ Active file: ${aiContextFile}`;
   messages.push({role: 'user', content: userMessage});
 
   try{
-    var response = await fetch('https://api.openai.com/v1/chat/completions', {
+    var response = await fetch('/api/chat', {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + aiApiKey
+        'Content-Type': 'application/json'
       },
       body: JSON.stringify({
         model: aiModel,
-        messages: messages,
-        max_tokens: 4000,
-        temperature: 0.7
+        messages: messages
       })
     });
     
     if(!response.ok){
       var err = await response.json();
-      throw new Error(err.error?.message || 'API error');
+      throw new Error(err.error || 'API error');
     }
     
     var data = await response.json();
-    return data.choices[0].message.content;
+    return data.content;
   }catch(e){
     console.error('ChatGPT API error:', e);
     return null;

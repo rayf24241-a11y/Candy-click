@@ -1,0 +1,12 @@
+{
+  "name": "rays-creat3r",
+  "version": "1.0.0",
+  "description": "AI-powered game creator with ChatGPT integration",
+  "scripts": {
+    "dev": "vercel dev",
+    "deploy": "vercel --prod"
+  },
+  "keywords": ["game", "creator", "ai", "chatgpt"],
+  "author": "Ray",
+  "license": "MIT"
+}
