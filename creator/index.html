@@ -317,19 +317,36 @@ input,textarea,select{font-family:'Nunito',sans-serif;}
 /* === GAME PREVIEW === */
 <<<<<<< C:/Users/rayf2/Downloads/Rays-Cool-games/rays-cool-games/creator/index.html
 <<<<<<< C:/Users/rayf2/Downloads/Rays-Cool-games/rays-cool-games/creator/index.html
+<<<<<<< C:/Users/rayf2/Downloads/Rays-Cool-games/rays-cool-games/creator/index.html
+<<<<<<< C:/Users/rayf2/Downloads/Rays-Cool-games/rays-cool-games/creator/index.html
 #previewModal{position:fixed;inset:0;background:rgba(0,0,0,.95);z-index:600;display:flex;flex-direction:column;}
 #previewModal .preview-header{display:flex;align-items:center;justify-content:space-between;padding:12px 20px;background:var(--bg2);border-bottom:1px solid var(--border);flex-shrink:0;}
 #previewModal h3{font-family:'Fredoka One',cursive;color:var(--accent3);font-size:1.3em;}
 .preview-close{padding:10px 24px;background:var(--red);border:none;border-radius:8px;color:#fff;font-size:.95em;font-weight:700;cursor:pointer;transition:all .2s;}
 .preview-close:hover{background:#ff6b6b;transform:translateY(-2px);}
+=======
+=======
+>>>>>>> C:/Users/rayf2/.windsurf/worktrees/rays-cool-games/rays-cool-games-d853d872/creator/index.html
+#previewModal{position:fixed;inset:0;background:#000;z-index:600;display:flex;flex-direction:column;}
+#previewModal .preview-header{flex-shrink:0;display:flex;align-items:center;justify-content:space-between;padding:12px 20px;background:var(--bg2);border-bottom:1px solid var(--border);}
+#previewModal h3{font-family:'Fredoka One',cursive;color:var(--accent3);font-size:1.3em;}
+.preview-close{padding:7px 16px;background:var(--bg2);border:1px solid var(--border2);border-radius:6px;color:var(--text);font-size:.85em;cursor:pointer;}
+.exit-test-btn{padding:7px 16px;background:#e74c3c;border:1px solid #c0392b;border-radius:6px;color:#fff;font-size:.85em;cursor:pointer;font-weight:700;transition:all .15s;}
+.exit-test-btn:hover{background:#c0392b;transform:translateY(-1px);}
+<<<<<<< C:/Users/rayf2/Downloads/Rays-Cool-games/rays-cool-games/creator/index.html
+>>>>>>> C:/Users/rayf2/.windsurf/worktrees/rays-cool-games/rays-cool-games-9fd0ebb2/creator/index.html
+=======
+>>>>>>> C:/Users/rayf2/.windsurf/worktrees/rays-cool-games/rays-cool-games-d853d872/creator/index.html
 #previewFrame{flex:1;width:100%;height:100%;background:#1a1a2e;overflow:hidden;position:relative;}
 #previewFrame iframe{width:100%;height:100%;border:none;}
 
 .ai-credit{font-size:.78em;color:var(--yellow);font-weight:800;}
 <<<<<<< C:/Users/rayf2/Downloads/Rays-Cool-games/rays-cool-games/creator/index.html
 #aiModal{position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:980;display:flex;align-items:center;justify-content:center;}
-.ai-box{width:560px;max-width:96vw;height:70vh;max-height:700px;background:var(--bg2);border:1px solid var(--border2);border-radius:14px;display:flex;flex-direction:column;overflow:hidden;}
+.ai-box{width:600px;max-width:96vw;height:70vh;max-height:700px;background:var(--bg2);border:1px solid var(--border2);border-radius:14px;display:flex;flex-direction:column;overflow:hidden;}
 .ai-head{display:flex;justify-content:space-between;align-items:center;padding:12px 14px;border-bottom:1px solid var(--border);}
+<<<<<<< C:/Users/rayf2/Downloads/Rays-Cool-games/rays-cool-games/creator/index.html
+<<<<<<< C:/Users/rayf2/Downloads/Rays-Cool-games/rays-cool-games/creator/index.html
 =======
 #aiModal{position:fixed;inset:0;background:rgba(0,0,0,.85);backdrop-filter:blur(8px);z-index:980;display:flex;align-items:center;justify-content:center;}
 .ai-box{width:620px;max-width:96vw;height:75vh;max-height:750px;background:var(--bg2);border:1px solid var(--border2);border-radius:20px;display:flex;flex-direction:column;overflow:hidden;box-shadow:var(--shadow-xl),var(--glow-purple);}
@@ -398,6 +415,31 @@ input,textarea,select{font-family:'Nunito',sans-serif;}
 <<<<<<< C:/Users/rayf2/Downloads/Rays-Cool-games/rays-cool-games/creator/index.html
 <<<<<<< C:/Users/rayf2/Downloads/Rays-Cool-games/rays-cool-games/creator/index.html
 <<<<<<< C:/Users/rayf2/Downloads/Rays-Cool-games/rays-cool-games/creator/index.html
+=======
+=======
+>>>>>>> C:/Users/rayf2/.windsurf/worktrees/rays-cool-games/rays-cool-games-d853d872/creator/index.html
+
+/* AI Character - Pixelated block with hammer */
+.ai-character-wrap{display:flex;align-items:center;gap:12px;}
+.ai-pixel-character{width:48px;height:48px;position:relative;image-rendering:pixelated;animation:hop 0.6s ease-in-out infinite;flex-shrink:0;}
+@keyframes hop{0%,100%{transform:translateY(0);}50%{transform:translateY(-8px);}}
+.ai-pixel-body{width:40px;height:40px;background:linear-gradient(135deg,#a855f7,#7c3aed);border:3px solid #fff;border-radius:4px;position:absolute;left:4px;top:4px;box-shadow:0 4px 12px rgba(124,58,237,.4);}
+.ai-pixel-face{position:absolute;left:8px;top:10px;width:32px;height:20px;}
+.ai-pixel-eye{width:6px;height:6px;background:#fff;border-radius:0;position:absolute;top:0;}
+.ai-pixel-eye.left{left:4px;}
+.ai-pixel-eye.right{right:4px;}
+.ai-pixel-smile{width:20px;height:6px;border-bottom:3px solid #fff;border-left:3px solid transparent;border-right:3px solid transparent;border-radius:0 0 10px 10px;position:absolute;bottom:2px;left:6px;}
+.ai-pixel-hammer{position:absolute;right:-8px;top:8px;width:24px;height:32px;animation:hammerSwing 0.6s ease-in-out infinite;transform-origin:4px 28px;}
+@keyframes hammerSwing{0%,100%{transform:rotate(-10deg);}50%{transform:rotate(15deg);}}
+.ai-hammer-handle{width:4px;height:24px;background:#8b4513;position:absolute;bottom:0;left:10px;border-radius:1px;}
+.ai-hammer-head{width:18px;height:14px;background:linear-gradient(135deg,#c0c0c0,#808080);position:absolute;top:0;left:3px;border-radius:2px;border:1px solid #606060;}
+.ai-hammer-face{width:12px;height:8px;background:#a0a0a0;position:absolute;top:3px;left:6px;border-radius:1px;}
+.ai-character-title{font-weight:800;font-size:1em;color:var(--text);}
+.ai-character-title span{font-size:.75em;color:var(--accent3);display:block;font-weight:600;}
+<<<<<<< C:/Users/rayf2/Downloads/Rays-Cool-games/rays-cool-games/creator/index.html
+>>>>>>> C:/Users/rayf2/.windsurf/worktrees/rays-cool-games/rays-cool-games-9fd0ebb2/creator/index.html
+=======
+>>>>>>> C:/Users/rayf2/.windsurf/worktrees/rays-cool-games/rays-cool-games-d853d872/creator/index.html
 .ai-log{flex:1;overflow-y:auto;padding:12px;display:flex;flex-direction:column;gap:8px;background:var(--bg);}
 .ai-msg{padding:8px 10px;border-radius:8px;font-size:.84em;line-height:1.45;max-width:90%;}
 .ai-msg.user{align-self:flex-end;background:rgba(88,166,255,.18);border:1px solid rgba(88,166,255,.35);}
@@ -709,8 +751,16 @@ document.addEventListener('DOMContentLoaded', function() {
 <!-- Preview Modal -->
 <div id="previewModal" class="hidden">
   <div class="preview-header">
+<<<<<<< C:/Users/rayf2/Downloads/Rays-Cool-games/rays-cool-games/creator/index.html
     <h3>🎮 Testing Game</h3>
     <button class="preview-close" id="closePreviewBtn">Exit Test</button>
+=======
+    <h3>▶ Game Preview</h3>
+    <button class="exit-test-btn" id="closePreviewBtn">✕ Exit Test</button>
+<<<<<<< C:/Users/rayf2/Downloads/Rays-Cool-games/rays-cool-games/creator/index.html
+>>>>>>> C:/Users/rayf2/.windsurf/worktrees/rays-cool-games/rays-cool-games-9fd0ebb2/creator/index.html
+=======
+>>>>>>> C:/Users/rayf2/.windsurf/worktrees/rays-cool-games/rays-cool-games-d853d872/creator/index.html
   </div>
   <div id="previewFrame"></div>
 </div>
@@ -790,6 +840,8 @@ document.addEventListener('DOMContentLoaded', function() {
 <<<<<<< C:/Users/rayf2/Downloads/Rays-Cool-games/rays-cool-games/creator/index.html
   <div class="ai-box">
     <div class="ai-head">
+<<<<<<< C:/Users/rayf2/Downloads/Rays-Cool-games/rays-cool-games/creator/index.html
+<<<<<<< C:/Users/rayf2/Downloads/Rays-Cool-games/rays-cool-games/creator/index.html
 =======
   <div class="ai-box glass" style="border-radius:20px;box-shadow:var(--shadow-xl),var(--glow-purple);">
     <div class="ai-head" style="background:linear-gradient(135deg,rgba(139,92,246,.2),rgba(168,85,247,.1));border-radius:20px 20px 0 0;">
@@ -828,6 +880,29 @@ document.addEventListener('DOMContentLoaded', function() {
 <<<<<<< C:/Users/rayf2/Downloads/Rays-Cool-games/rays-cool-games/creator/index.html
 <<<<<<< C:/Users/rayf2/Downloads/Rays-Cool-games/rays-cool-games/creator/index.html
         <div style="font-weight:800;">Creator AI <span id="aiCredits" class="ai-credit">50 credits</span> <button id="refreshAiCreditsBtn" style="margin-left:6px;padding:2px 8px;border:1px solid var(--border2);background:var(--bg3);color:var(--muted);border-radius:6px;font-size:.72em;cursor:pointer;">refresh</button></div>
+=======
+=======
+>>>>>>> C:/Users/rayf2/.windsurf/worktrees/rays-cool-games/rays-cool-games-d853d872/creator/index.html
+      <div class="ai-character-wrap">
+        <div class="ai-pixel-character">
+          <div class="ai-pixel-body">
+            <div class="ai-pixel-face">
+              <div class="ai-pixel-eye left"></div>
+              <div class="ai-pixel-eye right"></div>
+              <div class="ai-pixel-smile"></div>
+            </div>
+          </div>
+          <div class="ai-pixel-hammer">
+            <div class="ai-hammer-handle"></div>
+            <div class="ai-hammer-head"></div>
+            <div class="ai-hammer-face"></div>
+          </div>
+        </div>
+        <div class="ai-character-title">Creator AI <span id="aiCredits" class="ai-credit">50 credits</span> <button id="refreshAiCreditsBtn" style="margin-left:6px;padding:2px 8px;border:1px solid var(--border2);background:var(--bg3);color:var(--muted);border-radius:6px;font-size:.72em;cursor:pointer;">refresh</button></div>
+<<<<<<< C:/Users/rayf2/Downloads/Rays-Cool-games/rays-cool-games/creator/index.html
+>>>>>>> C:/Users/rayf2/.windsurf/worktrees/rays-cool-games/rays-cool-games-9fd0ebb2/creator/index.html
+=======
+>>>>>>> C:/Users/rayf2/.windsurf/worktrees/rays-cool-games/rays-cool-games-d853d872/creator/index.html
       </div>
       <button class="preview-close" id="closeAiBtn">Close</button>
 =======
@@ -933,7 +1008,7 @@ var aiContextFile = 'main.admin';
 // ====== AI API SETTINGS ======
 var aiApiKey = localStorage.getItem('rc_ai_key') || '';
 var aiModel = localStorage.getItem('rc_ai_model') || 'gpt-4o';
-var aiUseApi = !!aiApiKey;
+var aiUseApi = aiModel !== 'local';
 
 // ====== 20 BLOCK TYPES ======
 var BLOCK_TYPES = [
@@ -2065,10 +2140,10 @@ function aiWriteTemplate(kind){
 
   // ===== SNAKE =====
   if(kind==='snake'||kind==='snakegame'){
-    createFileByPath('main.admin','<main id="game"><div id="header"><h1>🐍 Snake</h1><div id="score">Score: 0</div><div id="high">High: 0</div></div><canvas id="canvas" width="600" height="400"></canvas><div id="controls"><button id="start">Start</button><button id="pause">Pause</button></div></main>');
-    createFileByPath('style.css','*{margin:0;padding:0;box-sizing:border-box}body{margin:0;background:#0d1117;color:#fff;font-family:Nunito,sans-serif;height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center}#game{text-align:center}#header{display:flex;gap:20px;justify-content:center;margin-bottom:10px}#score,#high{color:#3fb950;font-weight:800;font-size:1.2em}h1{color:#a855f7}canvas{border:3px solid #30363d;border-radius:8px;background:#161b22;box-shadow:0 0 30px rgba(124,58,237,.2)}#controls{margin-top:15px;display:flex;gap:10px}button{padding:10px 24px;border:none;border-radius:8px;background:#7c3aed;color:#fff;font-weight:700;cursor:pointer}button:hover{background:#a855f7}');
-    createFileByPath('game.js','const canvas=document.getElementById("canvas"),ctx=canvas.getContext("2d"),scoreEl=document.getElementById("score"),highEl=document.getElementById("high");const gs=20,tc=canvas.width/gs;let snake=[{x:10,y:10}],velocity={x:0,y:0},food={x:15,y:15},score=0,high=localStorage.getItem("snakeHigh")||0,playing=false;highEl.textContent="High: "+high;function draw(){ctx.fillStyle="#161b22";ctx.fillRect(0,0,canvas.width,canvas.height);ctx.fillStyle="#f85149";ctx.fillRect(food.x*gs,food.y*gs,gs-2,gs-2);ctx.fillStyle="#3fb950";snake.forEach((s,i)=>{ctx.fillRect(s.x*gs,s.y*gs,gs-2,gs-2);if(i===0){ctx.fillStyle="#2ea043";ctx.fillRect(s.x*gs+4,s.y*gs+4,4,4);ctx.fillRect(s.x*gs+12,s.y*gs+4,4,4);}});}function update(){if(!playing)return;const head={x:snake[0].x+velocity.x,y:snake[0].y+velocity.y};if(head.x<0)head.x=tc-1;if(head.x>=tc)head.x=0;if(head.y<0)head.y=canvas.height/gs-1;if(head.y>=canvas.height/gs)head.y=0;if(snake.some(s=>s.x===head.x&&s.y===head.y)){playing=false;alert("Game Over! Score: "+score);if(score>high){high=score;localStorage.setItem("snakeHigh",high);highEl.textContent="High: "+high;}return;}snake.unshift(head);if(head.x===food.x&&head.y===food.y){score+=10;scoreEl.textContent="Score: "+score;food={x:Math.floor(Math.random()*tc),y:Math.floor(Math.random()*(canvas.height/gs))};}else{snake.pop();}}setInterval(()=>{update();draw();},100);document.addEventListener("keydown",e=>{if(e.key==="ArrowUp"&&velocity.y===0){velocity={x:0,y:-1};playing=true;}if(e.key==="ArrowDown"&&velocity.y===0){velocity={x:0,y:1};playing=true;}if(e.key==="ArrowLeft"&&velocity.x===0){velocity={x:-1,y:0};playing=true;}if(e.key==="ArrowRight"&&velocity.x===0){velocity={x:1,y:0};playing=true;}});document.getElementById("start").addEventListener("click",()=>{snake=[{x:10,y:10}];velocity={x:0,y:0};score=0;scoreEl.textContent="Score: 0";playing=true;});document.getElementById("pause").addEventListener("click",()=>{playing=!playing;});draw();');
-    return '✅ Generated complete Snake game with scoring and high score!';
+    createFileByPath('main.admin','<main id="game"><div id="header"><h1>🐍 Snake</h1><div id="scoreBoard"><div id="score">Score: 0</div><div id="high">High: 0</div></div></div><div id="gameArea"><canvas id="canvas" width="600" height="400"></canvas><div id="overlay"><div id="startMsg">Press START or Arrow Keys to Play!</div></div></div><div id="controls"><button id="start">▶ Start</button><button id="pause">⏸ Pause</button></div><div id="instructions">Use Arrow Keys to move • Eat red apples • Don\'t hit yourself!</div></main>');
+    createFileByPath('style.css','*{margin:0;padding:0;box-sizing:border-box}body{margin:0;background:linear-gradient(135deg,#0d1117 0%,#161b22 50%,#0d1117 100%);color:#fff;font-family:"Nunito",sans-serif;height:100vh;overflow:hidden;display:flex;flex-direction:column;align-items:center;justify-content:center}#game{display:flex;flex-direction:column;align-items:center;gap:12px}#header{text-align:center}h1{color:#a855f7;font-size:2.2em;text-shadow:0 0 20px rgba(168,85,247,.5);margin-bottom:8px}#scoreBoard{display:flex;gap:30px;justify-content:center;font-weight:800;font-size:1.3em}#score{color:#3fb950;text-shadow:0 0 10px rgba(63,185,80,.5)}#high{color:#ffd700;text-shadow:0 0 10px rgba(255,215,0,.5)}#gameArea{position:relative;border:4px solid #30363d;border-radius:16px;box-shadow:0 0 50px rgba(124,58,237,.3),inset 0 0 100px rgba(0,0,0,.5)}canvas{border-radius:12px;background:radial-gradient(ellipse at center,#1a2332 0%,#0d1117 100%);display:block}#overlay{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.7);border-radius:12px;transition:opacity .3s}#overlay.hidden{opacity:0;pointer-events:none}#startMsg{color:#a855f7;font-size:1.3em;font-weight:800;text-align:center;padding:20px;text-shadow:0 0 20px rgba(168,85,247,.8)}#controls{display:flex;gap:15px;margin-top:8px}button{padding:12px 28px;border:none;border-radius:10px;background:linear-gradient(135deg,#7c3aed,#a855f7);color:#fff;font-weight:800;font-size:1em;cursor:pointer;transition:all .2s;box-shadow:0 4px 15px rgba(124,58,237,.4)}button:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(124,58,237,.6)}button:active{transform:translateY(0)}#instructions{color:#8b949e;font-size:.85em;margin-top:5px}');
+    createFileByPath('game.js','const canvas=document.getElementById("canvas"),ctx=canvas.getContext("2d"),scoreEl=document.getElementById("score"),highEl=document.getElementById("high"),overlay=document.getElementById("overlay");const gs=20,tc=canvas.width/gs;let snake=[{x:10,y:10}],velocity={x:0,y:0},food={x:15,y:15},score=0,high=localStorage.getItem("snakeHigh")||0,playing=false,particles=[];highEl.textContent="High: "+high;function createParticles(x,y,color,count=8){for(let i=0;i<count;i++){particles.push({x:x*gs+gs/2,y:y*gs+gs/2,vx:(Math.random()-.5)*6,vy:(Math.random()-.5)*6,life:20,color,color2:i%2===0?"#fff":color});}}function drawParticles(){particles=particles.filter(p=>{p.x+=p.vx;p.y+=p.vy;p.life--;if(p.life<=0)return false;ctx.globalAlpha=p.life/20;ctx.fillStyle=p.color2;ctx.beginPath();ctx.arc(p.x,p.y,3,0,Math.PI*2);ctx.fill();ctx.globalAlpha=1;return true;});}function draw(){ctx.fillStyle="#0d1117";ctx.fillRect(0,0,canvas.width,canvas.height);ctx.strokeStyle="#21262d";ctx.lineWidth=1;for(let i=0;i<tc;i++){ctx.beginPath();ctx.moveTo(i*gs,0);ctx.lineTo(i*gs,canvas.height);ctx.stroke();}for(let i=0;i<canvas.height/gs;i++){ctx.beginPath();ctx.moveTo(0,i*gs);ctx.lineTo(canvas.width,i*gs);ctx.stroke();}ctx.shadowBlur=15;ctx.shadowColor="#f85149";ctx.fillStyle="#f85149";ctx.beginPath();ctx.arc(food.x*gs+gs/2,food.y*gs+gs/2,gs/2-2,0,Math.PI*2);ctx.fill();ctx.shadowBlur=0;ctx.shadowBlur=10;ctx.shadowColor="#3fb950";ctx.fillStyle="#3fb950";snake.forEach((s,i)=>{const alpha=i===0?1:0.7+(snake.length-i)/snake.length*.3;ctx.globalAlpha=alpha;ctx.fillRect(s.x*gs+1,s.y*gs+1,gs-2,gs-2);if(i===0){ctx.fillStyle="#2ea043";ctx.fillRect(s.x*gs+4,s.y*gs+4,4,4);ctx.fillRect(s.x*gs+12,s.y*gs+4,4,4);ctx.fillStyle="#3fb950";}});ctx.globalAlpha=1;ctx.shadowBlur=0;drawParticles();}function update(){if(!playing)return;const head={x:snake[0].x+velocity.x,y:snake[0].y+velocity.y};if(head.x<0)head.x=tc-1;if(head.x>=tc)head.x=0;if(head.y<0)head.y=canvas.height/gs-1;if(head.y>=canvas.height/gs)head.y=0;if(snake.some(s=>s.x===head.x&&s.y===head.y)){playing=false;overlay.classList.remove("hidden");document.getElementById("startMsg").textContent="Game Over! Score: "+score+" Click START to retry";if(score>high){high=score;localStorage.setItem("snakeHigh",high);highEl.textContent="High: "+high;}return;}snake.unshift(head);if(head.x===food.x&&head.y===food.y){score+=10;scoreEl.textContent="Score: "+score;createParticles(food.x,food.y,"#f85149",12);food={x:Math.floor(Math.random()*tc),y:Math.floor(Math.random()*(canvas.height/gs))};while(snake.some(s=>s.x===food.x&&s.y===food.y)){food={x:Math.floor(Math.random()*tc),y:Math.floor(Math.random()*(canvas.height/gs))};}}else{snake.pop();}}setInterval(()=>{update();draw();},100);document.addEventListener("keydown",e=>{if(["ArrowUp","ArrowDown","ArrowLeft","ArrowRight"].includes(e.key))e.preventDefault();if(e.key==="ArrowUp"&&velocity.y===0){velocity={x:0,y:-1};playing=true;overlay.classList.add("hidden");}if(e.key==="ArrowDown"&&velocity.y===0){velocity={x:0,y:1};playing=true;overlay.classList.add("hidden");}if(e.key==="ArrowLeft"&&velocity.x===0){velocity={x:-1,y:0};playing=true;overlay.classList.add("hidden");}if(e.key==="ArrowRight"&&velocity.x===0){velocity={x:1,y:0};playing=true;overlay.classList.add("hidden");}});document.getElementById("start").addEventListener("click",()=>{snake=[{x:10,y:10}];velocity={x:0,y:0};score=0;scoreEl.textContent="Score: 0";playing=true;overlay.classList.add("hidden");});document.getElementById("pause").addEventListener("click",()=>{if(playing){playing=false;overlay.classList.remove("hidden");document.getElementById("startMsg").textContent="PAUSED - Click START to resume";}else if(velocity.x!==0||velocity.y!==0){playing=true;overlay.classList.add("hidden");}});draw();');
+    return '✅ Generated complete Snake game with particle effects, glowing visuals, and high score!';
   }
 
   // ===== TETRIS =====
@@ -2759,6 +2834,166 @@ function aiDo(msg){
     return 'Tell me what kind! Options: platformer, shooter, racing, fighting, clicker, puzzle, rpg, snake, tetris, pong, flappy bird, tower defense!';
   }
 
+  // ===== EXTENDED TOPICS - MORE COMPREHENSIVE RESPONSES =====
+  // Physics & Game Mechanics
+  if(/gravity|physics|collision|jump|velocity|speed/.test(ml))return '📐 Physics basics: gravity adds downward velocity, collisions check overlaps. Want me to add gravity to your game? Say "add gravity" or "make platformer"!';
+  if(/score|points|high.*score|leaderboard/.test(ml))return '🏆 Scoring: Use a variable like `let score = 0;` and display it. Want a full scoring system? Try "make clicker" or say "add score display"!';
+  if(/health|hp|life|lives|damage|hit/.test(ml))return '❤️ Health system: Track HP, show a bar, subtract on damage. Want an example? Say "make rpg" or "add health bar"!';
+  if(/enemy|ai|bot|npc|monster/.test(ml))return '👾 Enemies: Give them position, HP, and simple AI (move toward player, shoot, patrol). Try "make shooter" for enemy AI example!';
+  if(/weapon|bullet|shoot|projectile|gun/.test(ml))return '🔫 Shooting: Create bullets on keypress, move them, check collisions. Say "make shooter" or "add shooting" for code!';
+  if(/level|stage|world|map/.test(ml))return '🗺️ Levels: Use arrays for tile maps, or just place elements. Try "make platformer" for multi-level example!';
+  if(/save|load|storage|localstorage/.test(ml))return '💾 Saving: Use `localStorage.setItem("save", JSON.stringify(data))` to save, and `JSON.parse(localStorage.getItem("save"))` to load!';
+  if(/sound|audio|music|sfx/.test(ml))return '🔊 Audio: Use `new Audio("url").play()` or the Web Audio API. Say "add sound" for example code!';
+  if(/animation|animate|sprite|frame/.test(ml))return '🎬 Animation: Use CSS `@keyframes` or JS `requestAnimationFrame` with sprite sheets. Try "make platformer" for animated player!';
+  if(/particle|explosion|effect|spark/.test(ml))return '✨ Particles: Create small divs/canvas objects with velocity and fade out. Say "add particles" for example code!';
+
+  // UI & Design
+  if(/menu|ui|interface|hud|button|screen/.test(ml))return '🎨 UI: Use HTML elements styled with CSS. Say "button-blue Start" or "make menu" for UI code!';
+  if(/background|bg|parallax|scrolling/.test(ml))return '🖼️ Backgrounds: CSS `background` property, or moving layers for parallax. Say "add parallax background"!';
+  if(/font|text|typography|title/.test(ml))return '📝 Text: Use Google Fonts or system fonts. Say "h1-yellow Title" for styled headers!';
+  if(/color|colour|palette|theme/.test(ml))return '🎨 Colors: Use hex (#ff0000), rgb, or named colors. Try "text-red Hello" or "div-blue Box"!';
+  if(/responsive|mobile|touch|resize/.test(ml))return '📱 Mobile: Use `touchstart` events and CSS `viewport` meta tag. Say "make mobile game" for touch controls!';
+  if(/hover|click|mouse|cursor|pointer/.test(ml))return '🖱️ Mouse: `onclick`, `onmouseover`, `event.clientX/Y` for position. Say "add click handler"!';
+
+  // Game Genres & Types
+  if(/platformer|mario|jump.*run|side.*scroll/.test(ml))return '🏃 Platformer: Player jumps between platforms, collects coins, avoids enemies. Say "make platformer"!';
+  if(/puzzle|match|tetris|block/.test(ml))return '🧩 Puzzles: Grid-based logic, matching, clearing lines. Say "make tetris" for a full puzzle game!';
+  if(/racing|car|drive|drift|speed/.test(ml))return '🏎️ Racing: Car physics, tracks, lap times. Say "make racer" for complete racing game!';
+  if(/rpg|role.*play|stats|inventory|quest/.test(ml))return '⚔️ RPG: Stats, inventory, quests, battles. Say "make rpg" for full RPG with leveling!';
+  if(/shooter|fps|gun|bullet.*hell/.test(ml))return '🔫 Shooter: Aim, shoot, enemies, waves. Say "make shooter" for space shooter example!';
+  if(/fighter|brawl|combat|beat.*em.*up/.test(ml))return '👊 Fighting: Combos, health bars, special moves. Say "make fighting" for Street Fighter style!';
+  if(/tower.*defense|td|turret/.test(ml))return '🏰 Tower Defense: Place towers, enemies walk path, upgrade towers. Say "make tower defense"!';
+  if(/strategy|rts|base.*build|resource/.test(ml))return '🏗️ Strategy: Resources, buildings, units. This needs custom code - say "help" for guidance!';
+  if(/idle|clicker|incremental|automation/.test(ml))return '🍪 Clicker: Click for currency, buy upgrades, automate. Say "make clicker" for Cookie Clicker style!';
+  if(/card|deck|hand|draw/.test(ml))return '🃏 Cards: Deck building, drawing, playing. This needs custom work - I can help you build it!';
+
+  // Code & Development
+  if(/function|method|class|object/.test(ml))return '💻 JavaScript: `function name(){}` for reusable code. Want examples? Say "add function example"!';
+  if(/variable|var|let|const|store/.test(ml))return '💻 Variables: `let x = 5;` stores data. `const` for values that don\'t change. Say "show variable examples"!';
+  if(/loop|for|while|repeat/.test(ml))return '💻 Loops: `for(let i=0; i<10; i++){}` repeats code. Great for spawning enemies or processing arrays!';
+  if(/array|list|set|map/.test(ml))return '💻 Arrays: `let items = [1,2,3];` Store multiple things. Use `.push()`, `.filter()`, `.forEach()`!';
+  if(/if|else|condition|check|test/.test(ml))return '💻 Conditions: `if(x > 5){ doSomething(); }` for decision making. Essential for game logic!';
+  if(/error|bug|fix|debug|broken|not.*work/.test(ml))return '🐛 Debugging: Check console (F12), look for red errors. Tell me the error message and I\'ll help fix it!';
+  if(/optimize|speed|lag|fps|performance/.test(ml))return '⚡ Performance: Use `requestAnimationFrame`, minimize DOM updates, use canvas for many objects. Say "optimize my game"!';
+  if(/math|random|calculate|formula/.test(ml))return '🔢 Math: `Math.random()` for randomness, `Math.sin()` for waves. Say "add random spawn" for examples!';
+  if(/time|timer|countdown|clock|delay/.test(ml))return '⏱️ Time: `setInterval()` for repeating, `setTimeout()` for delays. Great for game timers!';
+  if(/import|export|module|require/.test(ml))return '📦 Modules: In browser games, usually just include scripts. For bigger projects, we can use ES modules!';
+
+  // Web Technologies
+  if(/html|element|tag|div|span/.test(ml))return '🌐 HTML: `<div>content</div>` creates elements. Say "create file main.html" to start!';
+  if(/css|style|class|id|selector/.test(ml))return '🌐 CSS: `.className { color: red; }` styles elements. Say "add CSS" for example styles!';
+  if(/canvas|ctx|draw|render|2d/.test(ml))return '🌐 Canvas: `<canvas>` + `getContext("2d")` for fast graphics. Say "make canvas game" for example!';
+  if(/svg|vector|graphic|draw.*line/.test(ml))return '🌐 SVG: Vector graphics with XML. Good for scalable icons and UI elements!';
+  if(/api|fetch|request|json|server/.test(ml))return '🌐 APIs: `fetch("/api").then(r=>r.json())` gets data from servers. Say "add fetch example"!';
+  if(/dom|document|getElementById|querySelector/.test(ml))return '🌐 DOM: `document.getElementById("id")` finds elements. `element.innerHTML` changes content!';
+
+  // General Chat
+  if(/weather|sunny|rain|snow|temperature/.test(ml))return '🌤️ I\'m a game AI, so I don\'t check weather - but I can make a weather mini-game! Say "make weather game"!';
+  if(/news|current.*events|world/.test(ml))return '📰 I focus on game dev! But I can make a news ticker or info display for your game. Say "add news ticker"!';
+  if(/food|eat|hungry|lunch|dinner/.test(ml))return '🍕 I don\'t eat, but I can make a cooking game! Say "make cooking game" for a food-themed project!';
+  if(/music|song|playlist|artist/.test(ml))return '🎵 I can\'t play music, but I can add audio to your game! Say "add background music" for code!';
+  if(/movie|film|tv|show|series/.test(ml))return '🎬 Movies are fun! Want to make a movie-themed game? Say "make trivia game" or suggest a movie game!';
+  if(/sport|football|basketball|soccer/.test(ml))return '⚽ Sports games are popular! Say "make soccer game" or "make basketball game" for sports templates!';
+  if(/math.*game|learn|educational|kid/.test(ml))return '📚 Educational games are great! Say "make math game" for a learning-focused project!';
+  if(/story|narrative|dialog|choice/.test(ml))return '📖 Story games: Use choices, branching paths, dialogue boxes. Say "make story game" for narrative template!';
+  if(/multiplayer|online|network|socket/.test(ml))return '👥 Multiplayer needs server setup. I can make local 2-player games now! Say "make 2 player game"!';
+  if(/3d|three|webgl|three.js|unity/.test(ml))return '3️⃣ This editor is 2D-focused, but I can make pseudo-3D games! Say "make 3d racer" for fake 3D!';
+
+  // File Operations Extended
+  if(/rename|move.*file/.test(ml))return '📁 To rename: Right-click file → Rename. Or delete and recreate with new name!';
+  if(/copy|duplicate|clone.*file/.test(ml))return '📁 To copy: Create new file with same content. Or say "copy X to Y"!';
+  if(/search|find|locate|where.*is/.test(ml))return '🔍 Search: Use browser find (Ctrl+F) in code editor, or say "search for X" to find in files!';
+  if(/organize|clean.*up|sort.*files/.test(ml))return '🧹 Organize: Create folders like "scenes", "scripts", "assets". Move files by dragging!';
+  if(/backup|export|download|save.*as/.test(ml))return '💾 Backup: Projects save automatically to browser. I can add export functionality - say "add export"!';
+  if(/import|upload|open.*file/.test(ml))return '📥 Import: Create files manually, or paste code. For full import feature, say "help with import"!';
+
+  // Help & Support
+  if(/tutorial|guide|learn|how.*start/.test(ml))return '📖 Tutorial: 1) Say "make snake" for first game 2) Edit the code 3) Click Run to test 4) Publish when ready!';
+  if(/shortcut|hotkey|keybind|ctrl|cmd/.test(ml))return '⌨️ Shortcuts: Ctrl+I = AI chat, Ctrl+S = Save, F5 = Run. What shortcut do you need?';
+  if(/version|update|changelog|new.*feature/.test(ml))return '🆕 I\'m always learning new commands! Say "what can you do" for current capabilities!';
+  if(/feedback|suggest|feature.*request/.test(ml))return '💬 Feedback noted! I improve based on what you need. Keep telling me what games you want to make!';
+  if(/bug.*report|issue|problem|glitch/.test(ml))return '🐛 Sorry about that! Describe what happened and I\'ll help fix it or workaround it!';
+
+  // ===== EXTENDED TOPICS - MORE COMPREHENSIVE RESPONSES =====
+  // Physics & Game Mechanics
+  if(/gravity|physics|collision|jump|velocity|speed/.test(ml))return '📐 Physics basics: gravity adds downward velocity, collisions check overlaps. Want me to add gravity to your game? Say "add gravity" or "make platformer"!';
+  if(/score|points|high.*score|leaderboard/.test(ml))return '🏆 Scoring: Use a variable like `let score = 0;` and display it. Want a full scoring system? Try "make clicker" or say "add score display"!';
+  if(/health|hp|life|lives|damage|hit/.test(ml))return '❤️ Health system: Track HP, show a bar, subtract on damage. Want an example? Say "make rpg" or "add health bar"!';
+  if(/enemy|ai|bot|npc|monster/.test(ml))return '👾 Enemies: Give them position, HP, and simple AI (move toward player, shoot, patrol). Try "make shooter" for enemy AI example!';
+  if(/weapon|bullet|shoot|projectile|gun/.test(ml))return '🔫 Shooting: Create bullets on keypress, move them, check collisions. Say "make shooter" or "add shooting" for code!';
+  if(/level|stage|world|map/.test(ml))return '🗺️ Levels: Use arrays for tile maps, or just place elements. Try "make platformer" for multi-level example!';
+  if(/save|load|storage|localstorage/.test(ml))return '💾 Saving: Use `localStorage.setItem("save", JSON.stringify(data))` to save, and `JSON.parse(localStorage.getItem("save"))` to load!';
+  if(/sound|audio|music|sfx/.test(ml))return '🔊 Audio: Use `new Audio("url").play()` or the Web Audio API. Say "add sound" for example code!';
+  if(/animation|animate|sprite|frame/.test(ml))return '🎬 Animation: Use CSS `@keyframes` or JS `requestAnimationFrame` with sprite sheets. Try "make platformer" for animated player!';
+  if(/particle|explosion|effect|spark/.test(ml))return '✨ Particles: Create small divs/canvas objects with velocity and fade out. Say "add particles" for example code!';
+
+  // UI & Design
+  if(/menu|ui|interface|hud|button|screen/.test(ml))return '🎨 UI: Use HTML elements styled with CSS. Say "button-blue Start" or "make menu" for UI code!';
+  if(/background|bg|parallax|scrolling/.test(ml))return '🖼️ Backgrounds: CSS `background` property, or moving layers for parallax. Say "add parallax background"!';
+  if(/font|text|typography|title/.test(ml))return '📝 Text: Use Google Fonts or system fonts. Say "h1-yellow Title" for styled headers!';
+  if(/color|colour|palette|theme/.test(ml))return '🎨 Colors: Use hex (#ff0000), rgb, or named colors. Try "text-red Hello" or "div-blue Box"!';
+  if(/responsive|mobile|touch|resize/.test(ml))return '📱 Mobile: Use `touchstart` events and CSS `viewport` meta tag. Say "make mobile game" for touch controls!';
+  if(/hover|click|mouse|cursor|pointer/.test(ml))return '🖱️ Mouse: `onclick`, `onmouseover`, `event.clientX/Y` for position. Say "add click handler"!';
+
+  // Game Genres & Types
+  if(/platformer|mario|jump.*run|side.*scroll/.test(ml))return '🏃 Platformer: Player jumps between platforms, collects coins, avoids enemies. Say "make platformer"!';
+  if(/puzzle|match|tetris|block/.test(ml))return '🧩 Puzzles: Grid-based logic, matching, clearing lines. Say "make tetris" for a full puzzle game!';
+  if(/racing|car|drive|drift|speed/.test(ml))return '🏎️ Racing: Car physics, tracks, lap times. Say "make racer" for complete racing game!';
+  if(/rpg|role.*play|stats|inventory|quest/.test(ml))return '⚔️ RPG: Stats, inventory, quests, battles. Say "make rpg" for full RPG with leveling!';
+  if(/shooter|fps|gun|bullet.*hell/.test(ml))return '🔫 Shooter: Aim, shoot, enemies, waves. Say "make shooter" for space shooter example!';
+  if(/fighter|brawl|combat|beat.*em.*up/.test(ml))return '👊 Fighting: Combos, health bars, special moves. Say "make fighting" for Street Fighter style!';
+  if(/tower.*defense|td|turret/.test(ml))return '🏰 Tower Defense: Place towers, enemies walk path, upgrade towers. Say "make tower defense"!';
+  if(/strategy|rts|base.*build|resource/.test(ml))return '🏗️ Strategy: Resources, buildings, units. This needs custom code - say "help" for guidance!';
+  if(/idle|clicker|incremental|automation/.test(ml))return '🍪 Clicker: Click for currency, buy upgrades, automate. Say "make clicker" for Cookie Clicker style!';
+  if(/card|deck|hand|draw/.test(ml))return '🃏 Cards: Deck building, drawing, playing. This needs custom work - I can help you build it!';
+
+  // Code & Development
+  if(/function|method|class|object/.test(ml))return '💻 JavaScript: `function name(){}` for reusable code. Want examples? Say "add function example"!';
+  if(/variable|var|let|const|store/.test(ml))return '💻 Variables: `let x = 5;` stores data. `const` for values that don\'t change. Say "show variable examples"!';
+  if(/loop|for|while|repeat/.test(ml))return '💻 Loops: `for(let i=0; i<10; i++){}` repeats code. Great for spawning enemies or processing arrays!';
+  if(/array|list|set|map/.test(ml))return '💻 Arrays: `let items = [1,2,3];` Store multiple things. Use `.push()`, `.filter()`, `.forEach()`!';
+  if(/if|else|condition|check|test/.test(ml))return '💻 Conditions: `if(x > 5){ doSomething(); }` for decision making. Essential for game logic!';
+  if(/error|bug|fix|debug|broken|not.*work/.test(ml))return '🐛 Debugging: Check console (F12), look for red errors. Tell me the error message and I\'ll help fix it!';
+  if(/optimize|speed|lag|fps|performance/.test(ml))return '⚡ Performance: Use `requestAnimationFrame`, minimize DOM updates, use canvas for many objects. Say "optimize my game"!';
+  if(/math|random|calculate|formula/.test(ml))return '🔢 Math: `Math.random()` for randomness, `Math.sin()` for waves. Say "add random spawn" for examples!';
+  if(/time|timer|countdown|clock|delay/.test(ml))return '⏱️ Time: `setInterval()` for repeating, `setTimeout()` for delays. Great for game timers!';
+  if(/import|export|module|require/.test(ml))return '📦 Modules: In browser games, usually just include scripts. For bigger projects, we can use ES modules!';
+
+  // Web Technologies
+  if(/html|element|tag|div|span/.test(ml))return '🌐 HTML: `<div>content</div>` creates elements. Say "create file main.html" to start!';
+  if(/css|style|class|id|selector/.test(ml))return '🌐 CSS: `.className { color: red; }` styles elements. Say "add CSS" for example styles!';
+  if(/canvas|ctx|draw|render|2d/.test(ml))return '🌐 Canvas: `<canvas>` + `getContext("2d")` for fast graphics. Say "make canvas game" for example!';
+  if(/svg|vector|graphic|draw.*line/.test(ml))return '🌐 SVG: Vector graphics with XML. Good for scalable icons and UI elements!';
+  if(/api|fetch|request|json|server/.test(ml))return '🌐 APIs: `fetch("/api").then(r=>r.json())` gets data from servers. Say "add fetch example"!';
+  if(/dom|document|getElementById|querySelector/.test(ml))return '🌐 DOM: `document.getElementById("id")` finds elements. `element.innerHTML` changes content!';
+
+  // General Chat
+  if(/weather|sunny|rain|snow|temperature/.test(ml))return '🌤️ I\'m a game AI, so I don\'t check weather - but I can make a weather mini-game! Say "make weather game"!';
+  if(/news|current.*events|world/.test(ml))return '📰 I focus on game dev! But I can make a news ticker or info display for your game. Say "add news ticker"!';
+  if(/food|eat|hungry|lunch|dinner/.test(ml))return '🍕 I don\'t eat, but I can make a cooking game! Say "make cooking game" for a food-themed project!';
+  if(/music|song|playlist|artist/.test(ml))return '🎵 I can\'t play music, but I can add audio to your game! Say "add background music" for code!';
+  if(/movie|film|tv|show|series/.test(ml))return '🎬 Movies are fun! Want to make a movie-themed game? Say "make trivia game" or suggest a movie game!';
+  if(/sport|football|basketball|soccer/.test(ml))return '⚽ Sports games are popular! Say "make soccer game" or "make basketball game" for sports templates!';
+  if(/math.*game|learn|educational|kid/.test(ml))return '📚 Educational games are great! Say "make math game" for a learning-focused project!';
+  if(/story|narrative|dialog|choice/.test(ml))return '📖 Story games: Use choices, branching paths, dialogue boxes. Say "make story game" for narrative template!';
+  if(/multiplayer|online|network|socket/.test(ml))return '👥 Multiplayer needs server setup. I can make local 2-player games now! Say "make 2 player game"!';
+  if(/3d|three|webgl|three.js|unity/.test(ml))return '3️⃣ This editor is 2D-focused, but I can make pseudo-3D games! Say "make 3d racer" for fake 3D!';
+
+  // File Operations Extended
+  if(/rename|move.*file/.test(ml))return '📁 To rename: Right-click file → Rename. Or delete and recreate with new name!';
+  if(/copy|duplicate|clone.*file/.test(ml))return '📁 To copy: Create new file with same content. Or say "copy X to Y"!';
+  if(/search|find|locate|where.*is/.test(ml))return '🔍 Search: Use browser find (Ctrl+F) in code editor, or say "search for X" to find in files!';
+  if(/organize|clean.*up|sort.*files/.test(ml))return '🧹 Organize: Create folders like "scenes", "scripts", "assets". Move files by dragging!';
+  if(/backup|export|download|save.*as/.test(ml))return '💾 Backup: Projects save automatically to browser. I can add export functionality - say "add export"!';
+  if(/import|upload|open.*file/.test(ml))return '📥 Import: Create files manually, or paste code. For full import feature, say "help with import"!';
+
+  // Help & Support
+  if(/tutorial|guide|learn|how.*start/.test(ml))return '📖 Tutorial: 1) Say "make snake" for first game 2) Edit the code 3) Click Run to test 4) Publish when ready!';
+  if(/shortcut|hotkey|keybind|ctrl|cmd/.test(ml))return '⌨️ Shortcuts: Ctrl+I = AI chat, Ctrl+S = Save, F5 = Run. What shortcut do you need?';
+  if(/version|update|changelog|new.*feature/.test(ml))return '🆕 I\'m always learning new commands! Say "what can you do" for current capabilities!';
+  if(/feedback|suggest|feature.*request/.test(ml))return '💬 Feedback noted! I improve based on what you need. Keep telling me what games you want to make!';
+  if(/bug.*report|issue|problem|glitch/.test(ml))return '🐛 Sorry about that! Describe what happened and I\'ll help fix it or workaround it!';
+
   // ===== SMART FALLBACK - CONTEXT AWARE =====
   // Check if user mentioned colors + elements
   var colorMatch=ml.match(/\b(red|blue|green|yellow|purple|orange|pink|cyan|white|black|gray)\b/);
@@ -2844,9 +3079,9 @@ function updateAiModeIndicator(){
 }
 updateAiModeIndicator();
 
-// ChatGPT API call function
+// ChatGPT API call function (uses /api/chat serverless route)
 async function callChatGPT(userMessage, conversationHistory){
-  if(!aiApiKey || aiModel === 'local') return null;
+  if(aiModel === 'local') return null;
   
   var systemPrompt = `You are an expert game developer AI assistant for "RAYS CREAT3R" - a game creation tool. You help users create games, write code, and solve problems.
 
@@ -2873,23 +3108,20 @@ Active file: ${aiContextFile}`;
   messages.push({role: 'user', content: userMessage});
 
   try{
-    var response = await fetch('https://api.openai.com/v1/chat/completions', {
+    var response = await fetch('/api/chat', {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + aiApiKey
+        'Content-Type': 'application/json'
       },
       body: JSON.stringify({
         model: aiModel,
-        messages: messages,
-        max_tokens: 4000,
-        temperature: 0.7
+        messages: messages
       })
     });
     
     if(!response.ok){
       var err = await response.json();
-      throw new Error(err.error?.message || 'API error');
+      throw new Error(err.error || 'API error');
     }
     
     var data = await response.json();
@@ -2916,7 +3148,7 @@ document.getElementById('sendAiBtn').addEventListener('click',async function(){
   showAiStatus('Thinking...');
   inp.value='';
   
-  // Try ChatGPT API first
+  // Try ChatGPT API first (via serverless /api/chat route)
   if(aiUseApi){
     showAiStatus('Consulting GPT...');
     var apiResponse = await callChatGPT(text, aiMemory);
