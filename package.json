@@ -1,8 +1,5 @@
 {
   "name": "rays-cool-games",
   "version": "1.0.0",
-  "private": true,
-  "dependencies": {
-    "openai": "^4.52.0"
-  }
+  "private": true
 }
