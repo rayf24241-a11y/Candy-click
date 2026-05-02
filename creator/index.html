@@ -58,8 +58,6 @@ input,textarea,select{font-family:'Nunito',sans-serif;}
 
 /* ===== LIBRARY SCREEN ===== */
 #libraryScreen{height:100vh;display:flex;flex-direction:column;background:var(--bg);}
-<<<<<<< C:/Users/rayf2/Downloads/Rays-Cool-games/rays-cool-games/creator/index.html
-<<<<<<< C:/Users/rayf2/Downloads/Rays-Cool-games/rays-cool-games/creator/index.html
 #libTopBar{display:flex;align-items:center;justify-content:space-between;padding:0 24px;
   height:54px;background:var(--bg2);border-bottom:1px solid var(--border);flex-shrink:0;}
 .lib-logo{font-family:'Fredoka One',cursive;font-size:1.3em;color:var(--accent3);letter-spacing:1px;}
@@ -68,9 +66,6 @@ input,textarea,select{font-family:'Nunito',sans-serif;}
 .btn-home{padding:7px 14px;background:transparent;border:1px solid var(--border2);border-radius:6px;
   color:var(--muted);font-size:.85em;font-weight:700;text-decoration:none;transition:border-color .2s,color .2s;}
 .btn-home:hover{border-color:var(--accent2);color:var(--accent3);}
-=======
-=======
->>>>>>> C:/Users/rayf2/.windsurf/worktrees/rays-cool-games/rays-cool-games-d853d872/creator/index.html
 #libTopBar{display:flex;align-items:center;justify-content:space-between;padding:0 28px;
   height:60px;background:var(--bg2);border-bottom:1px solid var(--border);flex-shrink:0;}
 .lib-logo{font-family:'Fredoka One',cursive;font-size:1.5em;background:var(--gradient-purple);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;letter-spacing:1px;}
@@ -79,280 +74,12 @@ input,textarea,select{font-family:'Nunito',sans-serif;}
 .btn-home{padding:8px 16px;background:transparent;border:1px solid var(--border);border-radius:10px;
   color:var(--muted);font-size:.85em;font-weight:700;text-decoration:none;transition:all .2s;}
 .btn-home:hover{border-color:var(--accent2);color:var(--accent3);background:rgba(139,92,246,.1);}
-<<<<<<< C:/Users/rayf2/Downloads/Rays-Cool-games/rays-cool-games/creator/index.html
->>>>>>> C:/Users/rayf2/.windsurf/worktrees/rays-cool-games/rays-cool-games-d853d872/creator/index.html
-=======
->>>>>>> C:/Users/rayf2/.windsurf/worktrees/rays-cool-games/rays-cool-games-d853d872/creator/index.html
-.btn-create{display:flex;align-items:center;gap:6px;padding:10px 22px;
-  background:var(--gradient-purple);border:none;border-radius:10px;
-  color:#fff;font-weight:800;font-size:.9em;cursor:pointer;transition:all .3s cubic-bezier(.4,0,.2,1);
-  box-shadow:0 4px 15px rgba(139,92,246,.4),inset 0 1px 0 rgba(255,255,255,.2);}
-.btn-create:hover{transform:translateY(-3px) scale(1.02);box-shadow:0 8px 30px rgba(139,92,246,.5),inset 0 1px 0 rgba(255,255,255,.3);}
-.btn-create:active{transform:translateY(0) scale(.98);}
-
-#libBody{flex:1;overflow-y:auto;padding:32px 40px 60px;}
-.lib-section-title{font-family:'Fredoka One',cursive;font-size:1.2em;color:var(--text);margin-bottom:16px;
-  display:flex;align-items:center;gap:8px;}
-.lib-section-title::after{content:'';flex:1;height:1px;background:var(--border);}
-.lib-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px;margin-bottom:36px;}
-
-.lib-card{background:var(--bg2);border:1px solid var(--border);border-radius:16px;overflow:hidden;
-  transition:all .3s cubic-bezier(.4,0,.2,1);cursor:pointer;position:relative;}
-.lib-card::before{content:'';position:absolute;inset:0;background:var(--gradient-purple);opacity:0;transition:opacity .3s;pointer-events:none;}
-.lib-card:hover{border-color:var(--accent2);transform:translateY(-5px) scale(1.02);box-shadow:var(--shadow-xl),var(--glow-purple);}
-.lib-card:hover::before{opacity:.05;}
-.lib-card-thumb{height:130px;display:flex;align-items:center;justify-content:center;font-size:4em;
-  background:linear-gradient(135deg,#1a1030 0%,#0d0820 50%,#1a0b2e 100%);position:relative;overflow:hidden;}
-.lib-card-thumb::after{content:'';position:absolute;inset:0;background:linear-gradient(45deg,transparent 40%,rgba(255,255,255,.05) 50%,transparent 60%);background-size:200% 200%;animation:shimmer 3s infinite;}
-.lib-card-body{padding:12px 14px;}
-.lib-card-name{font-weight:800;font-size:.95em;color:var(--text);margin-bottom:4px;
-  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-.lib-card-meta{display:flex;align-items:center;justify-content:space-between;font-size:.75em;color:var(--muted);}
-.lib-card-actions{display:flex;gap:6px;padding:10px 14px;border-top:1px solid var(--border);background:rgba(0,0,0,.2);}
-.lib-card-btn{flex:1;padding:6px;border:1px solid var(--border2);border-radius:6px;background:transparent;
-  color:var(--muted);font-size:.78em;font-weight:700;cursor:pointer;transition:border-color .15s,color .15s;}
-.lib-card-btn:hover{border-color:var(--accent2);color:var(--accent3);}
-.lib-card-btn.danger:hover{border-color:var(--red);color:var(--red);}
-.lib-card-btn.publish{border-color:rgba(63,185,80,.4);color:var(--green);}
-.lib-card-btn.publish:hover{border-color:var(--green);background:rgba(63,185,80,.1);}
-.lib-card-btn.published{border-color:rgba(63,185,80,.6);color:var(--green);background:rgba(63,185,80,.08);}
-
-.lib-empty{text-align:center;padding:50px 20px;color:var(--muted);}
-.lib-empty-icon{font-size:3.5em;margin-bottom:14px;}
-
-/* ===== EDITOR SCREEN - VS CODE STYLE ===== */
-#editorScreen{height:100vh;display:flex;flex-direction:column;background:var(--bg);}
-
-/* Activity Bar - VS Code style left sidebar */
-#activityBar{width:48px;background:var(--activity);border-right:1px solid var(--border);
-  display:flex;flex-direction:column;align-items:center;padding:8px 0;flex-shrink:0;}
-.act-item{width:36px;height:36px;display:flex;align-items:center;justify-content:center;
-  font-size:1.3em;margin-bottom:4px;cursor:pointer;border-radius:4px;transition:all .15s;
-  color:var(--muted);}
-.act-item:hover{background:var(--bg3);color:var(--text);}
-.act-item.active{color:var(--text);border-left:2px solid var(--accent);padding-left:2px;}
-.act-spacer{flex:1;}
-.act-bottom{margin-top:auto;}
-
-/* Title Bar - VS Code style */
-#editorTopBar{display:flex;align-items:center;justify-content:space-between;padding:0 10px;
-  height:35px;background:var(--title);border-bottom:1px solid var(--border);flex-shrink:0;gap:10px;
-  -webkit-app-region:drag;}
-.editor-logo{font-family:'Fredoka One',cursive;font-size:1em;color:var(--accent3);display:none;}
-.editor-project-name{background:transparent;border:1px solid transparent;border-radius:3px;
-  color:var(--text);font-size:.9em;font-weight:400;padding:2px 8px;font-family:'Nunito',sans-serif;
-  min-width:120px;text-align:left;outline:none;transition:border-color .2s;-webkit-app-region:no-drag;}
-.editor-project-name:focus{border-color:var(--accent);background:var(--bg3);}
-.editor-actions{display:flex;align-items:center;gap:4px;-webkit-app-region:no-drag;}
-.ed-btn{padding:6px 14px;border:1px solid transparent;border-radius:6px;background:transparent;
-  color:var(--muted);font-size:.75em;font-weight:600;cursor:pointer;transition:all .2s;}
-.ed-btn:hover{background:var(--bg3);color:var(--text);transform:translateY(-1px);}
-.ed-btn.run{background:var(--gradient-green);border-color:transparent;color:#fff;box-shadow:0 2px 10px rgba(16,185,129,.3);}
-.ed-btn.run:hover{box-shadow:0 4px 20px rgba(16,185,129,.4);transform:translateY(-2px);}
-.ed-btn.publish{background:var(--gradient-purple);border-color:transparent;color:#fff;box-shadow:0 2px 10px rgba(139,92,246,.3);}
-.ed-btn.publish:hover{box-shadow:0 4px 20px rgba(139,92,246,.4);transform:translateY(-2px);}
-.ed-btn.lib{color:var(--text);background:var(--bg3);border:1px solid var(--border);}
-.ed-btn.lib:hover{background:var(--bg4);border-color:var(--border2);}
-
-/* Status Bar - VS Code style bottom bar */
-#statusBar{height:22px;background:var(--status-bg);color:#fff;display:flex;align-items:center;
-  justify-content:space-between;padding:0 12px;font-size:.75em;flex-shrink:0;}
-.status-left,.status-right{display:flex;align-items:center;gap:16px;}
-.status-item{display:flex;align-items:center;gap:4px;cursor:pointer;padding:2px 6px;border-radius:3px;}
-.status-item:hover{background:rgba(255,255,255,.1);}
-.status-error{color:#f48771;}
-.status-warning{color:#cca700;}
-
-#editorMain{display:flex;flex:1;overflow:hidden;}
-
-/* SIDEBAR - VS Code Explorer style */
-#edSidebar{width:250px;background:var(--sidebar);border-right:1px solid var(--border);
-  display:flex;flex-direction:column;flex-shrink:0;}
-#edSidebarHeader{padding:8px 12px;background:var(--bg2);border-bottom:1px solid var(--border);
-  font-size:.85em;font-weight:600;color:var(--muted);display:flex;align-items:center;justify-content:space-between;}
-#edSidebarTabs{display:flex;border-bottom:1px solid var(--border);background:var(--bg2);}
-.ed-stab{flex:1;padding:6px 4px;text-align:center;font-size:.7em;font-weight:600;text-transform:uppercase;
-  letter-spacing:.5px;color:var(--muted);cursor:pointer;border-bottom:2px solid transparent;transition:all .15s;}
-.ed-stab.active{color:var(--text);border-bottom-color:var(--accent);background:var(--sidebar);}
-.ed-stab:hover{color:var(--text);}
-#edSidebarBody{flex:1;overflow-y:auto;padding:4px 0;}
-
-/* File tree */
-.tree-section{margin-bottom:2px;}
-.tree-folder{display:flex;align-items:center;gap:5px;padding:5px 8px;font-size:.82em;
-  font-weight:700;color:var(--muted);cursor:pointer;text-transform:uppercase;letter-spacing:.5px;}
-.tree-folder:hover{color:var(--text);}
-.tree-item{display:flex;align-items:center;gap:6px;padding:5px 8px 5px 22px;font-size:.83em;
-  color:var(--muted);cursor:pointer;border-radius:4px;margin:1px 4px;transition:background .1s,color .1s;}
-.tree-item:hover{background:var(--bg3);color:var(--text);}
-.tree-item.active{background:rgba(88,166,255,.1);color:var(--blue);}
-.tree-item .tree-icon{font-size:.9em;width:16px;text-align:center;}
-.tree-add{display:flex;align-items:center;gap:5px;padding:4px 8px 4px 22px;font-size:.75em;
-  color:var(--dim);cursor:pointer;margin:1px 4px;border-radius:4px;transition:color .1s;}
-.tree-add:hover{color:var(--accent3);}
-.tree-item.folder{font-weight:700;}
-.tree-item .file-ext{color:var(--dim);font-size:.78em;margin-left:auto;}
-
-/* Code workspace */
-#codeWorkspace{display:flex;flex-direction:column;height:100%;background:var(--editor);}
-.code-head{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:10px 14px;background:var(--bg2);border-bottom:1px solid var(--border);}
-.code-file-title{font-size:.83em;color:var(--muted);}
-.code-file-title b{color:var(--accent3);}
-#codeEditor{width:100%;height:100%;border:none;outline:none;resize:none;background:var(--editor);color:var(--text);
-  font-family:'JetBrains Mono',monospace;font-size:.86em;line-height:1.55;padding:14px;white-space:pre;tab-size:2;}
-#codeEmpty{color:var(--muted);text-align:center;padding:60px 20px;font-size:.9em;}
-
-/* Custom context menu */
-#fileContextMenu{position:fixed;min-width:170px;background:var(--bg2);border:1px solid var(--border2);border-radius:8px;
-  box-shadow:0 10px 24px rgba(0,0,0,.45);z-index:950;overflow:hidden;}
-.ctx-item{padding:8px 10px;font-size:.82em;color:var(--text);cursor:pointer;border-bottom:1px solid rgba(255,255,255,.05);}
-.ctx-item:last-child{border-bottom:none;}
-.ctx-item:hover{background:rgba(124,58,237,.16);color:var(--accent3);}
-.ctx-item.danger:hover{background:rgba(248,81,73,.12);color:var(--red);}
-
-/* Tabs row - VS Code style */
-#edTabs{display:flex;background:var(--tab-inactive);border-bottom:1px solid var(--border);overflow-x:auto;flex-shrink:0;min-height:35px;}
-.ed-tab{display:flex;align-items:center;gap:6px;padding:8px 12px;font-size:.82em;color:var(--muted);
-  cursor:pointer;border-right:1px solid var(--border);background:var(--tab-inactive);
-  white-space:nowrap;transition:all .1s;}
-.ed-tab.active{color:var(--text);background:var(--tab-active);border-top:1px solid var(--accent);}
-.ed-tab:hover{background:var(--bg3);color:var(--text);}
-.ed-tab-close{opacity:0;font-size:.9em;margin-left:4px;border-radius:3px;width:16px;height:16px;
-  display:flex;align-items:center;justify-content:center;transition:opacity .1s,background .1s;}
-.ed-tab:hover .ed-tab-close{opacity:.6;}
-.ed-tab-close:hover{opacity:1!important;background:var(--red);color:#fff;}
-
-/* Breadcrumbs - VS Code style */
-#breadcrumbs{height:22px;background:var(--bg);border-bottom:1px solid var(--border);display:flex;
-  align-items:center;padding:0 12px;font-size:.75em;color:var(--muted);gap:4px;}
-.bc-item{cursor:pointer;padding:2px 6px;border-radius:3px;}
-.bc-item:hover{background:var(--bg3);color:var(--text);}
-.bc-sep{color:var(--dim);}
-
-/* Main editor area */
-#edContent{flex:1;display:flex;overflow:hidden;}
-#edCenter{flex:1;overflow-y:auto;background:var(--editor);position:relative;}
-
-/* === BLOCK CODE EDITOR === */
-#blockEditor{padding:20px;min-height:100%;}
-.block-canvas{min-height:200px;}
-.add-block-btn{display:inline-flex;align-items:center;gap:6px;margin:10px 0;padding:8px 16px;
-  background:transparent;border:1px dashed var(--border2);border-radius:8px;
-  color:var(--dim);font-size:.85em;cursor:pointer;transition:all .2s;}
-.add-block-btn:hover{border-color:var(--accent2);color:var(--accent3);background:rgba(124,58,237,.05);}
-
-.code-block{background:var(--bg2);border:1px solid var(--border);border-radius:14px;
-  margin-bottom:12px;overflow:hidden;cursor:pointer;transition:all .2s;
-  position:relative;}
-.code-block:hover{border-color:var(--border2);box-shadow:0 4px 15px rgba(0,0,0,.2);}
-.code-block.selected{border-color:var(--accent2);box-shadow:0 0 0 3px rgba(139,92,246,.2),var(--glow-purple);}
-.code-block-header{display:flex;align-items:center;gap:10px;padding:12px 14px;border-bottom:1px solid var(--border);background:linear-gradient(135deg,rgba(139,92,246,.05),transparent);}
-.code-block-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;box-shadow:0 0 8px currentColor;}
-.code-block-type{font-size:.7em;font-weight:900;text-transform:uppercase;letter-spacing:1px;color:var(--muted);}
-.code-block-name{font-weight:800;font-size:.9em;color:var(--text);flex:1;}
-.code-block-delete{width:24px;height:24px;display:flex;align-items:center;justify-content:center;
-  border-radius:6px;color:var(--dim);font-size:.9em;border:none;background:transparent;cursor:pointer;transition:all .15s;}
-.code-block-delete:hover{background:rgba(248,81,73,.15);color:var(--red);transform:scale(1.1);}
-.code-block-body{padding:12px 14px;}
-.block-prop{display:flex;align-items:center;gap:10px;margin-bottom:8px;font-size:.85em;}
-.block-prop label{color:var(--muted);width:80px;flex-shrink:0;}
-.block-prop input,.block-prop select,.block-prop textarea{
-  flex:1;background:var(--bg3);border:1px solid var(--border);border-radius:8px;
-  color:var(--text);padding:8px 12px;font-size:.9em;outline:none;font-family:'Nunito',sans-serif;transition:all .2s;}
-.block-prop input:focus,.block-prop select:focus,.block-prop textarea:focus{border-color:var(--accent2);box-shadow:0 0 15px rgba(139,92,246,.15);}
-.block-prop textarea{resize:vertical;min-height:48px;}
-
-/* Block type picker modal */
-#blockPicker{position:fixed;inset:0;background:rgba(0,0,0,.85);backdrop-filter:blur(8px);z-index:500;display:flex;align-items:center;justify-content:center;}
-#blockPickerInner{background:var(--bg2);border:1px solid var(--border2);border-radius:20px;
-  width:720px;max-width:95vw;max-height:85vh;overflow:hidden;display:flex;flex-direction:column;box-shadow:var(--shadow-xl),var(--glow-purple);animation:fadeIn .2s ease-out;}
-.picker-header{display:flex;align-items:center;justify-content:space-between;padding:18px 24px;border-bottom:1px solid var(--border);background:linear-gradient(135deg,rgba(139,92,246,.1),rgba(168,85,247,.05));}
-.picker-header h3{font-family:'Fredoka One',cursive;font-size:1.3em;background:var(--gradient-purple);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
-.picker-close{width:32px;height:32px;border-radius:10px;border:none;background:var(--bg3);
-  color:var(--muted);cursor:pointer;font-size:1.1em;display:flex;align-items:center;justify-content:center;transition:all .2s;}
-.picker-close:hover{background:var(--red);color:#fff;}
-.picker-cats{display:flex;gap:8px;padding:14px 24px;border-bottom:1px solid var(--border);overflow-x:auto;flex-shrink:0;background:var(--bg);}
-.picker-cat{padding:8px 16px;border-radius:20px;border:1px solid var(--border);font-size:.8em;
-  font-weight:700;cursor:pointer;color:var(--muted);transition:all .2s;white-space:nowrap;}
-.picker-cat.active,.picker-cat:hover{border-color:var(--accent2);color:var(--accent3);background:rgba(139,92,246,.15);}
-.picker-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px;padding:20px 24px;overflow-y:auto;}
-.picker-item{background:var(--bg3);border:1px solid var(--border);border-radius:14px;padding:16px 12px;
-  text-align:center;cursor:pointer;transition:all .2s;position:relative;overflow:hidden;}
-.picker-item::before{content:'';position:absolute;inset:0;background:var(--gradient-purple);opacity:0;transition:opacity .2s;}
-.picker-item:hover{border-color:var(--accent2);transform:translateY(-3px);box-shadow:0 8px 25px rgba(139,92,246,.2);}
-.picker-item:hover::before{opacity:.1;}
-.picker-item-icon{font-size:2.2em;margin-bottom:8px;position:relative;}
-.picker-item-name{font-size:.85em;font-weight:800;color:var(--text);margin-bottom:4px;position:relative;}
-.picker-item-desc{font-size:.72em;color:var(--muted);position:relative;}
-
-/* === PIXEL EDITOR === */
-#pixelEditor{display:flex;flex-direction:column;height:100%;background:var(--editor);}
-.px-toolbar{display:flex;align-items:center;gap:10px;padding:10px 16px;background:var(--bg2);
-  border-bottom:1px solid var(--border);flex-shrink:0;flex-wrap:wrap;}
-.px-tool-btn{width:32px;height:32px;border-radius:6px;border:1px solid var(--border);background:var(--bg3);
-  color:var(--text);font-size:1em;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s;}
-.px-tool-btn:hover,.px-tool-btn.active{border-color:var(--accent2);background:rgba(124,58,237,.2);color:var(--accent3);}
-.px-sep{width:1px;height:24px;background:var(--border);margin:0 2px;}
-.px-color-cur{width:32px;height:32px;border-radius:6px;border:2px solid #fff;cursor:pointer;flex-shrink:0;}
-.px-zoom-label{font-size:.78em;color:var(--muted);white-space:nowrap;}
-
-.px-main{display:flex;flex:1;overflow:hidden;}
-.px-canvas-wrap{flex:1;overflow:auto;display:flex;align-items:flex-start;justify-content:flex-start;padding:20px;background:var(--editor);}
-#pixelCanvas{image-rendering:pixelated;cursor:crosshair;border:1px solid var(--border2);}
-
-.px-panel{width:180px;background:var(--bg2);border-left:1px solid var(--border);padding:12px;overflow-y:auto;flex-shrink:0;}
-.px-panel h4{font-size:.75em;font-weight:800;text-transform:uppercase;letter-spacing:1px;color:var(--muted);margin-bottom:10px;}
-.px-palette{display:grid;grid-template-columns:repeat(8,1fr);gap:3px;margin-bottom:14px;}
-.px-swatch{width:100%;aspect-ratio:1;border-radius:3px;cursor:pointer;transition:transform .1s,box-shadow .1s;}
-.px-swatch:hover{transform:scale(1.15);}
-.px-swatch.active{box-shadow:0 0 0 2px #fff;}
-.px-costumes{margin-top:10px;}
-.px-costume-item{display:flex;align-items:center;gap:6px;padding:6px 8px;border-radius:6px;
-  font-size:.82em;color:var(--muted);cursor:pointer;border:1px solid transparent;margin-bottom:4px;transition:all .15s;}
-.px-costume-item:hover,.px-costume-item.active{background:var(--bg3);color:var(--text);border-color:var(--border);}
-.px-costume-preview{width:28px;height:28px;border:1px solid var(--border2);border-radius:3px;image-rendering:pixelated;}
-.px-add-costume{display:flex;align-items:center;gap:5px;padding:6px 8px;font-size:.78em;color:var(--dim);cursor:pointer;border-radius:6px;transition:color .15s;}
-.px-add-costume:hover{color:var(--accent3);}
-
-/* === GAME PREVIEW === */
-<<<<<<< C:/Users/rayf2/Downloads/Rays-Cool-games/rays-cool-games/creator/index.html
-<<<<<<< C:/Users/rayf2/Downloads/Rays-Cool-games/rays-cool-games/creator/index.html
-<<<<<<< C:/Users/rayf2/Downloads/Rays-Cool-games/rays-cool-games/creator/index.html
-<<<<<<< C:/Users/rayf2/Downloads/Rays-Cool-games/rays-cool-games/creator/index.html
-#previewModal{position:fixed;inset:0;background:rgba(0,0,0,.95);z-index:600;display:flex;flex-direction:column;}
-#previewModal .preview-header{display:flex;align-items:center;justify-content:space-between;padding:12px 20px;background:var(--bg2);border-bottom:1px solid var(--border);flex-shrink:0;}
-#previewModal h3{font-family:'Fredoka One',cursive;color:var(--accent3);font-size:1.3em;}
-.preview-close{padding:10px 24px;background:var(--red);border:none;border-radius:8px;color:#fff;font-size:.95em;font-weight:700;cursor:pointer;transition:all .2s;}
-.preview-close:hover{background:#ff6b6b;transform:translateY(-2px);}
-=======
-=======
->>>>>>> C:/Users/rayf2/.windsurf/worktrees/rays-cool-games/rays-cool-games-d853d872/creator/index.html
 #previewModal{position:fixed;inset:0;background:#000;z-index:600;display:flex;flex-direction:column;}
 #previewModal .preview-header{flex-shrink:0;display:flex;align-items:center;justify-content:space-between;padding:12px 20px;background:var(--bg2);border-bottom:1px solid var(--border);}
 #previewModal h3{font-family:'Fredoka One',cursive;color:var(--accent3);font-size:1.3em;}
 .preview-close{padding:7px 16px;background:var(--bg2);border:1px solid var(--border2);border-radius:6px;color:var(--text);font-size:.85em;cursor:pointer;}
 .exit-test-btn{padding:7px 16px;background:#e74c3c;border:1px solid #c0392b;border-radius:6px;color:#fff;font-size:.85em;cursor:pointer;font-weight:700;transition:all .15s;}
 .exit-test-btn:hover{background:#c0392b;transform:translateY(-1px);}
-<<<<<<< C:/Users/rayf2/Downloads/Rays-Cool-games/rays-cool-games/creator/index.html
->>>>>>> C:/Users/rayf2/.windsurf/worktrees/rays-cool-games/rays-cool-games-9fd0ebb2/creator/index.html
-=======
->>>>>>> C:/Users/rayf2/.windsurf/worktrees/rays-cool-games/rays-cool-games-d853d872/creator/index.html
-#previewFrame{flex:1;width:100%;height:100%;background:#1a1a2e;overflow:hidden;position:relative;}
-#previewFrame iframe{width:100%;height:100%;border:none;}
-
-.ai-credit{font-size:.78em;color:var(--yellow);font-weight:800;}
-<<<<<<< C:/Users/rayf2/Downloads/Rays-Cool-games/rays-cool-games/creator/index.html
-#aiModal{position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:980;display:flex;align-items:center;justify-content:center;}
-.ai-box{width:600px;max-width:96vw;height:70vh;max-height:700px;background:var(--bg2);border:1px solid var(--border2);border-radius:14px;display:flex;flex-direction:column;overflow:hidden;}
-.ai-head{display:flex;justify-content:space-between;align-items:center;padding:12px 14px;border-bottom:1px solid var(--border);}
-<<<<<<< C:/Users/rayf2/Downloads/Rays-Cool-games/rays-cool-games/creator/index.html
-<<<<<<< C:/Users/rayf2/Downloads/Rays-Cool-games/rays-cool-games/creator/index.html
-=======
-#aiModal{position:fixed;inset:0;background:rgba(0,0,0,.85);backdrop-filter:blur(8px);z-index:980;display:flex;align-items:center;justify-content:center;}
-.ai-box{width:620px;max-width:96vw;height:75vh;max-height:750px;background:var(--bg2);border:1px solid var(--border2);border-radius:20px;display:flex;flex-direction:column;overflow:hidden;box-shadow:var(--shadow-xl),var(--glow-purple);}
-.ai-head{display:flex;justify-content:space-between;align-items:center;padding:14px 18px;border-bottom:1px solid var(--border);background:linear-gradient(135deg,rgba(139,92,246,.1),rgba(168,85,247,.05));}
->>>>>>> C:/Users/rayf2/.windsurf/worktrees/rays-cool-games/rays-cool-games-d853d872/creator/index.html
-=======
 #previewModal{position:fixed;inset:0;background:rgba(0,0,0,.95);z-index:600;display:flex;flex-direction:column;animation:fadeIn .2s ease-out;}
 #previewModal .preview-header{display:flex;align-items:center;justify-content:space-between;padding:14px 24px;background:var(--bg2);border-bottom:1px solid var(--border);flex-shrink:0;}
 #previewModal h3{font-family:'Fredoka One',cursive;background:var(--gradient-purple);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;font-size:1.4em;}
@@ -365,8 +92,6 @@ input,textarea,select{font-family:'Nunito',sans-serif;}
 #aiModal{position:fixed;inset:0;background:rgba(0,0,0,.85);backdrop-filter:blur(8px);z-index:980;display:flex;align-items:center;justify-content:center;}
 .ai-box{width:620px;max-width:96vw;height:75vh;max-height:750px;background:var(--bg2);border:1px solid var(--border2);border-radius:20px;display:flex;flex-direction:column;overflow:hidden;box-shadow:var(--shadow-xl),var(--glow-purple);}
 .ai-head{display:flex;justify-content:space-between;align-items:center;padding:14px 18px;border-bottom:1px solid var(--border);background:linear-gradient(135deg,rgba(139,92,246,.1),rgba(168,85,247,.05));}
->>>>>>> C:/Users/rayf2/.windsurf/worktrees/rays-cool-games/rays-cool-games-d853d872/creator/index.html
-=======
 #previewModal{position:fixed;inset:0;background:rgba(0,0,0,.95);z-index:600;display:flex;flex-direction:column;animation:fadeIn .2s ease-out;}
 #previewModal .preview-header{display:flex;align-items:center;justify-content:space-between;padding:14px 24px;background:var(--bg2);border-bottom:1px solid var(--border);flex-shrink:0;}
 #previewModal h3{font-family:'Fredoka One',cursive;background:var(--gradient-purple);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;font-size:1.4em;}
@@ -379,7 +104,6 @@ input,textarea,select{font-family:'Nunito',sans-serif;}
 #aiModal{position:fixed;inset:0;background:rgba(0,0,0,.85);backdrop-filter:blur(8px);z-index:980;display:flex;align-items:center;justify-content:center;}
 .ai-box{width:620px;max-width:96vw;height:75vh;max-height:750px;background:var(--bg2);border:1px solid var(--border2);border-radius:20px;display:flex;flex-direction:column;overflow:hidden;box-shadow:var(--shadow-xl),var(--glow-purple);}
 .ai-head{display:flex;justify-content:space-between;align-items:center;padding:14px 18px;border-bottom:1px solid var(--border);background:linear-gradient(135deg,rgba(139,92,246,.1),rgba(168,85,247,.05));}
->>>>>>> C:/Users/rayf2/.windsurf/worktrees/rays-cool-games/rays-cool-games-d853d872/creator/index.html
 /* AI Character - Pixelated Block with Hammer */
 .ai-char{width:48px;height:48px;image-rendering:pixelated;animation:aiHop 0.6s ease-in-out infinite;margin-right:10px;flex-shrink:0;}
 @keyframes aiHop{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
@@ -390,34 +114,17 @@ input,textarea,select{font-family:'Nunito',sans-serif;}
 .ai-smile{position:absolute;width:16px;height:8px;left:16px;top:24px;border-bottom:3px solid #fff;border-left:3px solid transparent;border-right:3px solid transparent;border-radius:0 0 8px 8px;}
 /* Eyes */
 .ai-eyes{position:absolute;left:14px;top:16px;display:flex;gap:8px;}
-<<<<<<< C:/Users/rayf2/Downloads/Rays-Cool-games/rays-cool-games/creator/index.html
-<<<<<<< C:/Users/rayf2/Downloads/Rays-Cool-games/rays-cool-games/creator/index.html
-<<<<<<< C:/Users/rayf2/Downloads/Rays-Cool-games/rays-cool-games/creator/index.html
 .ai-eye{width:4px;height:4px;background:#fff;border-radius:50%;}
-=======
 .ai-eye{width:4px;height:4px;background:#fff;border-radius:50%;animation:blink 3s infinite;}
 @keyframes blink{0%,90%,100%{opacity:1}95%{opacity:0}}
->>>>>>> C:/Users/rayf2/.windsurf/worktrees/rays-cool-games/rays-cool-games-d853d872/creator/index.html
-=======
 .ai-eye{width:4px;height:4px;background:#fff;border-radius:50%;animation:blink 3s infinite;}
 @keyframes blink{0%,90%,100%{opacity:1}95%{opacity:0}}
->>>>>>> C:/Users/rayf2/.windsurf/worktrees/rays-cool-games/rays-cool-games-d853d872/creator/index.html
-=======
-.ai-eye{width:4px;height:4px;background:#fff;border-radius:50%;animation:blink 3s infinite;}
-@keyframes blink{0%,90%,100%{opacity:1}95%{opacity:0}}
->>>>>>> C:/Users/rayf2/.windsurf/worktrees/rays-cool-games/rays-cool-games-d853d872/creator/index.html
 /* Hammer */
 .ai-hammer{position:absolute;right:2px;top:4px;width:12px;height:20px;transform:rotate(30deg);animation:hammerSwing 1s ease-in-out infinite;}
 @keyframes hammerSwing{0%,100%{transform:rotate(30deg)}50%{transform:rotate(10deg)}}
 .ai-hammer-head{width:12px;height:8px;background:#4a5568;border-radius:2px;}
 .ai-hammer-handle{width:4px;height:14px;background:#a0522d;margin-left:4px;margin-top:-2px;border-radius:0 0 2px 2px;}
 .ai-title-wrap{display:flex;align-items:center;}
-<<<<<<< C:/Users/rayf2/Downloads/Rays-Cool-games/rays-cool-games/creator/index.html
-<<<<<<< C:/Users/rayf2/Downloads/Rays-Cool-games/rays-cool-games/creator/index.html
-<<<<<<< C:/Users/rayf2/Downloads/Rays-Cool-games/rays-cool-games/creator/index.html
-=======
-=======
->>>>>>> C:/Users/rayf2/.windsurf/worktrees/rays-cool-games/rays-cool-games-d853d872/creator/index.html
 
 /* AI Character - Pixelated block with hammer */
 .ai-character-wrap{display:flex;align-items:center;gap:12px;}
@@ -436,25 +143,6 @@ input,textarea,select{font-family:'Nunito',sans-serif;}
 .ai-hammer-face{width:12px;height:8px;background:#a0a0a0;position:absolute;top:3px;left:6px;border-radius:1px;}
 .ai-character-title{font-weight:800;font-size:1em;color:var(--text);}
 .ai-character-title span{font-size:.75em;color:var(--accent3);display:block;font-weight:600;}
-<<<<<<< C:/Users/rayf2/Downloads/Rays-Cool-games/rays-cool-games/creator/index.html
->>>>>>> C:/Users/rayf2/.windsurf/worktrees/rays-cool-games/rays-cool-games-9fd0ebb2/creator/index.html
-=======
->>>>>>> C:/Users/rayf2/.windsurf/worktrees/rays-cool-games/rays-cool-games-d853d872/creator/index.html
-.ai-log{flex:1;overflow-y:auto;padding:12px;display:flex;flex-direction:column;gap:8px;background:var(--bg);}
-.ai-msg{padding:8px 10px;border-radius:8px;font-size:.84em;line-height:1.45;max-width:90%;}
-.ai-msg.user{align-self:flex-end;background:rgba(88,166,255,.18);border:1px solid rgba(88,166,255,.35);}
-.ai-msg.bot{align-self:flex-start;background:var(--bg3);border:1px solid var(--border);}
-.ai-msg .ai-file-token{color:#58a6ff;font-weight:800;}
-.ai-msg-meta{margin-top:5px;font-size:.7em;color:var(--dim);text-transform:lowercase;}
-.ai-input-wrap{display:flex;gap:8px;padding:10px;border-top:1px solid var(--border);background:var(--bg2);}
-#aiInput{flex:1;padding:10px;background:var(--bg3);border:1px solid var(--border2);border-radius:7px;color:var(--text);outline:none;}
-.ai-status{display:flex;align-items:center;gap:8px;padding:8px 12px;font-size:.78em;color:var(--muted);border-top:1px solid rgba(255,255,255,.06);}
-.ai-spinner{width:11px;height:11px;border-radius:50%;border:2px solid rgba(168,85,247,.25);border-top-color:var(--accent2);animation:spin .7s linear infinite;}
-=======
-=======
->>>>>>> C:/Users/rayf2/.windsurf/worktrees/rays-cool-games/rays-cool-games-d853d872/creator/index.html
-=======
->>>>>>> C:/Users/rayf2/.windsurf/worktrees/rays-cool-games/rays-cool-games-d853d872/creator/index.html
 .ai-log{flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:12px;background:var(--bg);}
 .ai-msg{padding:12px 16px;border-radius:14px;font-size:.88em;line-height:1.5;max-width:92%;animation:fadeIn .2s ease-out;}
 .ai-msg.user{align-self:flex-end;background:var(--gradient-blue);border:none;color:#fff;box-shadow:0 4px 15px rgba(59,130,246,.3);}
@@ -468,13 +156,6 @@ input,textarea,select{font-family:'Nunito',sans-serif;}
 #aiInput:focus{border-color:var(--accent2);box-shadow:0 0 20px rgba(139,92,246,.2);}
 .ai-status{display:flex;align-items:center;gap:10px;padding:10px 16px;font-size:.8em;color:var(--muted);border-top:1px solid rgba(255,255,255,.06);background:rgba(139,92,246,.05);}
 .ai-spinner{width:14px;height:14px;border-radius:50%;border:2px solid rgba(139,92,246,.2);border-top-color:var(--accent2);animation:spin .7s linear infinite;}
-<<<<<<< C:/Users/rayf2/Downloads/Rays-Cool-games/rays-cool-games/creator/index.html
-<<<<<<< C:/Users/rayf2/Downloads/Rays-Cool-games/rays-cool-games/creator/index.html
->>>>>>> C:/Users/rayf2/.windsurf/worktrees/rays-cool-games/rays-cool-games-d853d872/creator/index.html
-=======
->>>>>>> C:/Users/rayf2/.windsurf/worktrees/rays-cool-games/rays-cool-games-d853d872/creator/index.html
-=======
->>>>>>> C:/Users/rayf2/.windsurf/worktrees/rays-cool-games/rays-cool-games-d853d872/creator/index.html
 @keyframes spin{to{transform:rotate(360deg);}}
 
 /* === PUBLISH MODAL === */
@@ -751,16 +432,8 @@ document.addEventListener('DOMContentLoaded', function() {
 <!-- Preview Modal -->
 <div id="previewModal" class="hidden">
   <div class="preview-header">
-<<<<<<< C:/Users/rayf2/Downloads/Rays-Cool-games/rays-cool-games/creator/index.html
     <h3>🎮 Testing Game</h3>
     <button class="preview-close" id="closePreviewBtn">Exit Test</button>
-=======
-    <h3>▶ Game Preview</h3>
-    <button class="exit-test-btn" id="closePreviewBtn">✕ Exit Test</button>
-<<<<<<< C:/Users/rayf2/Downloads/Rays-Cool-games/rays-cool-games/creator/index.html
->>>>>>> C:/Users/rayf2/.windsurf/worktrees/rays-cool-games/rays-cool-games-9fd0ebb2/creator/index.html
-=======
->>>>>>> C:/Users/rayf2/.windsurf/worktrees/rays-cool-games/rays-cool-games-d853d872/creator/index.html
   </div>
   <div id="previewFrame"></div>
 </div>
@@ -833,35 +506,16 @@ document.addEventListener('DOMContentLoaded', function() {
 
 <div id="fileContextMenu" class="hidden"></div>
 <div id="aiModal" class="hidden">
-<<<<<<< C:/Users/rayf2/Downloads/Rays-Cool-games/rays-cool-games/creator/index.html
-<<<<<<< C:/Users/rayf2/Downloads/Rays-Cool-games/rays-cool-games/creator/index.html
-<<<<<<< C:/Users/rayf2/Downloads/Rays-Cool-games/rays-cool-games/creator/index.html
-<<<<<<< C:/Users/rayf2/Downloads/Rays-Cool-games/rays-cool-games/creator/index.html
-<<<<<<< C:/Users/rayf2/Downloads/Rays-Cool-games/rays-cool-games/creator/index.html
   <div class="ai-box">
     <div class="ai-head">
-<<<<<<< C:/Users/rayf2/Downloads/Rays-Cool-games/rays-cool-games/creator/index.html
-<<<<<<< C:/Users/rayf2/Downloads/Rays-Cool-games/rays-cool-games/creator/index.html
-=======
   <div class="ai-box glass" style="border-radius:20px;box-shadow:var(--shadow-xl),var(--glow-purple);">
     <div class="ai-head" style="background:linear-gradient(135deg,rgba(139,92,246,.2),rgba(168,85,247,.1));border-radius:20px 20px 0 0;">
->>>>>>> C:/Users/rayf2/.windsurf/worktrees/rays-cool-games/rays-cool-games-d853d872/creator/index.html
-=======
   <div class="ai-box glass" style="border-radius:20px;box-shadow:var(--shadow-xl),var(--glow-purple);">
     <div class="ai-head" style="background:linear-gradient(135deg,rgba(139,92,246,.2),rgba(168,85,247,.1));border-radius:20px 20px 0 0;">
->>>>>>> C:/Users/rayf2/.windsurf/worktrees/rays-cool-games/rays-cool-games-d853d872/creator/index.html
-=======
   <div class="ai-box glass" style="border-radius:20px;box-shadow:var(--shadow-xl),var(--glow-purple);">
     <div class="ai-head" style="background:linear-gradient(135deg,rgba(139,92,246,.2),rgba(168,85,247,.1));border-radius:20px 20px 0 0;">
->>>>>>> C:/Users/rayf2/.windsurf/worktrees/rays-cool-games/rays-cool-games-d853d872/creator/index.html
-=======
   <div class="ai-box glass" style="border-radius:20px;box-shadow:var(--shadow-xl),var(--glow-purple);">
     <div class="ai-head" style="background:linear-gradient(135deg,rgba(139,92,246,.2),rgba(168,85,247,.1));border-radius:20px 20px 0 0;">
->>>>>>> C:/Users/rayf2/.windsurf/worktrees/rays-cool-games/rays-cool-games-d853d872/creator/index.html
-=======
-  <div class="ai-box glass" style="border-radius:20px;box-shadow:var(--shadow-xl),var(--glow-purple);">
-    <div class="ai-head" style="background:linear-gradient(135deg,rgba(139,92,246,.2),rgba(168,85,247,.1));border-radius:20px 20px 0 0;">
->>>>>>> C:/Users/rayf2/.windsurf/worktrees/rays-cool-games/rays-cool-games-d853d872/creator/index.html
       <div class="ai-title-wrap">
         <div class="ai-char">
           <div class="ai-char-inner">
@@ -874,15 +528,7 @@ document.addEventListener('DOMContentLoaded', function() {
             </div>
           </div>
         </div>
-<<<<<<< C:/Users/rayf2/Downloads/Rays-Cool-games/rays-cool-games/creator/index.html
-<<<<<<< C:/Users/rayf2/Downloads/Rays-Cool-games/rays-cool-games/creator/index.html
-<<<<<<< C:/Users/rayf2/Downloads/Rays-Cool-games/rays-cool-games/creator/index.html
-<<<<<<< C:/Users/rayf2/Downloads/Rays-Cool-games/rays-cool-games/creator/index.html
-<<<<<<< C:/Users/rayf2/Downloads/Rays-Cool-games/rays-cool-games/creator/index.html
         <div style="font-weight:800;">Creator AI <span id="aiCredits" class="ai-credit">50 credits</span> <button id="refreshAiCreditsBtn" style="margin-left:6px;padding:2px 8px;border:1px solid var(--border2);background:var(--bg3);color:var(--muted);border-radius:6px;font-size:.72em;cursor:pointer;">refresh</button></div>
-=======
-=======
->>>>>>> C:/Users/rayf2/.windsurf/worktrees/rays-cool-games/rays-cool-games-d853d872/creator/index.html
       <div class="ai-character-wrap">
         <div class="ai-pixel-character">
           <div class="ai-pixel-body">
@@ -899,21 +545,6 @@ document.addEventListener('DOMContentLoaded', function() {
           </div>
         </div>
         <div class="ai-character-title">Creator AI <span id="aiCredits" class="ai-credit">50 credits</span> <button id="refreshAiCreditsBtn" style="margin-left:6px;padding:2px 8px;border:1px solid var(--border2);background:var(--bg3);color:var(--muted);border-radius:6px;font-size:.72em;cursor:pointer;">refresh</button></div>
-<<<<<<< C:/Users/rayf2/Downloads/Rays-Cool-games/rays-cool-games/creator/index.html
->>>>>>> C:/Users/rayf2/.windsurf/worktrees/rays-cool-games/rays-cool-games-9fd0ebb2/creator/index.html
-=======
->>>>>>> C:/Users/rayf2/.windsurf/worktrees/rays-cool-games/rays-cool-games-d853d872/creator/index.html
-      </div>
-      <button class="preview-close" id="closeAiBtn">Close</button>
-=======
-=======
->>>>>>> C:/Users/rayf2/.windsurf/worktrees/rays-cool-games/rays-cool-games-d853d872/creator/index.html
-=======
->>>>>>> C:/Users/rayf2/.windsurf/worktrees/rays-cool-games/rays-cool-games-d853d872/creator/index.html
-=======
->>>>>>> C:/Users/rayf2/.windsurf/worktrees/rays-cool-games/rays-cool-games-d853d872/creator/index.html
-=======
->>>>>>> C:/Users/rayf2/.windsurf/worktrees/rays-cool-games/rays-cool-games-d853d872/creator/index.html
         <div style="font-weight:800;font-size:1.1em;">
           <span class="gradient-text">Creator AI</span>
           <span id="aiModeIndicator" style="margin-left:8px;padding:2px 8px;border-radius:20px;font-size:.7em;background:rgba(16,185,129,.2);color:var(--green);">GPT-4</span>
@@ -946,19 +577,6 @@ document.addEventListener('DOMContentLoaded', function() {
         </div>
         <div id="aiSettingsStatus" style="font-size:.8em;text-align:center;"></div>
       </div>
-<<<<<<< C:/Users/rayf2/Downloads/Rays-Cool-games/rays-cool-games/creator/index.html
-<<<<<<< C:/Users/rayf2/Downloads/Rays-Cool-games/rays-cool-games/creator/index.html
-<<<<<<< C:/Users/rayf2/Downloads/Rays-Cool-games/rays-cool-games/creator/index.html
-<<<<<<< C:/Users/rayf2/Downloads/Rays-Cool-games/rays-cool-games/creator/index.html
->>>>>>> C:/Users/rayf2/.windsurf/worktrees/rays-cool-games/rays-cool-games-d853d872/creator/index.html
-=======
->>>>>>> C:/Users/rayf2/.windsurf/worktrees/rays-cool-games/rays-cool-games-d853d872/creator/index.html
-=======
->>>>>>> C:/Users/rayf2/.windsurf/worktrees/rays-cool-games/rays-cool-games-d853d872/creator/index.html
-=======
->>>>>>> C:/Users/rayf2/.windsurf/worktrees/rays-cool-games/rays-cool-games-d853d872/creator/index.html
-=======
->>>>>>> C:/Users/rayf2/.windsurf/worktrees/rays-cool-games/rays-cool-games-d853d872/creator/index.html
     </div>
     <div id="aiLog" class="ai-log"></div>
     <div id="aiStatus" class="ai-status hidden"><span class="ai-spinner"></span><span id="aiStatusText">Thinking...</span></div>
